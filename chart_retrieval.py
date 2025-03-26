@@ -182,9 +182,7 @@ def analyze_template(file_path: str) -> Dict:
             if not docs:
                 result["status"] = "Empty"
                 return result
-            
-            print(docs)
-            
+                        
             # Count containers
             containers = 0
             for doc in docs:
