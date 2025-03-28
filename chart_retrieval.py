@@ -1,6 +1,6 @@
 import os
 import sys
-import json
+import re
 import yaml
 import logging
 import argparse
@@ -25,85 +25,100 @@ class Config:
     max_workers: int = os.cpu_count() or 1
     charts_limit: Optional[int] = None
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Helm Chart Analyzer")
+    parser.add_argument("--log-file", help="Path to log file")
+    parser.add_argument("--log-level", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"])
+    parser.add_argument("--max-workers", type=int, default=os.cpu_count())
+    parser.add_argument("--charts-limit", type=int, help="Limit number of charts to process")
+    args = parser.parse_args()
+
+    return args
+
 def setup_logging(config: Config) -> None:
     """Configure logging handlers and format"""
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    logger.setLevel(config.log_level)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger.setLevel(config.log_level.upper())
 
     if config.log_file:
         file_handler = logging.FileHandler(config.log_file)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
+        return
+
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
 def create_directories(config: Config) -> None:
-    """Create required directory structure"""
+    """Create required directories"""
     os.makedirs(config.templates_dir, exist_ok=True)
     os.makedirs(config.results_dir, exist_ok=True)
     os.makedirs(os.path.join(config.tools_output_dir, "checkov"), exist_ok=True)
     os.makedirs(os.path.join(config.tools_output_dir, "datree"), exist_ok=True)
 
 def fetch_helm_charts(config: Config) -> List[Dict]:
-    """Fetch all Helm charts from Artifact Hub"""
-    
+    """Fetch Helm charts from Artifact Hub"""
     try:
         response = requests.get(config.artifact_hub_url, timeout=30)
         response.raise_for_status()
-        data = response.json()
-                
+        return response.json()
     except requests.exceptions.RequestException as e:
         logger.error(f"Failed to fetch charts: {e}")
         sys.exit(1)
-        
-    return data
 
-def process_charts(data: Dict, config: Config) -> Tuple[bool, str]:
-    """Process the retrieved Helm charts to prodcue templates"""
-    correct_templates = []
-    failed_templates = []
-    
-    for chart in data:
-        name = chart["name"]
-        url = chart["repository"]["url"]
-        try:
-            # Add Helm repository
-            subprocess.run(
-                ["helm", "repo", "add", name, url],
-                check = True,
-                capture_output = True,
-                text = True
-            )
-        except subprocess.CalledProcessError as e:
-            return False, f"Repo add failed: {e.stderr}"
-
-    # Generate template
+def process_chart(repo_name: str, chart_name: str, config: Config) -> Tuple[bool, str]:
+    """Generate Helm template for a single chart"""
     try:
-        output_path = os.path.join(config.templates_dir, f"{name}_template.yaml")
-        cmd = f"helm template {name}/{name} > {output_path}"
-        output = subprocess.getoutput(cmd)
+        # Sanitize chart name for filename
+        sanitized_name = re.sub(r'[\\/*?:"<>|]', '_', chart_name)
+        output_path = os.path.join(config.templates_dir, f"{sanitized_name}_template.yaml")
         
-        if "Error" in output:
-            error = {
-                "chart": name,
-                "error": output
-            }
-            failed_templates.append(error)
-            os.system(f"rm {output_path}")
-        else:
-            correct_templates.append(name)
+        cmd = [
+            "helm", "template",
+            sanitized_name,  # Release name
+            f"{repo_name}/{chart_name}"  # Chart reference
+        ]
+        
+        result = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        if result.returncode != 0:
+            raise subprocess.CalledProcessError(
+                result.returncode, cmd, 
+                output=result.stdout, 
+                stderr=result.stderr
+            )
+
+        with open(output_path, "w") as f:
+            f.write(result.stdout)
+
+        return (True, chart_name)
+
     except subprocess.CalledProcessError as e:
-        return False, f"Template failed: {e.stderr}"
+        logger.error(f"Chart processing failed for {chart_name}: {e.stderr.strip()}")
+        if os.path.exists(output_path):
+            os.remove(output_path)
+        return (False, f"{chart_name}: {e.stderr.strip()}")
+    except Exception as e:
+        logger.error(f"Unexpected error processing {chart_name}: {str(e)}")
+        return (False, f"{chart_name}: {str(e)}")
 
-
-def generate_templates(config: Config) -> Tuple[List[str], List[Dict]]:
+def generate_templates(config: Config) -> Tuple[List[str], List[str]]:
     """Generate Helm templates for all charts"""
     charts = fetch_helm_charts(config)
-    unique_repos = {(c['repository']['name'], c['repository']['url']) for c in charts}
     
-    # Add all repositories first
+    # Apply charts limit
+    if config.charts_limit is not None:
+        charts = charts[:config.charts_limit]
+
+    # Process repositories
+    unique_repos = {(c['repository']['name'], c['repository']['url']) for c in charts}
     for repo_name, repo_url in unique_repos:
         try:
             subprocess.run(
@@ -126,25 +141,20 @@ def generate_templates(config: Config) -> Tuple[List[str], List[Dict]]:
     except subprocess.CalledProcessError as e:
         logger.error(f"Repo update failed: {e.stderr}")
 
-    # Process charts
+    # Process charts in parallel
     success = []
     failed = []
     
     with ProcessPoolExecutor(max_workers=config.max_workers) as executor:
-        futures = []
-        for chart in charts:
-            repo_name = chart['repository']['name']
-            chart_name = chart['name']
-            repo_url = chart['repository']['url']
-            futures.append(
-                executor.submit(
-                    process_chart,
-                    repo_name,
-                    repo_url,
-                    chart_name,
-                    config
-                )
+        futures = [
+            executor.submit(
+                process_chart,
+                chart['repository']['name'],
+                chart['name'],
+                config
             )
+            for chart in charts
+        ]
 
         for future in as_completed(futures):
             status, message = future.result()
@@ -220,9 +230,13 @@ def generate_template_stats(config: Config) -> pd.DataFrame:
 
 def run_tool(tool_name: str, chart: str, config: Config) -> bool:
     """Run a static analysis tool on a chart"""
-    template_path = os.path.join(config.templates_dir, f"{chart}_template.yaml")
+    sanitized_chart = re.sub(r'[\\/*?:"<>|]', '_', chart)
+    template_path = os.path.join(config.templates_dir, f"{sanitized_chart}_template.yaml")
     output_dir = os.path.join(config.tools_output_dir, tool_name)
     
+    if not os.path.exists(template_path):
+        return False
+
     if tool_name == "checkov":
         cmd = [
             "checkov",
@@ -234,16 +248,15 @@ def run_tool(tool_name: str, chart: str, config: Config) -> bool:
         ]
     elif tool_name == "datree":
         cmd = [
-            "helm", "datree", "test",
+            "./datree",
+            "test",
             template_path,
-            "--only-k8s-files",
-            "--quiet",
             "--output", "json"
         ]
     else:
         return False
 
-    output_path = os.path.join(output_dir, f"{chart}_results.json")
+    output_path = os.path.join(output_dir, f"{sanitized_chart}_results.json")
     
     try:
         with open(output_path, "w") as f:
@@ -271,24 +284,21 @@ def run_static_analysis(config: Config, charts: List[str]) -> None:
             futures = [
                 executor.submit(run_tool, tool, chart, config)
                 for chart in charts
+                if os.path.exists(
+                    os.path.join(config.templates_dir, f"{re.sub(r'[\\/*?:\"<>|]', '_', chart)}_template.yaml")
+                )
             ]
             for future in as_completed(futures):
                 future.result()
 
 def main():
-    parser = argparse.ArgumentParser(description="Helm Chart Analyzer")
-    parser.add_argument("--log-file", help="Path to log file")
-    parser.add_argument("--log-level", default="INFO", 
-                      choices=["DEBUG", "INFO", "WARNING", "ERROR"])
-    parser.add_argument("--max-workers", type=int, default=os.cpu_count())
-    parser.add_argument("--charts-limit", type=int, help="Limit number of charts to process")
-    args = parser.parse_args()
+    args = parse_args()
 
     config = Config(
-        log_file=args.log_file,
-        log_level=args.log_level,
-        max_workers=args.max_workers,
-        charts_limit=args.charts_limit
+        log_file = args.log_file,
+        log_level = args.log_level,
+        max_workers = args.max_workers,
+        charts_limit = args.charts_limit
     )
     
     setup_logging(config)
