@@ -9,14 +9,18 @@ chmod +x get_hem.sh
 ./get_helm.sh
 ```
 
-# 2. Download Datree
-```sh
-helm plugin install https://github.com/datreeio/helm-datree
-```
+# 2. Download the Datree binary
+Go on the datree [GitHub page](https://github.com/datreeio/datree/releases/) and download the correct binary for your system.
+
 
 # 3. Download Checkov
 ```sh
-pip install checkov
+pip3 install checkov
+```
+
+# 4. Download the kubeconform binary
+```sh
+curl -L https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz | tar xvzf -
 ```
 
 # 4. Install necessary python modules

@@ -1,0 +1,37 @@
+2025-03-29 18:40:56,582 - __main__ - INFO - Logging to file: experiment/logs/stats.log
+2025-03-29 18:40:56,582 - __main__ - INFO - Output directory ready: experiment/stats
+2025-03-29 18:40:56,582 - __main__ - INFO - Analyzing template statistics...
+2025-03-29 18:40:56,586 - __main__ - INFO - Saved table to experiment/stats/template_stats_summary.txt
+2025-03-29 18:40:56,757 - __main__ - INFO - Saved plot to experiment/stats/template_status_distribution.png
+2025-03-29 18:40:56,837 - __main__ - INFO - Saved plot to experiment/stats/template_lines_distribution.png
+2025-03-29 18:40:56,837 - __main__ - INFO - Template statistics analysis completed
+2025-03-29 18:40:56,837 - __main__ - INFO - Analyzing failed checks...
+2025-03-29 18:40:56,851 - __main__ - INFO - Saved table to experiment/stats/failed_checks_summary.txt
+2025-03-29 18:40:56,852 - __main__ - INFO - Saved table to experiment/stats/failed_checks_tool_distribution.txt
+2025-03-29 18:40:56,852 - __main__ - INFO - Saved table to experiment/stats/failed_checks_top_alerts.txt
+2025-03-29 18:40:56,853 - __main__ - INFO - Saved table to experiment/stats/failed_checks_resource_types.txt
+2025-03-29 18:40:56,911 - __main__ - INFO - Saved plot to experiment/stats/failed_checks_tool_distribution.png
+2025-03-29 18:40:57,015 - __main__ - INFO - Saved plot to experiment/stats/failed_checks_top_alerts.png
+2025-03-29 18:40:57,100 - __main__ - INFO - Saved plot to experiment/stats/failed_checks_yaml_size.png
+2025-03-29 18:40:57,100 - __main__ - INFO - Failed checks analysis completed
+2025-03-29 18:40:57,100 - __main__ - INFO - Analyzing LLM queries...
+2025-03-29 18:40:57,116 - __main__ - INFO - Saved table to experiment/stats/llm_queries_summary.txt
+2025-03-29 18:40:57,117 - __main__ - INFO - Saved table to experiment/stats/llm_queries_alert_distribution.txt
+2025-03-29 18:40:57,203 - __main__ - INFO - Saved plot to experiment/stats/llm_queries_length_distribution.png
+2025-03-29 18:40:57,287 - __main__ - INFO - Saved plot to experiment/stats/llm_queries_yaml_length.png
+2025-03-29 18:40:57,287 - __main__ - INFO - LLM queries analysis completed
+2025-03-29 18:40:57,287 - __main__ - INFO - Analyzing LLM responses...
+2025-03-29 18:40:57,292 - __main__ - INFO - Saved table to experiment/stats/llm_responses_summary.txt
+2025-03-29 18:40:57,354 - __main__ - INFO - Saved plot to experiment/stats/llm_responses_success_rate.png
+2025-03-29 18:40:57,489 - __main__ - INFO - Saved plot to experiment/stats/llm_responses_token_usage.png
+2025-03-29 18:40:57,489 - __main__ - INFO - LLM responses analysis completed
+2025-03-29 18:40:57,489 - __main__ - INFO - Analyzing evaluation results...
+2025-03-29 18:40:57,492 - __main__ - INFO - Saved table to experiment/stats/evaluation_summary.txt
+2025-03-29 18:40:57,493 - __main__ - INFO - Saved table to experiment/stats/evaluation_changes_by_alert.txt
+2025-03-29 18:40:57,588 - __main__ - INFO - Saved plot to experiment/stats/evaluation_syntax_improvement.png
+2025-03-29 18:40:57,772 - __main__ - INFO - Saved plot to experiment/stats/evaluation_changes_distribution.png
+2025-03-29 18:40:57,772 - __main__ - INFO - Evaluation analysis completed
+2025-03-29 18:40:57,772 - __main__ - INFO - Generating pipeline summary...
+2025-03-29 18:40:57,772 - __main__ - INFO - Saved table to experiment/stats/pipeline_summary.txt
+2025-03-29 18:40:57,772 - __main__ - INFO - Pipeline summary generated
+2025-03-29 18:40:57,772 - __main__ - INFO - All analyses completed successfully

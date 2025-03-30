@@ -1,0 +1,37 @@
+---
+# Source: ed-cron/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ed-cron-env
+  labels:
+    helm.sh/chart: ed-cron-0.2.0
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data: 
+  RELEASE_NAME: ZWQtY3Jvbg==
+---
+# Source: ed-cron/templates/cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ed-cron
+  annotations:
+    checksum/config: f81ce2fa86e318c531b044a5445fe66f973da49ffe9d752b84063f1c98877450
+  labels:
+    helm.sh/chart: ed-cron-0.2.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: app
+            imagePullPolicy: Always
+            image: "hello-world:latest"
+            envFrom:
+              - secretRef:
+                  name: ed-cron-env

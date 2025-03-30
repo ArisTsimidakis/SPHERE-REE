@@ -1,0 +1,360 @@
+---
+# Source: nexmonyx-backend/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nexmonyx-backend
+  labels:
+    app: nexmonyx
+    component: backend
+    release: "nexmonyx-backend"
+automountServiceAccountToken: true
+---
+# Source: nexmonyx-backend/templates/database-backend.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-root-password-supertokens
+  labels:
+    k8s.mariadb.com/watch: ""
+  annotations:
+    secret-generator.v1.mittwald.de/autogenerate: password
+data: {}
+---
+# Source: nexmonyx-backend/templates/database-backend.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-app-password-supertokens
+  labels:
+    k8s.mariadb.com/watch: ""
+  annotations:
+    secret-generator.v1.mittwald.de/autogenerate: password
+data: {}
+---
+# Source: nexmonyx-backend/templates/database-backend.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: maxscale-supertokens
+  labels:
+    k8s.mariadb.com/watch: ""
+  annotations:
+    secret-generator.v1.mittwald.de/autogenerate: password
+data: {}
+---
+# Source: nexmonyx-backend/templates/database-backend.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-supertokens
+  labels:
+    k8s.mariadb.com/watch: ""
+data:
+  my.cnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    innodb_buffer_pool_size=1024M
+    max_allowed_packet=256M
+---
+# Source: nexmonyx-backend/templates/service-backend.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  labels:
+    app: "nexmonyx"
+    component: "backend"
+    release: "nexmonyx-backend"
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9000"  # Ensure port is quoted to be interpreted as string
+    prometheus.io/path: "/metrics"
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+    - name: metrics
+      port: 9000
+      targetPort: 9000
+      protocol: TCP
+  selector:
+    app: "nexmonyx"
+    component: "backend"
+    release: "nexmonyx-backend"
+---
+# Source: nexmonyx-backend/templates/deployment-backend.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+    app: "nexmonyx"
+    component: "backend"
+    release: "nexmonyx-backend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "nexmonyx"
+      component: "backend"
+      release: "nexmonyx-backend"
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9000"
+        prometheus.io/path: "/metrics"
+      labels:
+        app: "nexmonyx"
+        component: "backend"
+        release: "nexmonyx-backend"
+    spec:
+      imagePullSecrets:
+        []
+      securityContext:
+        {}
+      serviceAccountName: nexmonyx-backend
+      containers:
+        - name: backend
+          securityContext:
+            {}
+          image: "nexmonyx/backend:v84"
+          imagePullPolicy: "IfNotPresent"  # Ensure imagePullPolicy is quoted
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: metrics
+              containerPort: 9000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+          env:
+            - name: DEBUG
+              value: "false"
+            - name: METRICS_PORT
+              value: "9000"  # Ensure port is quoted to be interpreted as string
+            - name: SERVER_PORT
+              value: "8080"  # Ensure port is quoted to be interpreted as string
+            - name: S3_BUCKET
+              value: "supporttools-upload"
+            - name: S3_REGION
+              value: "us-east-1"
+            - name: S3_ENDPOINT
+              value: "https://s3.wasabisys.com"
+            - name: ADMIN_EMAIL
+              value: "admin@support.tools"
+            - name: ADMIN_PASSWORD
+              value: "password"
+            - name: SENDGRID_SENDER_EMAIL
+              value: "<EMAIL>"
+            - name: SENDGRID_SENDER_NAME
+              value: "<NAME>"
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: s3AccessKey
+            - name: S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-credentials
+                  key: s3SecretKey
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-credentials
+                  key: sendGridAPIKey
+          resources:
+            {}
+          volumeMounts:
+            []  # Adjust indentation
+      volumes:
+        []  # Adjust indentation
+      nodeSelector:
+        {}  # Adjust indentation
+      affinity:
+        {}  # Adjust indentation
+      tolerations:
+        []  # Adjust indentation
+---
+# Source: nexmonyx-backend/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nexmonyx-backend
+  labels:
+    app: nexmonyx
+    team: nexmonyx-io
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns01
+    cert-manager.io/cluster-issuer-duration: 8760h
+    cert-manager.io/cluster-issuer-email: mmattox@support.tools
+    cert-manager.io/issue-temporary-certificate: "true"
+    external-dns.alpha.kubernetes.io/hostname: "dev-api.nexmonyx.com"
+    external-dns.alpha.kubernetes.io/ttl: "120"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: "dev-api.nexmonyx.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend
+            port:
+              number: 8080          
+  tls:
+  - hosts:
+    - "dev-api.nexmonyx.com"
+    secretName: cert-backend-tls
+---
+# Source: nexmonyx-backend/templates/database-backend.yaml
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-galera-supertokens
+spec:
+  rootPasswordSecretKeyRef:
+    name: mariadb-root-password-supertokens
+    key: password
+  username: supertokens
+  passwordSecretKeyRef:
+    name: mariadb-app-password-supertokens
+    key: password
+  database: supertokens
+  storage:
+    size: 8Gi
+    storageClassName: harvester
+    resizeInUseVolumes: true
+    waitForVolumeResize: true
+    volumeClaimTemplate:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 8Gi
+      storageClassName: harvester
+  replicas: 3
+  maxScale:
+    enabled: true
+    kubernetesService:
+      type: LoadBalancer
+    connection:
+      secretName: mxs-galera-conn
+      port: 3306
+  galera:
+    enabled: true
+    primary:
+      podIndex: 0
+      automaticFailover: true
+    sst: mariabackup
+    availableWhenDonor: false
+    galeraLibPath: /usr/lib/galera/libgalera_smm.so
+    replicaThreads: 1
+    providerOptions:
+      gcs.fc_limit: '64'
+    agent:
+      image: docker-registry3.mariadb.com/mariadb-operator/mariadb-operator:v0.0.29
+      port: 5555
+      kubernetesAuth:
+        enabled: true
+      gracefulShutdownTimeout: 1s
+    recovery:
+      enabled: true
+      minClusterSize: 50%
+      clusterMonitorInterval: 10s
+      clusterHealthyTimeout: 30s
+      clusterBootstrapTimeout: 10m
+      podRecoveryTimeout: 3m
+      podSyncTimeout: 3m
+    initContainer:
+      image: docker-registry3.mariadb.com/mariadb-operator/mariadb-operator:v0.0.29
+    initJob:
+      metadata:
+        labels:
+          sidecar.istio.io/inject: "false"
+      args:
+        - "--verbose"
+      affinity:
+        antiAffinityEnabled: true
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          memory: 1Gi
+    config:
+      reuseStorageVolume: false
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 300Mi
+        accessModes:
+          - ReadWriteOnce
+  service:
+    type: LoadBalancer
+  connection:
+    secretName: mariadb-galera-conn
+    secretTemplate:
+      key: dsn
+  primaryService:
+    type: ClusterIP
+  primaryConnection:
+    secretName: mariadb-galera-conn-primary
+    secretTemplate:
+      key: dsn
+  secondaryService:
+    type: ClusterIP
+  secondaryConnection:
+    secretName: mariadb-galera-conn-secondary
+    secretTemplate:
+      key: dsn
+  affinity:
+    antiAffinityEnabled: true
+  podDisruptionBudget:
+    maxUnavailable: 33%
+  updateStrategy:
+    type: ReplicasFirstPrimaryLast
+  myCnf: |
+    [mariadb]
+    bind-address=*
+    default_storage_engine=InnoDB
+    binlog_format=row
+    innodb_autoinc_lock_mode=2
+    max_allowed_packet=256M
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 1Gi
+  livenessProbe:
+    initialDelaySeconds: 20
+    periodSeconds: 5
+    timeoutSeconds: 5
+  readinessProbe:
+    initialDelaySeconds: 20
+    periodSeconds: 5
+    timeoutSeconds: 5
+  metrics:
+    enabled: true

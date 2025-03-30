@@ -1,0 +1,213 @@
+---
+# Source: billing/templates/base.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: billing
+  labels: 
+    app.kubernetes.io/name: billing
+    helm.sh/chart: billing-0.1.2
+    app.kubernetes.io/instance: billing
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+automountServiceAccountToken: false
+---
+# Source: billing/templates/base.yaml
+apiVersion: v1
+kind: Service
+metadata:  
+    name: billing
+    labels:
+      app.kubernetes.io/name: billing
+      helm.sh/chart: billing-0.1.2
+      app.kubernetes.io/instance: billing
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/version: "1.0.0"
+      app.kubernetes.io/part-of: shortlink
+      track: stable
+spec:
+  type: ClusterIP
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: grpc
+      port: 50051
+      targetPort: grpc
+      protocol: TCP
+      # kubectl explain Service.spec.ports.appProtocol
+      appProtocol: # TODO: use after upgrade to v1.31
+      
+  selector:    
+    app.kubernetes.io/name: billing
+    app.kubernetes.io/instance: billing
+---
+# Source: billing/templates/base.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing
+  labels:
+    app.kubernetes.io/name: billing
+    helm.sh/chart: billing-0.1.2
+    app.kubernetes.io/instance: billing
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+    {}
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:      
+      app.kubernetes.io/name: billing
+      app.kubernetes.io/instance: billing
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: billing
+        helm.sh/chart: billing-0.1.2
+        app.kubernetes.io/instance: billing
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/part-of: shortlink
+        track: stable
+    spec:
+      terminationGracePeriodSeconds: 60
+      automountServiceAccountToken: true
+      serviceAccountName: billing
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      
+      containers:      
+      - name: application
+        # -- Security Context policies for controller pods
+        # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+        # notes on enabling and using sysctls
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          # runAsUser is the user ID used to run the container
+          runAsUser: 1000
+          # runAsGroup is the primary group ID used to run all processes within any container of the pod
+          runAsGroup: 1000
+          # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+          readOnlyRootFilesystem: false
+          capabilities:
+            drop:
+              - ALL
+        image: "registry.gitlab.com/shortlink-org/shortlink/billing:0.19.3"
+        # -- Global imagePullPolicy
+        # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+        # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: grpc
+            containerPort: 50051
+            protocol: TCP
+        # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          terminationGracePeriodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+          timeoutSeconds: 5
+        # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+          timeoutSeconds: 5
+        env:
+          - name: GRPC_CLIENT_HOST
+            value: "istio-ingress.istio-ingress"
+          - name: MQ_ENABLED
+            value: "false"
+          - name: MQ_KAFKA_URI
+            value: "shortlink-kafka-bootstrap.kafka:9092"
+          - name: MQ_TYPE
+            value: "kafka"
+          - name: STORE_REDIS_URI
+            value: "shortlink-redis-master.shortlink-billing:6379"
+          - name: STORE_TYPE
+            value: "postgres"
+          - name: TRACER_URI
+            value: "grafana-tempo.grafana:4317"
+          - name: STORE_POSTGRES_URI
+            valueFrom:
+              secretKeyRef:
+                name: shortlink-postgres-pguser-billing
+                key: uri
+        resources:
+          # -- We usually recommend not specifying default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 32Mi
+        
+      # -- Node labels and tolerations for pod assignment
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+---
+# Source: billing/templates/base.yaml
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: billing
+  namespace: default
+  labels:
+    app.kubernetes.io/name: billing
+    helm.sh/chart: billing-0.1.2
+    app.kubernetes.io/instance: billing
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+spec:
+  hosts:
+    - "*"
+  gateways:
+    # prefer the <namespace>/<name> format
+    - istio-ingress/istio-ingress
+  http:
+    - match:
+        - uri:
+            prefix: /infrastructure.api.rpc.payment.v1.PaymentService/
+        - uri:
+            prefix: /infrastructure.api.rpc.tariff.v1.TariffService/
+        - uri:
+            prefix: /infrastructure.api.rpc.order.v1.OrderService/
+      route:
+        - destination:
+            host: billing
+            port:
+              number: 50051
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+        retryOn: "gateway-error,connect-failure,refused-stream,503"
+      timeout: 10s

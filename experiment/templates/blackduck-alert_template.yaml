@@ -1,0 +1,580 @@
+---
+# Source: blackduck-alert/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: alert
+    component: serviceaccount
+    name: blackduck-alert
+  name: blackduck-alert-service-account
+  namespace: default
+---
+# Source: blackduck-alert/templates/alert-environ-secret.yaml
+apiVersion: v1
+kind: Secret
+data:
+metadata:
+  labels:
+    app: alert
+    name: blackduck-alert
+  name: blackduck-alert-environs-secret
+  namespace: default
+type: Opaque
+---
+# Source: blackduck-alert/templates/postgres-config.yaml
+apiVersion: v1
+data:
+  ALERT_POSTGRES_USER_PASSWORD_FILE: YmxhY2tkdWNr
+  ALERT_POSTGRES_ADMIN_PASSWORD_FILE: YmxhY2tkdWNr
+kind: Secret
+metadata:
+  labels:
+    app: alert
+    component: postgres
+    name: blackduck-alert
+  name: blackduck-alert-db-creds
+  namespace: default
+type: Opaque
+---
+# Source: blackduck-alert/templates/alert-environ-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+data:
+  ALERT_HOSTNAME: "localhost"
+  ALERT_SERVER_PORT: "8443"
+  ALERT_FORWARD_HEADERS_STRATEGY: "none"
+  HUB_CFSSL_HOST: blackduck-alert-cfssl
+metadata:
+  labels:
+    app: alert
+    name: blackduck-alert
+  name: blackduck-alert-environs
+  namespace: default
+---
+# Source: blackduck-alert/templates/postgres-config.yaml
+apiVersion: v1
+data:
+  
+  ALERT_DB_SSL_MODE: disable
+  ALERT_DB_HOST: blackduck-alert-postgres
+  ALERT_DB_PORT: "5432"
+  ALERT_DB_USERNAME: sa
+  ALERT_DB_NAME: alertdb
+  ALERT_DB_ADMIN_USERNAME: sa
+kind: ConfigMap
+metadata:
+  labels:
+    app: alert
+    component: postgres
+    name: blackduck-alert
+  name: blackduck-alert-db-config
+  namespace: default
+---
+# Source: blackduck-alert/templates/rabbitmq-config.yaml
+apiVersion: v1
+data:
+  ALERT_RABBITMQ_HOST: blackduck-alert-rabbitmq
+  ALERT_RABBITMQ_PORT: "5672"
+  ALERT_RABBITMQ_MGMNT_PORT: "15672"
+  ALERT_RABBITMQ_USER: sysadmin
+  ALERT_RABBITMQ_PASSWORD: blackduck
+  ALERT_RABBITMQ_VHOST: blackduck-alert
+kind: ConfigMap
+metadata:
+  labels:
+    app: alert
+    component: rabbitmq
+    name: blackduck-alert
+  name: blackduck-alert-rabbitmq-config
+  namespace: default
+---
+# Source: blackduck-alert/templates/alert.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: alert
+    component: alert
+    name: blackduck-alert
+  name: blackduck-alert-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: blackduck-alert/templates/postgres.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: alert
+    component: postgres
+    name: blackduck-alert
+  name: blackduck-alert-postgres
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: blackduck-alert/templates/rabbitmq.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: alert
+    component: rabbitmq
+    name: blackduck-alert
+  name: blackduck-alert-rabbitmq-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+# Source: blackduck-alert/templates/alert-cfssl.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: alert
+    component: cfssl
+    name: blackduck-alert
+  name: blackduck-alert-cfssl
+  namespace: default
+spec:
+  ports:
+    - name: port-8888
+      port: 8888
+      protocol: TCP
+      targetPort: 8888
+  selector:
+    app: alert
+    component: cfssl
+    name: blackduck-alert
+  type: ClusterIP
+---
+# Source: blackduck-alert/templates/alert.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: alert
+    component: alert
+    name: blackduck-alert
+  name: blackduck-alert
+  namespace: default
+spec:
+  ports:
+    - name: port-8443
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+  selector:
+    app: alert
+    component: alert
+    name: blackduck-alert
+  type: ClusterIP
+---
+# Source: blackduck-alert/templates/alert.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: alert
+    name: blackduck-alert
+    component: alert
+  name: blackduck-alert-exposed
+  namespace: default
+spec:
+  ports:
+    - name: port-8443
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
+      
+
+  selector:
+    app: alert
+    component: alert
+    name: blackduck-alert
+  type: NodePort
+---
+# Source: blackduck-alert/templates/postgres.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: alert
+    component: postgres
+    name: blackduck-alert
+  name: blackduck-alert-postgres
+  namespace: default
+spec:
+  ports:
+    - name: port-5432
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    app: alert
+    component: postgres
+  type: ClusterIP
+---
+# Source: blackduck-alert/templates/rabbitmq.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: alert
+    component: rabbitmq
+    name: blackduck-alert
+  name: blackduck-alert-rabbitmq
+  namespace: default
+spec:
+  ports:
+    - name: port-5432
+      port: 5672
+      protocol: TCP
+      targetPort: 5672
+  selector:
+    app: alert
+    component: rabbitmq
+  type: ClusterIP
+---
+# Source: blackduck-alert/templates/alert-cfssl.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alert
+    component: cfssl
+    name: blackduck-alert
+  name: blackduck-alert-cfssl
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert
+      component: cfssl
+      name: blackduck-alert
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: alert
+        component: cfssl
+        name: blackduck-alert
+      annotations:
+        checksum/alert-environ-resources: 2f1e2c2e2f6788d75f79f645c6e8727add7af085b6b1a7e58363306292e2e453
+      name: blackduck-alert-cfssl
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: blackduck-alert-environs
+          image: docker.io/blackducksoftware/blackduck-cfssl:1.0.1
+          livenessProbe:
+            exec:
+              command:
+                - /usr/local/bin/docker-healthcheck.sh
+                - http://localhost:8888/api/v1/cfssl/scaninfo
+            failureThreshold: 10
+            initialDelaySeconds: 240
+            periodSeconds: 30
+            timeoutSeconds: 10
+          name: blackduck-cfssl
+          ports:
+            - containerPort: 8888
+              protocol: TCP
+          resources:
+            limits:
+              memory: 640Mi
+          volumeMounts:
+            - mountPath: /etc/cfssl
+              name: dir-cfssl
+      dnsPolicy: ClusterFirst
+      
+      volumes:
+        - emptyDir: {}
+          name: dir-cfssl
+---
+# Source: blackduck-alert/templates/alert.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alert
+    component: alert
+    name: blackduck-alert
+  name: blackduck-alert
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert
+      component: alert
+      name: blackduck-alert
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: alert
+        component: alert
+        name: blackduck-alert
+      annotations:
+        checksum/alert-environ-configmap: 2f1e2c2e2f6788d75f79f645c6e8727add7af085b6b1a7e58363306292e2e453
+        checksum/alert-environ-secret: d9446329430c6931649b15d8bb39709c594ffdbf05296ac2207a3dcabce49343
+        checksum/postgres-config: 442906e0745ebaad61c457d495e6599d6149c52da0cf8f9802d1ebd2d8d0d9ac
+        checksum/rabbitmq-config: e56e42371b8ed85d51a8afe5aa64472b3515c244b26faf6f340f62402cefb49b
+      name: blackduck-alert
+    spec:
+      containers:
+      - env:
+        - name: RUN_SECRETS_DIR
+          value: /tmp/secrets
+        - name: ALERT_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ALERT_POSTGRES_USER_PASSWORD_FILE
+              name: blackduck-alert-db-creds
+        - name: ALERT_DB_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ALERT_POSTGRES_ADMIN_PASSWORD_FILE
+              name: blackduck-alert-db-creds
+        envFrom:
+        - configMapRef:
+            name: blackduck-alert-db-config
+        - configMapRef:
+            name: blackduck-alert-rabbitmq-config
+        - configMapRef:
+            name: blackduck-alert-environs
+        - secretRef:
+            name: blackduck-alert-environs-secret
+        image: docker.io/blackducksoftware/blackduck-alert:8.0.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+              - /usr/local/bin/docker-healthcheck.sh
+              - https://localhost:8443/alert/api/about
+          failureThreshold: 5
+          initialDelaySeconds: 240
+          periodSeconds: 30
+          timeoutSeconds: 10
+        name: blackduck-alert
+        ports:
+          - containerPort: 8443
+            protocol: TCP
+        resources:
+            limits:
+              memory: 2560Mi
+        volumeMounts:
+        - mountPath: /opt/blackduck/alert/alert-config
+          name: dir-alert
+      dnsPolicy: ClusterFirst
+      
+      volumes:
+      - name: dir-alert
+        persistentVolumeClaim:
+          claimName:  blackduck-alert-pvc
+---
+# Source: blackduck-alert/templates/postgres.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alert
+    component: postgres
+    name: blackduck-alert
+  name: blackduck-alert-postgres
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert
+      component: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: alert
+        component: postgres
+        name: blackduck-alert
+      annotations:
+        checksum/postgres-config: 442906e0745ebaad61c457d495e6599d6149c52da0cf8f9802d1ebd2d8d0d9ac
+      name: blackduck-alert-postgres
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_MAX_CONNECTIONS
+          value: "300"
+        - name: POSTGRES_SHARED_BUFFERS
+          value: 1024MB
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              key: ALERT_DB_USERNAME
+              name: blackduck-alert-db-config
+        - name: POSTGRES_ADMIN_USER
+          valueFrom:
+            configMapKeyRef:
+              key: ALERT_DB_ADMIN_USERNAME
+              name: blackduck-alert-db-config
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              key: ALERT_DB_NAME
+              name: blackduck-alert-db-config
+        - name: ALERT_DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: ALERT_DB_HOST
+              name: blackduck-alert-db-config
+        - name: ALERT_DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: ALERT_DB_PORT
+              name: blackduck-alert-db-config
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ALERT_POSTGRES_USER_PASSWORD_FILE
+              name: blackduck-alert-db-creds
+        - name: POSTGRES_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ALERT_POSTGRES_ADMIN_PASSWORD_FILE
+              name: blackduck-alert-db-creds
+        image: docker.io/blackducksoftware/blackduck-alert-db:8.0.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+              - /bin/bash
+              - -c
+              - /usr/local/bin/alertdb-healthcheck.sh
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - /bin/bash
+                - -c
+                - LD_LIBRARY_PATH=/usr/local/lib /usr/local/bin/pg_ctl -D "${PGDATA}" -l logfile stop
+        name: blackduck-alert-postgres
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+              - /bin/bash
+              - -c
+              - /usr/local/bin/pg_isready -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" -h localhost
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        resources:
+            {}
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: alert-postgres-data-volume
+      dnsPolicy: ClusterFirst
+      
+      serviceAccountName: blackduck-alert-service-account
+      restartPolicy: Always
+      volumes:
+      - name: alert-postgres-data-volume
+        persistentVolumeClaim:
+          claimName:  blackduck-alert-postgres
+---
+# Source: blackduck-alert/templates/rabbitmq.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alert
+    component: rabbitmq
+    name: blackduck-alert
+  name: blackduck-alert-rabbitmq
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert
+      component: rabbitmq
+      name: blackduck-alert
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: alert
+        component: rabbitmq
+        name: blackduck-alert
+      annotations:
+        checksum/rabbitmq-config: e56e42371b8ed85d51a8afe5aa64472b3515c244b26faf6f340f62402cefb49b
+      name: blackduck-alert-rabbitmq
+    spec:
+      containers:
+      - env:
+        envFrom:
+        - configMapRef:
+            name: blackduck-alert-rabbitmq-config
+        - configMapRef:
+            name: blackduck-alert-environs
+        - secretRef:
+            name: blackduck-alert-environs-secret
+        image: docker.io/blackducksoftware/blackduck-alert-rabbitmq:8.0.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+              - rabbitmq-diagnostics
+              - -q
+              - status
+          failureThreshold: 5
+          initialDelaySeconds: 240
+          periodSeconds: 30
+          timeoutSeconds: 10
+        name: blackduck-alert-rabbitmq
+        ports:
+          - containerPort: 5672
+            protocol: TCP
+        resources:
+            limits:
+              memory: 1024Mi
+        volumeMounts:
+          - mountPath: /opt/blackduck/rabbitmq/logs
+            name: alert-rabbitmq-volume
+      dnsPolicy: ClusterFirst
+      
+      serviceAccountName: blackduck-alert-service-account
+      restartPolicy: Always
+      volumes:
+        - name: alert-rabbitmq-volume
+          persistentVolumeClaim:
+            claimName:  blackduck-alert-rabbitmq-pvc

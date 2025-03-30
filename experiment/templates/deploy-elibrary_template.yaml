@@ -1,0 +1,24 @@
+---
+# Source: deploy-elibrary/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-elibrary-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: deploy-elibrary
+      tier: application
+  template:
+    metadata:
+      labels:
+        project: deploy-elibrary
+        tier: application
+    spec:
+      containers:
+      - name: application
+        image: diki180502/educative-2:1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000

@@ -1,0 +1,155 @@
+---
+# Source: tailscale-relay/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tailscale-relay
+  annotations:    
+  labels:    
+    helm.sh/chart: tailscale-relay-0.2.7
+    
+    app.kubernetes.io/name: tailscale-relay
+    app.kubernetes.io/instance: tailscale-relay
+    app.kubernetes.io/version: "v1.68.1"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: tailscale-relay/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tailscale-relay-config
+  annotations:    
+  labels:    
+    helm.sh/chart: tailscale-relay-0.2.7
+    
+    app.kubernetes.io/name: tailscale-relay
+    app.kubernetes.io/instance: tailscale-relay
+    app.kubernetes.io/version: "v1.68.1"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  TAILSCALE_AUTH_KEY: foo
+---
+# Source: tailscale-relay/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tailscale-relay-config
+  annotations:    
+  labels:    
+    helm.sh/chart: tailscale-relay-0.2.7
+    
+    app.kubernetes.io/name: tailscale-relay
+    app.kubernetes.io/instance: tailscale-relay
+    app.kubernetes.io/version: "v1.68.1"
+    app.kubernetes.io/managed-by: Helm
+data: 
+  {}
+---
+# Source: tailscale-relay/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tailscale-relay
+  annotations:    
+  labels:    
+    helm.sh/chart: tailscale-relay-0.2.7
+    
+    app.kubernetes.io/name: tailscale-relay
+    app.kubernetes.io/instance: tailscale-relay
+    app.kubernetes.io/version: "v1.68.1"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: [""]
+    # TODO: Troubleshoot as for some obscure reason it doesn't seem to work
+    # when being scoped down to a single resource
+    # resourceNames: [ tailscale-relay-state ]
+    resources: ["secrets"]
+    verbs: ["create", "get", "update"]
+---
+# Source: tailscale-relay/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tailscale-relay-tailscale-relay
+  annotations:    
+  labels:    
+    helm.sh/chart: tailscale-relay-0.2.7
+    
+    app.kubernetes.io/name: tailscale-relay
+    app.kubernetes.io/instance: tailscale-relay
+    app.kubernetes.io/version: "v1.68.1"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: tailscale-relay
+roleRef:
+  kind: Role
+  name: tailscale-relay
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: tailscale-relay/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tailscale-relay
+  labels:    
+    helm.sh/chart: tailscale-relay-0.2.7
+    
+    app.kubernetes.io/name: tailscale-relay
+    app.kubernetes.io/instance: tailscale-relay
+    app.kubernetes.io/version: "v1.68.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:      
+      app.kubernetes.io/name: tailscale-relay
+      app.kubernetes.io/instance: tailscale-relay
+  serviceName: tailscale-relay
+  template:
+    metadata:
+      labels:        
+        helm.sh/chart: tailscale-relay-0.2.7
+        
+        app.kubernetes.io/name: tailscale-relay
+        app.kubernetes.io/instance: tailscale-relay
+        app.kubernetes.io/version: "v1.68.1"
+        app.kubernetes.io/managed-by: Helm
+
+      annotations:
+        checksum/configMap: ba4aa06cdb839831931bacaf0d518238bfa5317eb0657355de2b8b8346c72c74
+        checksum/secret: 19a2bba72dd2c409e8af86141c53d909a5a5b3b648775c2064d0279848899897        
+
+    spec:
+      hostNetwork: false
+      dnsPolicy: ClusterFirst
+      serviceAccountName: tailscale-relay
+      containers:
+        - name: tailscale-relay
+          image: docker.io/mvisonneau/tailscale:v1.68.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TAILSCALED_STATE
+              value: kube:tailscale-relay-state
+          envFrom:
+            - configMapRef:
+                name: tailscale-relay-config
+            - secretRef:
+                name: tailscale-relay-config
+          ports:
+            - name: exporter
+              containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - name: lib-modules
+              mountPath: /lib/modules
+          securityContext: 
+                capabilities:
+                  add:
+                  - NET_ADMIN
+      volumes:
+        - name: lib-modules
+          hostPath:
+            path: /lib/modules

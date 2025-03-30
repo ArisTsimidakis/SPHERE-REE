@@ -1,0 +1,547 @@
+---
+# Source: tfy-inferentia-operator/templates/neuron-device-plugin.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tfy-inferentia-operator-neuron-device-plugin
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler-extension.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tfy-inferentia-operator-scheduler-extension
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tfy-inferentia-operator-neuron-scheduler
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tfy-inferentia-operator-neuron-scheduler-config
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+data:
+  neuron-scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1beta2
+    kind: KubeSchedulerConfiguration
+    profiles:
+      - schedulerName: neuron-scheduler
+    extenders:
+      - urlPrefix: 'http://tfy-inferentia-operator-scheduler-extension.default.svc.cluster.local:12345'
+        filterVerb: filter
+        bindVerb: bind
+        enableHTTPS: false
+        nodeCacheCapable: true
+        managedResources:
+          - name: 'aws.amazon.com/neuron'
+            ignoredByScheduler: false
+          - name: 'aws.amazon.com/neuroncore'
+            ignoredByScheduler: false
+          - name: 'aws.amazon.com/neurondevice'
+            ignoredByScheduler: false
+        ignorable: false
+    leaderElection:
+      leaderElect: true
+      resourceNamespace: default
+      resourceName: tfy-inferentia-operator-neuron-scheduler
+---
+# Source: tfy-inferentia-operator/templates/neuron-device-plugin.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tfy-inferentia-operator-neuron-device-plugin
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - update
+  - patch
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes/status
+  verbs:
+  - patch
+  - update
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler-extension.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tfy-inferentia-operator-scheduler-extension
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes/status
+  verbs:
+  - update
+  - patch
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - update
+  - patch
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - bindings
+  - pods/binding
+  verbs:
+  - create
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tfy-inferentia-operator-neuron-scheduler
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+  - get
+  - list
+  - update
+---
+# Source: tfy-inferentia-operator/templates/neuron-device-plugin.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tfy-inferentia-operator-neuron-device-plugin
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tfy-inferentia-operator-neuron-device-plugin
+subjects:
+- kind: ServiceAccount
+  name: tfy-inferentia-operator-neuron-device-plugin
+  namespace: default
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler-extension.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tfy-inferentia-operator-scheduler-extension
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tfy-inferentia-operator-scheduler-extension
+subjects:
+- kind: ServiceAccount
+  name: tfy-inferentia-operator-scheduler-extension
+  namespace: default
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tfy-inferentia-operator-neuron-scheduler-as-kube-scheduler
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+subjects:
+- kind: ServiceAccount
+  name: tfy-inferentia-operator-neuron-scheduler
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: system:kube-scheduler
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tfy-inferentia-operator-neuron-scheduler-as-volume-scheduler
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+subjects:
+- kind: ServiceAccount
+  name: tfy-inferentia-operator-neuron-scheduler
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: system:volume-scheduler
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tfy-inferentia-operator-neuron-scheduler
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tfy-inferentia-operator-neuron-scheduler
+subjects:
+- kind: ServiceAccount
+  name: tfy-inferentia-operator-neuron-scheduler
+  namespace: default
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler-extension.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tfy-inferentia-operator-scheduler-extension
+  namespace: default
+  labels:
+    app: tfy-inferentia-operator-scheduler
+    component: scheduler-extension
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+spec:
+  ports:
+  - port: 12345
+    name: http
+    targetPort: 12345
+  selector:
+    app: tfy-inferentia-operator-scheduler
+    component: scheduler-extension
+---
+# Source: tfy-inferentia-operator/templates/neuron-device-plugin.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tfy-inferentia-operator-neuron-device-plugin
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+spec:
+  selector:
+    matchLabels:
+      name: tfy-inferentia-operator-neuron-device-plugin-ds
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name: tfy-inferentia-operator-neuron-device-plugin-ds
+    spec:
+      serviceAccount: tfy-inferentia-operator-neuron-device-plugin
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          key: aws.amazon.com/neuron
+          operator: Exists
+      priorityClassName: "system-node-critical"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node.kubernetes.io/instance-type
+                operator: In
+                values:
+                - inf1.xlarge
+                - inf1.2xlarge
+                - inf1.6xlarge
+                - inf1.24xlarge
+                - inf2.xlarge
+                - inf2.4xlarge
+                - inf2.8xlarge
+                - inf2.24xlarge
+                - inf2.48xlarge
+                - trn1.2xlarge
+                - trn1.32xlarge
+                - trn1n.32xlarge
+      containers:
+      - image: public.ecr.aws/neuron/neuron-device-plugin:2.16.18.0
+        imagePullPolicy: Always
+        name: neuron-device-plugin
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+          - name: device-plugin
+            mountPath: /var/lib/kubelet/device-plugins
+          - name: infa-map
+            mountPath: /run
+      volumes:
+        - name: device-plugin
+          hostPath:
+            path: /var/lib/kubelet/device-plugins
+        - name: infa-map
+          hostPath:
+            path: /run
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler-extension.yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: tfy-inferentia-operator-scheduler-extension
+  namespace: default
+  labels:
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    
+    {}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+        app: tfy-inferentia-operator-scheduler
+        component: scheduler-extension
+  template:
+    metadata:
+      labels:
+        app: tfy-inferentia-operator-scheduler
+        component: scheduler-extension
+        helm.sh/chart: tfy-inferentia-operator-0.2.6
+        app.kubernetes.io/managed-by: Helm
+      annotations:
+        
+        {}
+    spec:
+      priorityClassName: system-cluster-critical
+      serviceAccountName: tfy-inferentia-operator-scheduler-extension
+      schedulerName: neuron-scheduler 
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      affinity:
+        {}
+      containers:
+        - name: scheduler-exp
+          image: public.ecr.aws/neuron/neuron-scheduler:2.18.3.0
+          resources:
+            limits:
+              cpu: 400m
+              memory: 256Mi
+            requests:
+              cpu: 200m
+              memory: 128Mi
+          env:
+          - name: PORT
+            value: "12345"
+
+# service.yaml
+---
+# Source: tfy-inferentia-operator/templates/neuron-scheduler.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: scheduler
+    tier: control-plane
+    helm.sh/chart: tfy-inferentia-operator-0.2.6
+    app.kubernetes.io/managed-by: Helm
+  name: tfy-inferentia-operator-neuron-scheduler
+  namespace: default
+  annotations:
+    
+    {}
+spec:
+  selector:
+    matchLabels:
+      app: tfy-inferentia-operator-neuron-scheduler
+      component: scheduler
+      tier: control-plane
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tfy-inferentia-operator-neuron-scheduler
+        component: scheduler
+        tier: control-plane
+        version: second
+        helm.sh/chart: tfy-inferentia-operator-0.2.6
+        app.kubernetes.io/managed-by: Helm
+      annotations:
+        
+        {}
+    spec:
+      priorityClassName: system-cluster-critical
+      serviceAccountName: tfy-inferentia-operator-neuron-scheduler
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      affinity:
+        {}
+      containers:
+      - image: registry.k8s.io/kube-scheduler:v1.27.7
+        args:
+          - "--config=/etc/kubernetes/neuron-scheduler/neuron-scheduler-config.yaml"
+          - "--leader-elect=true"
+          - "--v=2"
+          - "--lock-object-name=neuron-scheduler"
+          - "--pod-max-in-unschedulable-pods-duration=30s"
+        command:
+        - /usr/local/bin/kube-scheduler
+        image: registry.k8s.io/kube-scheduler:v1.27.7
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10259
+            scheme: HTTPS
+          initialDelaySeconds: 15
+        name: neuron-scheduler
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 10259
+            scheme: HTTPS
+        resources:
+          limits:
+            cpu: 400m
+            memory: 256Mi
+          requests:
+            cpu: 200m
+            memory: 128Mi
+        volumeMounts:
+          - name: config-volume
+            mountPath: /etc/kubernetes/neuron-scheduler
+      volumes:
+        - name: config-volume
+          configMap:
+            name: tfy-inferentia-operator-neuron-scheduler-config

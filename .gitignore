@@ -1,5 +1,5 @@
-/results
 /templates
 /tools_output
 /archives
 /__pycache__
+openai_api_key.txt

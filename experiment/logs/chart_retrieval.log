@@ -1,0 +1,392 @@
+2025-03-29 17:14:43,720 - __main__ - INFO - Fetching Helm charts...
+2025-03-29 17:14:45,782 - __main__ - ERROR - Failed to add repo fabrick8s: Error: looks like "https://vishva066.github.io/Fabric_Charts/charts/" is not a valid chart repository or cannot be reached: failed to fetch https://vishva066.github.io/Fabric_Charts/charts/index.yaml : 404 Not Found
+
+2025-03-29 17:14:49,290 - __main__ - ERROR - Failed to add repo clair: Error: looks like "https://guerzon.github.io/clair-helm" is not a valid chart repository or cannot be reached: failed to fetch https://guerzon.github.io/clair-helm/index.yaml : 404 Not Found
+
+2025-03-29 17:14:51,214 - __main__ - ERROR - Failed to add repo website: Error: looks like "https://simbleau.github.io/home-ops/k8s/helm" is not a valid chart repository or cannot be reached: failed to fetch https://simbleau.github.io/home-ops/k8s/helm/index.yaml : 404 Not Found
+
+2025-03-29 17:15:06,335 - __main__ - ERROR - Chart processing failed for ca: Error: repo fabrick8s not found
+2025-03-29 17:15:06,350 - __main__ - ERROR - Chart processing failed for website: Error: repo website not found
+2025-03-29 17:15:06,369 - __main__ - ERROR - Chart processing failed for ztncui: Error: template: ztncui/templates/configmap.yaml:9:27: executing "ztncui/templates/configmap.yaml" at <4>: invalid value; expected string
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:06,539 - __main__ - ERROR - Chart processing failed for ms-nginx: Error: failed to fetch https://github.com/paxtecnologia/helm-charts/releases/download/ms-nginx-0.1.5/ms-nginx-0.1.5.tgz : 404 Not Found
+2025-03-29 17:15:06,715 - __main__ - ERROR - Chart processing failed for cloudtruth-admit: Error: execution error at (cloudtruth-admit/templates/secret.yaml:9:25): The cloudtruth api key needs to be set in .Values.appSettings.apiKey!
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:06,792 - __main__ - ERROR - Chart processing failed for kubetruth: Error: execution error at (kubetruth/templates/secret.yaml:10:25): The cloudtruth api key needs to be set in .Values.appSettings.apiKey!
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:06,966 - __main__ - ERROR - Chart processing failed for lmutil: Error: library charts are not installable
+2025-03-29 17:15:07,026 - __main__ - ERROR - Chart processing failed for newrelic-k8s-metrics-adapter: WARNING: This chart is deprecated
+Error: execution error at (newrelic-k8s-metrics-adapter/templates/secret.yaml:9:46): personalAPIKey must be set
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:07,639 - __main__ - ERROR - Chart processing failed for ibm-eventstreams-instance: Error: YAML parse error on ibm-eventstreams-instance/templates/instance.yaml: error converting YAML to JSON: yaml: line 6: could not find expected ':'
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:07,970 - __main__ - ERROR - Chart processing failed for cube: Error: execution error at (cube/templates/worker/deployment.yaml:61:16): database.default.type is required
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:08,034 - __main__ - ERROR - Chart processing failed for kadeck-teams: Error: template: kadeck-teams/templates/deployment.yaml:279:26: executing "kadeck-teams/templates/deployment.yaml" at <.Values.xeotek.kadeck.proxy.enabled>: nil pointer evaluating interface {}.enabled
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:08,080 - __main__ - ERROR - Chart processing failed for clair: Error: repo clair not found
+2025-03-29 17:15:08,086 - __main__ - ERROR - Chart processing failed for v3-operator: Error: execution error at (v3-operator/templates/validate.yaml:2:4): .Values.settings.executionEndpoints is empty
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:08,195 - __main__ - ERROR - Chart processing failed for drunk-lib: Error: library charts are not installable
+2025-03-29 17:15:08,256 - __main__ - ERROR - Chart processing failed for argoApps: Error: release name "argoApps": invalid release name, must match regex ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$ and the length must not be longer than 53
+2025-03-29 17:15:08,298 - __main__ - ERROR - Chart processing failed for openproject: Error: template: openproject/templates/tests/test-connection.yaml:15:29: executing "openproject/templates/tests/test-connection.yaml" at <{{template "postgresql.fullname" .}}>: template "postgresql.fullname" not defined
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:08,404 - __main__ - ERROR - Chart processing failed for perplexideez: Error: failed to fetch https://github.com/brunostjohn/perplexideez/releases/download/perplexideez-0.1.1/perplexideez-0.1.1.tgz : 404 Not Found
+2025-03-29 17:15:08,451 - __main__ - ERROR - Chart processing failed for paperless-ngx-ftp-bridge: Error: failed to fetch https://helm.task.media/paperlessngx-ftp-bridge/paperless-ngx-ftp-bridge-0.1.3.tgz : 404 Not Found
+2025-03-29 17:15:08,550 - __main__ - ERROR - Chart processing failed for variant-service-deployments: Error: failed to fetch https://github.com/variant-inc/lazy-helm-charts/releases/download/variant-service-deployments-0.1.6/variant-service-deployments-0.1.6.tgz : 404 Not Found
+2025-03-29 17:15:08,582 - __main__ - ERROR - Chart processing failed for test-helm: Error: template: test-helm/templates/tests/test-connection.yaml:14:61: executing "test-helm/templates/tests/test-connection.yaml" at <.Values.service.port>: nil pointer evaluating interface {}.port
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:09,021 - __main__ - ERROR - Chart processing failed for data-cube-curation: Error: execution error at (data-cube-curation/templates/secrets.yaml:20:15): A valid dataCubeCuration.sparql.endpoint entry is required!
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:11,304 - __main__ - ERROR - Chart processing failed for teleport-kube-agent: Error: execution error at (teleport-kube-agent/templates/statefulset.yaml:30:28): proxyAddr is required in chart values
+
+Use --debug flag to render out invalid YAML
+2025-03-29 17:15:11,316 - __main__ - INFO - Generated 78 templates, failed 22
+2025-03-29 17:15:11,317 - __main__ - INFO - Analyzing templates...
+2025-03-29 17:15:11,818 - __main__ - INFO - Running static analysis...
+2025-03-29 17:15:14,778 - __main__ - ERROR - checkov failed for pulse: 
+2025-03-29 17:15:15,449 - __main__ - ERROR - checkov failed for tei: 
+2025-03-29 17:15:15,475 - __main__ - ERROR - checkov failed for instant-chart: 
+2025-03-29 17:15:15,558 - __main__ - ERROR - checkov failed for pyspark-notebook: 
+2025-03-29 17:15:15,635 - __main__ - ERROR - checkov failed for scaleway-csi: 
+2025-03-29 17:15:15,641 - __main__ - ERROR - checkov failed for service-presets: 
+2025-03-29 17:15:15,681 - __main__ - ERROR - checkov failed for rclone: 
+2025-03-29 17:15:15,711 - __main__ - ERROR - checkov failed for test0: 
+2025-03-29 17:15:15,715 - __main__ - ERROR - checkov failed for grpc-web: 
+2025-03-29 17:15:15,725 - __main__ - ERROR - checkov failed for nexmonyx-backend: 
+2025-03-29 17:15:15,744 - __main__ - ERROR - checkov failed for test-helm-app2: 
+2025-03-29 17:15:15,795 - __main__ - ERROR - checkov failed for meerschaum: 
+2025-03-29 17:15:15,838 - __main__ - ERROR - checkov failed for blueprint: 
+2025-03-29 17:15:15,869 - __main__ - ERROR - checkov failed for jellyfin: 
+2025-03-29 17:15:15,970 - __main__ - ERROR - checkov failed for deploy-elibrary: 
+2025-03-29 17:15:15,977 - __main__ - ERROR - checkov failed for plausible: 
+2025-03-29 17:15:16,008 - __main__ - ERROR - checkov failed for squid: 
+2025-03-29 17:15:16,032 - __main__ - ERROR - checkov failed for ed-cron: 
+2025-03-29 17:15:16,033 - __main__ - ERROR - checkov failed for sorry-cypress: 
+2025-03-29 17:15:16,043 - __main__ - ERROR - checkov failed for cp4d-deployer: 
+2025-03-29 17:15:16,068 - __main__ - ERROR - checkov failed for ed-traefik2: 
+2025-03-29 17:15:16,148 - __main__ - ERROR - checkov failed for kubeauth.io: 
+2025-03-29 17:15:17,271 - __main__ - ERROR - checkov failed for otel-operator: 
+2025-03-29 17:15:17,700 - __main__ - ERROR - checkov failed for wg-access-server: 
+2025-03-29 17:15:18,285 - __main__ - ERROR - checkov failed for sealed-secrets-ui: 
+2025-03-29 17:15:18,564 - __main__ - ERROR - checkov failed for traefik-hub: 
+2025-03-29 17:15:18,582 - __main__ - ERROR - checkov failed for tfy-inferentia-operator: 
+2025-03-29 17:15:18,641 - __main__ - ERROR - checkov failed for blackduck-alert: 
+2025-03-29 17:15:18,709 - __main__ - ERROR - checkov failed for deis-workflow: 
+2025-03-29 17:15:18,847 - __main__ - ERROR - checkov failed for ed-nginx: 
+2025-03-29 17:15:19,013 - __main__ - ERROR - checkov failed for tailscale-relay: 
+2025-03-29 17:15:19,037 - __main__ - ERROR - checkov failed for mojeaplikace: 
+2025-03-29 17:15:19,052 - __main__ - ERROR - checkov failed for flagsmith: 
+2025-03-29 17:15:19,200 - __main__ - ERROR - checkov failed for stock-x: 
+2025-03-29 17:15:19,260 - __main__ - ERROR - checkov failed for heimdall: 
+2025-03-29 17:15:19,302 - __main__ - ERROR - checkov failed for ping-exporter: 
+2025-03-29 17:15:19,392 - __main__ - ERROR - checkov failed for log2rbac-operator: 
+2025-03-29 17:15:19,448 - __main__ - ERROR - checkov failed for csi-s3: 
+2025-03-29 17:15:19,574 - __main__ - ERROR - checkov failed for bipeenhelm-chart: 
+2025-03-29 17:15:19,596 - __main__ - ERROR - checkov failed for timesketch: 
+2025-03-29 17:15:19,609 - __main__ - ERROR - checkov failed for zipkin: 
+2025-03-29 17:15:19,670 - __main__ - ERROR - checkov failed for mimir-openshift-experimental: 
+2025-03-29 17:15:19,691 - __main__ - ERROR - checkov failed for akaunting: 
+2025-03-29 17:15:19,747 - __main__ - ERROR - checkov failed for myfirstchart: 
+2025-03-29 17:15:19,767 - __main__ - ERROR - checkov failed for vault-dev: 
+2025-03-29 17:15:20,028 - __main__ - ERROR - checkov failed for traefik-forward-auth-openid: 
+2025-03-29 17:15:20,457 - __main__ - ERROR - checkov failed for thingsboard: 
+2025-03-29 17:15:21,134 - __main__ - ERROR - checkov failed for cloudevents: 
+2025-03-29 17:15:21,403 - __main__ - ERROR - checkov failed for billing: 
+2025-03-29 17:15:21,419 - __main__ - ERROR - checkov failed for ed-traefik: 
+2025-03-29 17:15:21,443 - __main__ - ERROR - checkov failed for pgbench: 
+2025-03-29 17:15:21,469 - __main__ - ERROR - checkov failed for oauth2-proxy: 
+2025-03-29 17:15:21,847 - __main__ - ERROR - checkov failed for influxdb: 
+2025-03-29 17:15:21,940 - __main__ - ERROR - checkov failed for ed-deployment: 
+2025-03-29 17:15:21,968 - __main__ - ERROR - checkov failed for pages: 
+2025-03-29 17:15:21,986 - __main__ - ERROR - checkov failed for ussigw-configuration: 
+2025-03-29 17:15:22,009 - __main__ - ERROR - checkov failed for helmchart: 
+2025-03-29 17:15:22,124 - __main__ - ERROR - checkov failed for cloud-native-pg: 
+2025-03-29 17:15:22,178 - __main__ - ERROR - checkov failed for akto: 
+2025-03-29 17:15:22,257 - __main__ - ERROR - checkov failed for umsapp: 
+2025-03-29 17:15:22,307 - __main__ - ERROR - checkov failed for ussigw-core: 
+2025-03-29 17:15:22,338 - __main__ - ERROR - checkov failed for identity-manager-demo: 
+2025-03-29 17:15:22,377 - __main__ - ERROR - checkov failed for horizon-satellite: 
+2025-03-29 17:15:22,400 - __main__ - ERROR - checkov failed for test-helm-app1: 
+2025-03-29 17:15:22,428 - __main__ - ERROR - checkov failed for terraform-enterprise: 
+2025-03-29 17:15:22,438 - __main__ - ERROR - checkov failed for ndb-operator: 
+2025-03-29 17:15:22,613 - __main__ - ERROR - datree failed for opensearch-cluster: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:23,758 - __main__ - ERROR - datree failed for deploy-elibrary: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:23,807 - __main__ - ERROR - datree failed for test-helm-app2: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:23,900 - __main__ - ERROR - datree failed for squid: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:23,922 - __main__ - ERROR - datree failed for wg-access-server: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:24,298 - __main__ - ERROR - datree failed for rclone: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:24,443 - __main__ - ERROR - datree failed for tei: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:24,457 - __main__ - ERROR - datree failed for meerschaum: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:24,458 - __main__ - ERROR - datree failed for ed-cron: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:24,782 - __main__ - ERROR - datree failed for pulse: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:24,792 - __main__ - ERROR - datree failed for blueprint: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,047 - __main__ - ERROR - datree failed for test0: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,291 - __main__ - ERROR - datree failed for jellyfin: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,339 - __main__ - ERROR - datree failed for pyspark-notebook: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,593 - __main__ - ERROR - datree failed for plausible: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,675 - __main__ - ERROR - datree failed for deis-workflow: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,998 - __main__ - ERROR - datree failed for grpc-web: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:25,998 - __main__ - ERROR - datree failed for kubeauth.io: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,011 - __main__ - ERROR - datree failed for cp4d-deployer: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,193 - __main__ - ERROR - datree failed for blackduck-alert: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,290 - __main__ - ERROR - datree failed for traefik-hub: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,708 - __main__ - ERROR - datree failed for nexmonyx-backend: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,712 - __main__ - ERROR - datree failed for sorry-cypress: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,826 - __main__ - ERROR - datree failed for ed-nginx: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,839 - __main__ - ERROR - datree failed for ed-traefik2: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,900 - __main__ - ERROR - datree failed for mojeaplikace: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:26,976 - __main__ - ERROR - datree failed for tailscale-relay: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,069 - __main__ - ERROR - datree failed for heimdall: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,116 - __main__ - ERROR - datree failed for tfy-inferentia-operator: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,214 - __main__ - ERROR - datree failed for stock-x: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,298 - __main__ - ERROR - datree failed for ping-exporter: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,620 - __main__ - ERROR - datree failed for sealed-secrets-ui: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,637 - __main__ - ERROR - datree failed for bipeenhelm-chart: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,746 - __main__ - ERROR - datree failed for myfirstchart: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:27,784 - __main__ - ERROR - datree failed for vault-dev: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:28,172 - __main__ - ERROR - datree failed for zipkin: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:28,333 - __main__ - ERROR - datree failed for otel-operator: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:28,711 - __main__ - ERROR - datree failed for log2rbac-operator: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,210 - __main__ - ERROR - datree failed for scaleway-csi: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,235 - __main__ - ERROR - datree failed for ed-traefik: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,262 - __main__ - ERROR - datree failed for timesketch: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,527 - __main__ - ERROR - datree failed for oauth2-proxy: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,679 - __main__ - ERROR - datree failed for ussigw-configuration: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,761 - __main__ - ERROR - datree failed for ed-deployment: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,808 - __main__ - ERROR - datree failed for flagsmith: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:29,942 - __main__ - ERROR - datree failed for cloudevents: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:30,069 - __main__ - ERROR - datree failed for thingsboard: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:30,140 - __main__ - ERROR - datree failed for influxdb: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:30,543 - __main__ - ERROR - datree failed for csi-s3: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:30,642 - __main__ - ERROR - datree failed for pgbench: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:30,916 - __main__ - ERROR - datree failed for traefik-forward-auth-openid: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:30,939 - __main__ - ERROR - datree failed for billing: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,065 - __main__ - ERROR - datree failed for akaunting: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,285 - __main__ - ERROR - datree failed for tenant-insights: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,404 - __main__ - ERROR - datree failed for helmchart: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,467 - __main__ - ERROR - datree failed for horizon-satellite: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,518 - __main__ - ERROR - datree failed for test-helm-app1: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,594 - __main__ - ERROR - datree failed for umsapp: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,609 - __main__ - ERROR - datree failed for mimir-openshift-experimental: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,620 - __main__ - ERROR - datree failed for ussigw-core: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,812 - __main__ - ERROR - datree failed for pages: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,836 - __main__ - ERROR - datree failed for ndb-operator: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,860 - __main__ - ERROR - datree failed for terraform-enterprise: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:31,892 - __main__ - ERROR - datree failed for akto: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:32,186 - __main__ - ERROR - datree failed for identity-manager-demo: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:32,597 - __main__ - ERROR - datree failed for knative-serving: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:34,290 - __main__ - ERROR - datree failed for service-presets: 
+[INFO] You're running Datree in offline mode
+
+
+2025-03-29 17:15:34,301 - __main__ - INFO - Processing complete

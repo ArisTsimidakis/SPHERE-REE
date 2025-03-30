@@ -1,0 +1,80 @@
+---
+# Source: horizon-satellite/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: horizon-satellite
+  labels:
+    helm.sh/chart: horizon-satellite-0.1.0
+    app.kubernetes.io/name: horizon-satellite
+    app.kubernetes.io/instance: horizon-satellite
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: horizon-satellite/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: horizon-satellite
+  labels:
+    helm.sh/chart: horizon-satellite-0.1.0
+    app.kubernetes.io/name: horizon-satellite
+    app.kubernetes.io/instance: horizon-satellite
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 22
+      name: ssh
+      targetPort: ssh
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: horizon-satellite
+    app.kubernetes.io/instance: horizon-satellite
+---
+# Source: horizon-satellite/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: horizon-satellite
+  labels:
+    helm.sh/chart: horizon-satellite-0.1.0
+    app.kubernetes.io/name: horizon-satellite
+    app.kubernetes.io/instance: horizon-satellite
+    app.kubernetes.io/version: "0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: horizon-satellite
+      app.kubernetes.io/instance: horizon-satellite
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: horizon-satellite
+        app.kubernetes.io/instance: horizon-satellite
+    spec:
+      serviceAccountName: horizon-satellite
+      securityContext:
+        {}
+      containers:
+        - name: horizon-satellite-sshd
+          securityContext:
+            {}
+          image: "registry.evertrust.io/horizon-satellite:0.1.0"
+          imagePullPolicy: IfNotPresent
+          args:
+          ports:
+            - name: ssh
+              containerPort: 22
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: ssh
+          readinessProbe:
+            tcpSocket:
+              port: ssh
+          resources:
+            {}

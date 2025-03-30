@@ -1,0 +1,134 @@
+---
+# Source: wg-access-server/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wg-access-server
+  labels:
+    helm.sh/chart: wg-access-server-v0.4.7
+    app: wg-access-server
+    app.kubernetes.io/name: wg-access-server
+    app.kubernetes.io/instance: wg-access-server
+    app.kubernetes.io/version: "v0.4.6"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.yaml: |-
+---
+# Source: wg-access-server/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wg-access-server-web
+  labels:
+    helm.sh/chart: wg-access-server-v0.4.7
+    app: wg-access-server
+    app.kubernetes.io/name: wg-access-server
+    app.kubernetes.io/instance: wg-access-server
+    app.kubernetes.io/version: "v0.4.6"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+      name: http
+  selector:
+    app: wg-access-server
+    app.kubernetes.io/name: wg-access-server
+    app.kubernetes.io/instance: wg-access-server
+---
+# Source: wg-access-server/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: wg-access-server-wireguard
+  labels:
+    helm.sh/chart: wg-access-server-v0.4.7
+    app: wg-access-server
+    app.kubernetes.io/name: wg-access-server
+    app.kubernetes.io/instance: wg-access-server
+    app.kubernetes.io/version: "v0.4.6"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  sessionAffinity: ClientIP
+  ports:
+    - port: 51820
+      targetPort: 51820
+      protocol: UDP
+      name: wireguard
+  selector:
+    app: wg-access-server
+    app.kubernetes.io/name: wg-access-server
+    app.kubernetes.io/instance: wg-access-server
+---
+# Source: wg-access-server/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wg-access-server
+  labels:
+    helm.sh/chart: wg-access-server-v0.4.7
+    app: wg-access-server
+    app.kubernetes.io/name: wg-access-server
+    app.kubernetes.io/instance: wg-access-server
+    app.kubernetes.io/version: "v0.4.6"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  strategy:
+    type: "RollingUpdate"
+  selector:
+    matchLabels:
+      app: wg-access-server
+      app.kubernetes.io/name: wg-access-server
+      app.kubernetes.io/instance: wg-access-server
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: f693c742b51a5a842bd151441c279f35162af8918ff127df289ff1b89a4699d5
+      labels:
+        app: wg-access-server
+        app.kubernetes.io/name: wg-access-server
+        app.kubernetes.io/instance: wg-access-server
+    spec:
+      containers:
+        - name: wg-access-server
+          securityContext:
+            capabilities:
+              add: ['NET_ADMIN']
+          image: "place1/wg-access-server:v0.4.6"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+            - name: wireguard
+              containerPort: 51820
+              protocol: UDP
+          env:
+          volumeMounts:
+            - name: tun
+              mountPath: /dev/net/tun
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /config.yaml
+              subPath: config.yaml
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+      volumes:
+        - name: tun
+          hostPath:
+            type: 'CharDevice'
+            path: /dev/net/tun
+        - name: data
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: "wg-access-server"

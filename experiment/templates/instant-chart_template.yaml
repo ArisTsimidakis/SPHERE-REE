@@ -1,0 +1,33 @@
+---
+# Source: instant-chart/templates/service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: instant-chart
+  labels:
+    app.kubernetes.io/instance: instant-chart
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: instant-chart
+    helm.sh/chart: instant-chart-0.5.2
+automountServiceAccountToken: true
+---
+# Source: instant-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: instant-chart
+  labels:
+    app.kubernetes.io/instance: instant-chart
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: instant-chart
+    helm.sh/chart: instant-chart-0.5.2
+spec:
+  selector:
+    app.kubernetes.io/instance: instant-chart
+    app.kubernetes.io/name: instant-chart
+  ports:
+  - name: port-0
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  type: ClusterIP

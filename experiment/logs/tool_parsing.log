@@ -1,0 +1,554 @@
+2025-03-29 17:17:59,975 - __main__ - INFO - Logging to file: experiment/logs/tool_parsing.log
+2025-03-29 17:17:59,975 - __main__ - INFO - Starting processing of tool results
+2025-03-29 17:17:59,975 - __main__ - INFO - Found 69 charts to process: {'deis-workflow', 'billing', 'csi-s3', 'test-helm-app1', 'mimir-openshift-experimental', 'squid', 'horizon-satellite', 'helmchart', 'opensearch-cluster', 'flagsmith', 'oauth2-proxy', 'ussigw-configuration', 'pyspark-notebook', 'thingsboard', 'traefik-hub', 'myfirstchart', 'ussigw-core', 'kubeauth.io', 'rclone', 'traefik-forward-auth-openid', 'log2rbac-operator', 'identity-manager-demo', 'meerschaum', 'ed-cron', 'pages', 'ed-nginx', 'cloud-native-pg', 'otel-operator', 'tenant-insights', 'sealed-secrets-ui', 'service-presets', 'cp4d-deployer', 'tfy-inferentia-operator', 'terraform-enterprise', 'ed-traefik2', 'vault-dev', 'akaunting', 'stock-x', 'instant-chart', 'umsapp', 'akto', 'blackduck-alert', 'grpc-web', 'ed-traefik', 'zipkin', 'scaleway-csi', 'ndb-operator', 'pgbench', 'blueprint', 'ed-deployment', 'deploy-elibrary', 'bipeenhelm-chart', 'sorry-cypress', 'test-helm-app2', 'nexmonyx-backend', 'test0', 'jellyfin', 'plausible', 'heimdall', 'timesketch', 'cloudevents', 'wg-access-server', 'knative-serving', 'influxdb', 'tailscale-relay', 'mojeaplikace', 'pulse', 'tei', 'ping-exporter'}
+2025-03-29 17:17:59,976 - __main__ - INFO - Parsing Checkov results for deis-workflow from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/deis-workflow_results.json
+2025-03-29 17:17:59,976 - __main__ - INFO - Parsing Checkov results for billing from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/billing_results.json
+2025-03-29 17:17:59,976 - __main__ - INFO - Parsing Checkov results for csi-s3 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/csi-s3_results.json
+2025-03-29 17:17:59,976 - __main__ - INFO - Parsing Checkov results for test-helm-app1 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/test-helm-app1_results.json
+2025-03-29 17:17:59,990 - __main__ - INFO - Processing 47 failed checks for csi-s3
+2025-03-29 17:17:59,991 - __main__ - INFO - Processed 47 rows for csi-s3
+2025-03-29 17:17:59,991 - __main__ - INFO - Parsing Checkov results for mimir-openshift-experimental from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/mimir-openshift-experimental_results.json
+2025-03-29 17:17:59,992 - __main__ - INFO - Processing 20 failed checks for test-helm-app1
+2025-03-29 17:17:59,997 - __main__ - INFO - Processing 36 failed checks for deis-workflow
+2025-03-29 17:17:59,999 - __main__ - INFO - Processing 10 failed checks for billing
+2025-03-29 17:17:59,999 - __main__ - INFO - Parsing Checkov results for squid from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/squid_results.json
+2025-03-29 17:17:59,999 - __main__ - INFO - Parsing Checkov results for horizon-satellite from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/horizon-satellite_results.json
+2025-03-29 17:17:59,999 - __main__ - INFO - Processed 20 rows for test-helm-app1
+2025-03-29 17:18:00,014 - __main__ - INFO - Parsing Checkov results for helmchart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/helmchart_results.json
+2025-03-29 17:18:00,014 - __main__ - INFO - Processed 36 rows for deis-workflow
+2025-03-29 17:18:00,021 - __main__ - INFO - Parsing Checkov results for opensearch-cluster from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/opensearch-cluster_results.json
+2025-03-29 17:18:00,029 - __main__ - INFO - Processed 10 rows for billing
+2025-03-29 17:18:00,034 - __main__ - INFO - Parsing Checkov results for flagsmith from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/flagsmith_results.json
+2025-03-29 17:18:00,050 - __main__ - INFO - Parsing Checkov results for oauth2-proxy from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/oauth2-proxy_results.json
+2025-03-29 17:18:00,055 - __main__ - INFO - Parsing Checkov results for ussigw-configuration from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ussigw-configuration_results.json
+2025-03-29 17:18:00,056 - __main__ - INFO - Parsing Checkov results for pyspark-notebook from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/pyspark-notebook_results.json
+2025-03-29 17:18:00,056 - __main__ - INFO - Parsing Checkov results for thingsboard from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/thingsboard_results.json
+2025-03-29 17:18:00,058 - __main__ - INFO - Processing 16 failed checks for horizon-satellite
+2025-03-29 17:18:00,060 - __main__ - INFO - Processing 211 failed checks for mimir-openshift-experimental
+2025-03-29 17:18:00,060 - __main__ - INFO - Parsing Checkov results for traefik-hub from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/traefik-hub_results.json
+2025-03-29 17:18:00,064 - __main__ - INFO - Processing 13 failed checks for squid
+2025-03-29 17:18:00,065 - __main__ - INFO - No failed checks found in Checkov results for opensearch-cluster
+2025-03-29 17:18:00,065 - __main__ - INFO - Parsing Checkov results for myfirstchart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/myfirstchart_results.json
+2025-03-29 17:18:00,065 - __main__ - INFO - Parsing Checkov results for ussigw-core from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ussigw-core_results.json
+2025-03-29 17:18:00,068 - __main__ - INFO - Processing 36 failed checks for helmchart
+2025-03-29 17:18:00,068 - __main__ - INFO - Parsing Checkov results for kubeauth.io from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/kubeauth.io_results.json
+2025-03-29 17:18:00,069 - __main__ - INFO - Parsing Checkov results for rclone from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/rclone_results.json
+2025-03-29 17:18:00,073 - __main__ - INFO - Processing 19 failed checks for oauth2-proxy
+2025-03-29 17:18:00,073 - __main__ - INFO - Parsing Checkov results for traefik-forward-auth-openid from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/traefik-forward-auth-openid_results.json
+2025-03-29 17:18:00,089 - __main__ - INFO - Parsing Checkov results for log2rbac-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/log2rbac-operator_results.json
+2025-03-29 17:18:00,089 - __main__ - INFO - Processing 100 failed checks for flagsmith
+2025-03-29 17:18:00,089 - __main__ - INFO - Parsing Checkov results for identity-manager-demo from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/identity-manager-demo_results.json
+2025-03-29 17:18:00,094 - __main__ - INFO - Processing 44 failed checks for ussigw-configuration
+2025-03-29 17:18:00,094 - __main__ - INFO - Processed 16 rows for horizon-satellite
+2025-03-29 17:18:00,094 - __main__ - INFO - Parsing Checkov results for meerschaum from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/meerschaum_results.json
+2025-03-29 17:18:00,100 - __main__ - INFO - Parsing Checkov results for ed-cron from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ed-cron_results.json
+2025-03-29 17:18:00,102 - __main__ - INFO - Processed 211 rows for mimir-openshift-experimental
+2025-03-29 17:18:00,107 - __main__ - INFO - Parsing Checkov results for pages from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/pages_results.json
+2025-03-29 17:18:00,114 - __main__ - INFO - Processing 42 failed checks for thingsboard
+2025-03-29 17:18:00,120 - __main__ - INFO - Parsing Checkov results for ed-nginx from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ed-nginx_results.json
+2025-03-29 17:18:00,121 - __main__ - INFO - Processing 14 failed checks for pyspark-notebook
+2025-03-29 17:18:00,121 - __main__ - INFO - Processed 13 rows for squid
+2025-03-29 17:18:00,121 - __main__ - INFO - Parsing Checkov results for cloud-native-pg from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/cloud-native-pg_results.json
+2025-03-29 17:18:00,131 - __main__ - INFO - Parsing Checkov results for otel-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/otel-operator_results.json
+2025-03-29 17:18:00,140 - __main__ - INFO - Processing 14 failed checks for traefik-hub
+2025-03-29 17:18:00,141 - __main__ - INFO - Processing 138 tasks with 24 workers
+2025-03-29 17:18:00,141 - __main__ - INFO - Parsing Checkov results for tenant-insights from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/tenant-insights_results.json
+2025-03-29 17:18:00,142 - __main__ - INFO - Processed 36 rows for helmchart
+2025-03-29 17:18:00,147 - __main__ - INFO - Processing 44 failed checks for ussigw-core
+2025-03-29 17:18:00,148 - __main__ - INFO - Processed 19 rows for oauth2-proxy
+2025-03-29 17:18:00,150 - __main__ - INFO - Processing 16 failed checks for rclone
+2025-03-29 17:18:00,152 - __main__ - INFO - Processing 15 failed checks for myfirstchart
+2025-03-29 17:18:00,168 - __main__ - INFO - Processed 100 rows for flagsmith
+2025-03-29 17:18:00,173 - __main__ - INFO - Processing 11 failed checks for traefik-forward-auth-openid
+2025-03-29 17:18:00,177 - __main__ - INFO - Processing 74 failed checks for kubeauth.io
+2025-03-29 17:18:00,184 - __main__ - INFO - Processing 20 failed checks for log2rbac-operator
+2025-03-29 17:18:00,185 - __main__ - INFO - Processed 44 rows for ussigw-configuration
+2025-03-29 17:18:00,185 - __main__ - INFO - Parsing Checkov results for sealed-secrets-ui from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/sealed-secrets-ui_results.json
+2025-03-29 17:18:00,188 - __main__ - INFO - Processing 15 failed checks for identity-manager-demo
+2025-03-29 17:18:00,188 - __main__ - INFO - Parsing Checkov results for service-presets from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/service-presets_results.json
+2025-03-29 17:18:00,189 - __main__ - INFO - Processing 19 failed checks for ed-cron
+2025-03-29 17:18:00,190 - __main__ - INFO - Processed 42 rows for thingsboard
+2025-03-29 17:18:00,191 - __main__ - INFO - Processed 14 rows for pyspark-notebook
+2025-03-29 17:18:00,191 - __main__ - INFO - Parsing Checkov results for cp4d-deployer from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/cp4d-deployer_results.json
+2025-03-29 17:18:00,201 - __main__ - INFO - Processing 124 failed checks for pages
+2025-03-29 17:18:00,211 - __main__ - INFO - Processing 15 failed checks for meerschaum
+2025-03-29 17:18:00,213 - __main__ - INFO - Processing 22 failed checks for ed-nginx
+2025-03-29 17:18:00,214 - __main__ - INFO - Processed 14 rows for traefik-hub
+2025-03-29 17:18:00,216 - __main__ - INFO - Processing 2 failed checks for cloud-native-pg
+2025-03-29 17:18:00,221 - __main__ - INFO - Parsing Checkov results for tfy-inferentia-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/tfy-inferentia-operator_results.json
+2025-03-29 17:18:00,226 - __main__ - INFO - No failed checks found in Checkov results for tenant-insights
+2025-03-29 17:18:00,232 - __main__ - INFO - Processed 44 rows for ussigw-core
+2025-03-29 17:18:00,242 - __main__ - INFO - Parsing Checkov results for terraform-enterprise from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/terraform-enterprise_results.json
+2025-03-29 17:18:00,268 - __main__ - INFO - Processed 16 rows for rclone
+2025-03-29 17:18:00,278 - __main__ - INFO - Processed 15 rows for myfirstchart
+2025-03-29 17:18:00,278 - __main__ - INFO - Parsing Checkov results for ed-traefik2 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ed-traefik2_results.json
+2025-03-29 17:18:00,284 - __main__ - INFO - Processed 11 rows for traefik-forward-auth-openid
+2025-03-29 17:18:00,301 - __main__ - INFO - Processed 74 rows for kubeauth.io
+2025-03-29 17:18:00,319 - __main__ - INFO - Processed 20 rows for log2rbac-operator
+2025-03-29 17:18:00,336 - __main__ - INFO - Parsing Checkov results for vault-dev from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/vault-dev_results.json
+2025-03-29 17:18:00,378 - __main__ - INFO - Processed 15 rows for identity-manager-demo
+2025-03-29 17:18:00,395 - __main__ - INFO - Processing 35 failed checks for sealed-secrets-ui
+2025-03-29 17:18:00,405 - __main__ - INFO - Processed 19 rows for ed-cron
+2025-03-29 17:18:00,432 - __main__ - INFO - Parsing Checkov results for akaunting from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/akaunting_results.json
+2025-03-29 17:18:00,447 - __main__ - INFO - Parsing Checkov results for stock-x from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/stock-x_results.json
+2025-03-29 17:18:00,465 - __main__ - INFO - Processing 23 failed checks for service-presets
+2025-03-29 17:18:00,477 - __main__ - INFO - Processed 124 rows for pages
+2025-03-29 17:18:00,503 - __main__ - INFO - Processed 15 rows for meerschaum
+2025-03-29 17:18:00,514 - __main__ - INFO - Processed 22 rows for ed-nginx
+2025-03-29 17:18:00,525 - __main__ - INFO - Processing 17 failed checks for cp4d-deployer
+2025-03-29 17:18:00,534 - __main__ - INFO - Parsing Checkov results for instant-chart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/instant-chart_results.json
+2025-03-29 17:18:00,550 - __main__ - INFO - Processed 2 rows for cloud-native-pg
+2025-03-29 17:18:00,576 - __main__ - INFO - Parsing Checkov results for umsapp from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/umsapp_results.json
+2025-03-29 17:18:00,587 - __main__ - INFO - Parsing Checkov results for akto from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/akto_results.json
+2025-03-29 17:18:00,622 - __main__ - INFO - Parsing Checkov results for blackduck-alert from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/blackduck-alert_results.json
+2025-03-29 17:18:00,633 - __main__ - INFO - Parsing Checkov results for grpc-web from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/grpc-web_results.json
+2025-03-29 17:18:00,635 - __main__ - INFO - Processing 48 failed checks for tfy-inferentia-operator
+2025-03-29 17:18:00,646 - __main__ - INFO - Processing 20 failed checks for terraform-enterprise
+2025-03-29 17:18:00,673 - __main__ - INFO - Parsing Checkov results for ed-traefik from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ed-traefik_results.json
+2025-03-29 17:18:00,685 - __main__ - INFO - Processing 14 failed checks for ed-traefik2
+2025-03-29 17:18:00,690 - __main__ - INFO - Processing 59 failed checks for otel-operator
+2025-03-29 17:18:00,690 - __main__ - INFO - Parsing Checkov results for zipkin from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/zipkin_results.json
+2025-03-29 17:18:00,690 - __main__ - INFO - Parsing Checkov results for scaleway-csi from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/scaleway-csi_results.json
+2025-03-29 17:18:00,690 - __main__ - INFO - Parsing Checkov results for ndb-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ndb-operator_results.json
+2025-03-29 17:18:00,692 - __main__ - INFO - Processing 19 failed checks for vault-dev
+2025-03-29 17:18:00,693 - __main__ - INFO - Processed 35 rows for sealed-secrets-ui
+2025-03-29 17:18:00,693 - __main__ - INFO - Parsing Checkov results for pgbench from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/pgbench_results.json
+2025-03-29 17:18:00,693 - __main__ - INFO - Processed 23 rows for service-presets
+2025-03-29 17:18:00,693 - __main__ - INFO - Parsing Checkov results for blueprint from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/blueprint_results.json
+2025-03-29 17:18:00,694 - __main__ - INFO - Parsing Checkov results for ed-deployment from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ed-deployment_results.json
+2025-03-29 17:18:00,695 - __main__ - INFO - Processing 18 failed checks for stock-x
+2025-03-29 17:18:00,695 - __main__ - INFO - Parsing Checkov results for deploy-elibrary from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/deploy-elibrary_results.json
+2025-03-29 17:18:00,701 - __main__ - INFO - Processed 17 rows for cp4d-deployer
+2025-03-29 17:18:00,708 - __main__ - INFO - Processing 41 failed checks for akaunting
+2025-03-29 17:18:00,708 - __main__ - INFO - Parsing Checkov results for bipeenhelm-chart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/bipeenhelm-chart_results.json
+2025-03-29 17:18:00,709 - __main__ - INFO - Processing 2 failed checks for instant-chart
+2025-03-29 17:18:00,710 - __main__ - INFO - Processed 48 rows for tfy-inferentia-operator
+2025-03-29 17:18:00,717 - __main__ - INFO - Processed 20 rows for terraform-enterprise
+2025-03-29 17:18:00,727 - __main__ - INFO - Processing 78 failed checks for blackduck-alert
+2025-03-29 17:18:00,744 - __main__ - INFO - Processing 4 failed checks for grpc-web
+2025-03-29 17:18:00,749 - __main__ - INFO - Processing 70 failed checks for akto
+2025-03-29 17:18:00,758 - __main__ - INFO - Processing 19 failed checks for ed-traefik
+2025-03-29 17:18:00,762 - __main__ - INFO - Processing 62 failed checks for umsapp
+2025-03-29 17:18:00,763 - __main__ - INFO - Processed 14 rows for ed-traefik2
+2025-03-29 17:18:00,766 - __main__ - INFO - Processed 59 rows for otel-operator
+2025-03-29 17:18:00,767 - __main__ - INFO - Processed 19 rows for vault-dev
+2025-03-29 17:18:00,773 - __main__ - INFO - Parsing Checkov results for sorry-cypress from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/sorry-cypress_results.json
+2025-03-29 17:18:00,799 - __main__ - INFO - Processing 38 failed checks for zipkin
+2025-03-29 17:18:00,812 - __main__ - INFO - Processing 45 failed checks for ndb-operator
+2025-03-29 17:18:00,814 - __main__ - INFO - Processing 50 failed checks for scaleway-csi
+2025-03-29 17:18:00,814 - __main__ - INFO - Parsing Checkov results for test-helm-app2 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/test-helm-app2_results.json
+2025-03-29 17:18:00,817 - __main__ - INFO - Processing 18 failed checks for pgbench
+2025-03-29 17:18:00,818 - __main__ - INFO - Processed 18 rows for stock-x
+2025-03-29 17:18:00,821 - __main__ - INFO - Processing 34 failed checks for blueprint
+2025-03-29 17:18:00,821 - __main__ - INFO - Parsing Checkov results for nexmonyx-backend from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/nexmonyx-backend_results.json
+2025-03-29 17:18:00,822 - __main__ - INFO - Processing 19 failed checks for deploy-elibrary
+2025-03-29 17:18:00,823 - __main__ - INFO - Processing 21 failed checks for ed-deployment
+2025-03-29 17:18:00,824 - __main__ - INFO - Processed 41 rows for akaunting
+2025-03-29 17:18:00,824 - __main__ - INFO - Processed 2 rows for instant-chart
+2025-03-29 17:18:00,824 - __main__ - INFO - Parsing Checkov results for test0 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/test0_results.json
+2025-03-29 17:18:00,825 - __main__ - INFO - Processing 21 failed checks for bipeenhelm-chart
+2025-03-29 17:18:00,826 - __main__ - INFO - Parsing Checkov results for jellyfin from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/jellyfin_results.json
+2025-03-29 17:18:00,827 - __main__ - INFO - Processed 78 rows for blackduck-alert
+2025-03-29 17:18:00,827 - __main__ - INFO - Processed 4 rows for grpc-web
+2025-03-29 17:18:00,828 - __main__ - INFO - Processed 70 rows for akto
+2025-03-29 17:18:00,829 - __main__ - INFO - Processed 19 rows for ed-traefik
+2025-03-29 17:18:00,829 - __main__ - INFO - Processed 62 rows for umsapp
+2025-03-29 17:18:00,829 - __main__ - INFO - Parsing Checkov results for plausible from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/plausible_results.json
+2025-03-29 17:18:00,831 - __main__ - INFO - Parsing Checkov results for heimdall from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/heimdall_results.json
+2025-03-29 17:18:00,831 - __main__ - INFO - Parsing Checkov results for timesketch from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/timesketch_results.json
+2025-03-29 17:18:00,831 - __main__ - INFO - Processed 38 rows for zipkin
+2025-03-29 17:18:00,832 - __main__ - INFO - Processed 45 rows for ndb-operator
+2025-03-29 17:18:00,834 - __main__ - INFO - Processed 50 rows for scaleway-csi
+2025-03-29 17:18:00,855 - __main__ - INFO - Processing 165 failed checks for sorry-cypress
+2025-03-29 17:18:00,855 - __main__ - INFO - Processed 18 rows for pgbench
+2025-03-29 17:18:00,857 - __main__ - INFO - Processing 21 failed checks for test-helm-app2
+2025-03-29 17:18:00,857 - __main__ - INFO - Parsing Checkov results for cloudevents from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/cloudevents_results.json
+2025-03-29 17:18:00,857 - __main__ - INFO - Processed 34 rows for blueprint
+2025-03-29 17:18:00,857 - __main__ - INFO - Processed 19 rows for deploy-elibrary
+2025-03-29 17:18:00,858 - __main__ - INFO - Processed 21 rows for ed-deployment
+2025-03-29 17:18:00,867 - __main__ - INFO - Processing 22 failed checks for nexmonyx-backend
+2025-03-29 17:18:00,867 - __main__ - INFO - Parsing Checkov results for wg-access-server from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/wg-access-server_results.json
+2025-03-29 17:18:00,867 - __main__ - INFO - Parsing Checkov results for knative-serving from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/knative-serving_results.json
+2025-03-29 17:18:00,867 - __main__ - INFO - Processed 21 rows for bipeenhelm-chart
+2025-03-29 17:18:00,867 - __main__ - INFO - Parsing Checkov results for influxdb from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/influxdb_results.json
+2025-03-29 17:18:00,871 - __main__ - INFO - Processing 28 failed checks for test0
+2025-03-29 17:18:00,876 - __main__ - INFO - Processing 13 failed checks for jellyfin
+2025-03-29 17:18:00,876 - __main__ - INFO - Parsing Checkov results for tailscale-relay from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/tailscale-relay_results.json
+2025-03-29 17:18:00,877 - __main__ - INFO - Parsing Checkov results for mojeaplikace from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/mojeaplikace_results.json
+2025-03-29 17:18:00,877 - __main__ - INFO - Parsing Checkov results for pulse from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/pulse_results.json
+2025-03-29 17:18:00,877 - __main__ - INFO - Parsing Checkov results for tei from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/tei_results.json
+2025-03-29 17:18:00,882 - __main__ - INFO - Parsing Checkov results for ping-exporter from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/checkov/ping-exporter_results.json
+2025-03-29 17:18:00,882 - __main__ - INFO - Processing 24 failed checks for plausible
+2025-03-29 17:18:00,883 - __main__ - INFO - Parsing Datree results for deis-workflow from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/deis-workflow_results.json
+2025-03-29 17:18:00,883 - __main__ - INFO - Parsing Datree results for billing from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/billing_results.json
+2025-03-29 17:18:00,897 - __main__ - INFO - Processed 165 rows for sorry-cypress
+2025-03-29 17:18:00,900 - __main__ - INFO - Processing 19 failed checks for heimdall
+2025-03-29 17:18:00,905 - __main__ - INFO - Parsing Datree results for csi-s3 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/csi-s3_results.json
+2025-03-29 17:18:00,917 - __main__ - INFO - Processed 21 rows for test-helm-app2
+2025-03-29 17:18:00,925 - __main__ - INFO - Processing 95 failed checks for timesketch
+2025-03-29 17:18:00,925 - __main__ - INFO - Parsing Datree results for test-helm-app1 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/test-helm-app1_results.json
+2025-03-29 17:18:00,925 - __main__ - INFO - Parsing Datree results for mimir-openshift-experimental from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/mimir-openshift-experimental_results.json
+2025-03-29 17:18:00,933 - __main__ - INFO - Processing 4 failed checks for cloudevents
+2025-03-29 17:18:00,933 - __main__ - INFO - Parsing Datree results for squid from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/squid_results.json
+2025-03-29 17:18:00,933 - __main__ - INFO - Processed 22 rows for nexmonyx-backend
+2025-03-29 17:18:00,933 - __main__ - INFO - Parsing Datree results for horizon-satellite from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/horizon-satellite_results.json
+2025-03-29 17:18:00,934 - __main__ - INFO - No failed checks found in Checkov results for knative-serving
+2025-03-29 17:18:00,937 - __main__ - INFO - Processing 20 failed checks for wg-access-server
+2025-03-29 17:18:00,938 - __main__ - INFO - Processed 28 rows for test0
+2025-03-29 17:18:00,941 - __main__ - INFO - Processing 16 failed checks for influxdb
+2025-03-29 17:18:00,941 - __main__ - INFO - Processed 13 rows for jellyfin
+2025-03-29 17:18:00,946 - __main__ - INFO - Processing 27 failed checks for tailscale-relay
+2025-03-29 17:18:00,946 - __main__ - INFO - Processed 24 rows for plausible
+2025-03-29 17:18:00,950 - __main__ - INFO - Processing 38 failed checks for ping-exporter
+2025-03-29 17:18:00,952 - __main__ - INFO - Processing 36 failed checks for mojeaplikace
+2025-03-29 17:18:00,957 - __main__ - INFO - Processing 21 failed checks for pulse
+2025-03-29 17:18:00,957 - __main__ - INFO - Parsing Datree results for helmchart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/helmchart_results.json
+2025-03-29 17:18:00,960 - __main__ - INFO - Processing 17 failed checks for tei
+2025-03-29 17:18:00,968 - __main__ - INFO - Processing 7 rule results for deis-workflow
+2025-03-29 17:18:00,969 - __main__ - INFO - Processing 3 rule results for billing
+2025-03-29 17:18:00,969 - __main__ - INFO - Processed 19 rows for heimdall
+2025-03-29 17:18:00,969 - __main__ - INFO - Parsing Datree results for opensearch-cluster from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/opensearch-cluster_results.json
+2025-03-29 17:18:00,977 - __main__ - INFO - Processing 8 rule results for csi-s3
+2025-03-29 17:18:00,980 - __main__ - INFO - Processed 95 rows for timesketch
+2025-03-29 17:18:00,980 - __main__ - INFO - Processed 4 rows for cloudevents
+2025-03-29 17:18:00,980 - __main__ - INFO - Parsing Datree results for flagsmith from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/flagsmith_results.json
+2025-03-29 17:18:00,981 - __main__ - INFO - Processing 8 rule results for test-helm-app1
+2025-03-29 17:18:00,991 - __main__ - INFO - Parsing Datree results for oauth2-proxy from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/oauth2-proxy_results.json
+2025-03-29 17:18:00,995 - __main__ - INFO - Processing 4 rule results for squid
+2025-03-29 17:18:00,998 - __main__ - INFO - Processing 5 rule results for horizon-satellite
+2025-03-29 17:18:01,009 - __main__ - INFO - Processed 20 rows for wg-access-server
+2025-03-29 17:18:01,023 - __main__ - INFO - Parsing Datree results for ussigw-configuration from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ussigw-configuration_results.json
+2025-03-29 17:18:01,042 - __main__ - INFO - Processing 9 rule results for mimir-openshift-experimental
+2025-03-29 17:18:01,042 - __main__ - INFO - Processed 16 rows for influxdb
+2025-03-29 17:18:01,042 - __main__ - INFO - Parsing Datree results for pyspark-notebook from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/pyspark-notebook_results.json
+2025-03-29 17:18:01,042 - __main__ - INFO - Processed 27 rows for tailscale-relay
+2025-03-29 17:18:01,042 - __main__ - INFO - Parsing Datree results for thingsboard from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/thingsboard_results.json
+2025-03-29 17:18:01,043 - __main__ - INFO - Processed 38 rows for ping-exporter
+2025-03-29 17:18:01,043 - __main__ - INFO - Processed 36 rows for mojeaplikace
+2025-03-29 17:18:01,044 - __main__ - INFO - Processed 21 rows for pulse
+2025-03-29 17:18:01,044 - __main__ - INFO - Processed 17 rows for tei
+2025-03-29 17:18:01,044 - __main__ - INFO - Processed 11 rows for deis-workflow
+2025-03-29 17:18:01,048 - __main__ - INFO - Processing 8 rule results for helmchart
+2025-03-29 17:18:01,048 - __main__ - INFO - Processed 3 rows for billing
+2025-03-29 17:18:01,048 - __main__ - INFO - Parsing Datree results for traefik-hub from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/traefik-hub_results.json
+2025-03-29 17:18:01,048 - __main__ - INFO - Processed 15 rows for csi-s3
+2025-03-29 17:18:01,048 - __main__ - INFO - No policy results found in Datree output for opensearch-cluster
+2025-03-29 17:18:01,048 - __main__ - INFO - Parsing Datree results for myfirstchart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/myfirstchart_results.json
+2025-03-29 17:18:01,048 - __main__ - INFO - Parsing Datree results for ussigw-core from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ussigw-core_results.json
+2025-03-29 17:18:01,049 - __main__ - INFO - Processed 8 rows for test-helm-app1
+2025-03-29 17:18:01,049 - __main__ - INFO - Processed 4 rows for squid
+2025-03-29 17:18:01,059 - __main__ - INFO - Processed 5 rows for horizon-satellite
+2025-03-29 17:18:01,067 - __main__ - INFO - Processing 11 rule results for flagsmith
+2025-03-29 17:18:01,071 - __main__ - INFO - Processing 5 rule results for oauth2-proxy
+2025-03-29 17:18:01,071 - __main__ - INFO - Parsing Datree results for kubeauth.io from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/kubeauth.io_results.json
+2025-03-29 17:18:01,073 - __main__ - INFO - Processed 43 rows for mimir-openshift-experimental
+2025-03-29 17:18:01,077 - __main__ - INFO - Processing 6 rule results for ussigw-configuration
+2025-03-29 17:18:01,077 - __main__ - INFO - Parsing Datree results for rclone from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/rclone_results.json
+2025-03-29 17:18:01,077 - __main__ - INFO - Parsing Datree results for traefik-forward-auth-openid from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/traefik-forward-auth-openid_results.json
+2025-03-29 17:18:01,083 - __main__ - INFO - Processing 4 rule results for pyspark-notebook
+2025-03-29 17:18:01,084 - __main__ - INFO - Parsing Datree results for log2rbac-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/log2rbac-operator_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Processing 7 rule results for thingsboard
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for identity-manager-demo from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/identity-manager-demo_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for meerschaum from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/meerschaum_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for ed-cron from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ed-cron_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for pages from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/pages_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Processed 12 rows for helmchart
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for ed-nginx from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ed-nginx_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for cloud-native-pg from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/cloud-native-pg_results.json
+2025-03-29 17:18:01,096 - __main__ - INFO - Parsing Datree results for otel-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/otel-operator_results.json
+2025-03-29 17:18:01,114 - __main__ - INFO - Processing 5 rule results for myfirstchart
+2025-03-29 17:18:01,117 - __main__ - INFO - Processing 3 rule results for traefik-hub
+2025-03-29 17:18:01,117 - __main__ - INFO - Parsing Datree results for tenant-insights from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/tenant-insights_results.json
+2025-03-29 17:18:01,122 - __main__ - INFO - Processing 6 rule results for ussigw-core
+2025-03-29 17:18:01,122 - __main__ - INFO - Parsing Datree results for sealed-secrets-ui from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/sealed-secrets-ui_results.json
+2025-03-29 17:18:01,122 - __main__ - INFO - Parsing Datree results for service-presets from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/service-presets_results.json
+2025-03-29 17:18:01,122 - __main__ - INFO - Processed 30 rows for flagsmith
+2025-03-29 17:18:01,123 - __main__ - INFO - Processed 5 rows for oauth2-proxy
+2025-03-29 17:18:01,123 - __main__ - INFO - Parsing Datree results for cp4d-deployer from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/cp4d-deployer_results.json
+2025-03-29 17:18:01,141 - __main__ - INFO - Processing 7 rule results for kubeauth.io
+2025-03-29 17:18:01,141 - __main__ - INFO - Processed 12 rows for ussigw-configuration
+2025-03-29 17:18:01,141 - __main__ - INFO - Processed 4 rows for pyspark-notebook
+2025-03-29 17:18:01,146 - __main__ - INFO - Processing 4 rule results for traefik-forward-auth-openid
+2025-03-29 17:18:01,147 - __main__ - INFO - Processed 11 rows for thingsboard
+2025-03-29 17:18:01,147 - __main__ - INFO - No policy results found in Datree output for log2rbac-operator
+2025-03-29 17:18:01,148 - __main__ - INFO - Processing 6 rule results for rclone
+2025-03-29 17:18:01,148 - __main__ - INFO - No policy results found in Datree output for identity-manager-demo
+2025-03-29 17:18:01,149 - __main__ - INFO - Parsing Datree results for tfy-inferentia-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/tfy-inferentia-operator_results.json
+2025-03-29 17:18:01,153 - __main__ - INFO - Processing 5 rule results for meerschaum
+2025-03-29 17:18:01,154 - __main__ - INFO - Processing 7 rule results for ed-cron
+2025-03-29 17:18:01,163 - __main__ - INFO - Processing 9 rule results for pages
+2025-03-29 17:18:01,163 - __main__ - INFO - No policy results found in Datree output for cloud-native-pg
+2025-03-29 17:18:01,164 - __main__ - INFO - Processed 5 rows for myfirstchart
+2025-03-29 17:18:01,164 - __main__ - INFO - No policy results found in Datree output for otel-operator
+2025-03-29 17:18:01,164 - __main__ - INFO - Processed 3 rows for traefik-hub
+2025-03-29 17:18:01,171 - __main__ - INFO - Processing 6 rule results for ed-nginx
+2025-03-29 17:18:01,171 - __main__ - INFO - Processed 12 rows for ussigw-core
+2025-03-29 17:18:01,171 - __main__ - INFO - No policy results found in Datree output for tenant-insights
+2025-03-29 17:18:01,171 - __main__ - INFO - Parsing Datree results for terraform-enterprise from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/terraform-enterprise_results.json
+2025-03-29 17:18:01,171 - __main__ - INFO - No policy results found in Datree output for sealed-secrets-ui
+2025-03-29 17:18:01,171 - __main__ - INFO - Parsing Datree results for ed-traefik2 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ed-traefik2_results.json
+2025-03-29 17:18:01,171 - __main__ - INFO - No policy results found in Datree output for service-presets
+2025-03-29 17:18:01,175 - __main__ - INFO - Processed 27 rows for kubeauth.io
+2025-03-29 17:18:01,175 - __main__ - INFO - No policy results found in Datree output for cp4d-deployer
+2025-03-29 17:18:01,175 - __main__ - INFO - Parsing Datree results for vault-dev from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/vault-dev_results.json
+2025-03-29 17:18:01,175 - __main__ - INFO - Parsing Datree results for akaunting from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/akaunting_results.json
+2025-03-29 17:18:01,175 - __main__ - INFO - Processed 4 rows for traefik-forward-auth-openid
+2025-03-29 17:18:01,175 - __main__ - INFO - Parsing Datree results for stock-x from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/stock-x_results.json
+2025-03-29 17:18:01,175 - __main__ - INFO - Parsing Datree results for instant-chart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/instant-chart_results.json
+2025-03-29 17:18:01,175 - __main__ - INFO - Processed 6 rows for rclone
+2025-03-29 17:18:01,175 - __main__ - INFO - Parsing Datree results for umsapp from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/umsapp_results.json
+2025-03-29 17:18:01,176 - __main__ - INFO - Processed 5 rows for meerschaum
+2025-03-29 17:18:01,176 - __main__ - INFO - No policy results found in Datree output for tfy-inferentia-operator
+2025-03-29 17:18:01,176 - __main__ - INFO - Processed 7 rows for ed-cron
+2025-03-29 17:18:01,176 - __main__ - INFO - Processed 38 rows for pages
+2025-03-29 17:18:01,176 - __main__ - INFO - Parsing Datree results for akto from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/akto_results.json
+2025-03-29 17:18:01,176 - __main__ - INFO - Parsing Datree results for blackduck-alert from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/blackduck-alert_results.json
+2025-03-29 17:18:01,176 - __main__ - INFO - Parsing Datree results for grpc-web from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/grpc-web_results.json
+2025-03-29 17:18:01,177 - __main__ - INFO - Parsing Datree results for ed-traefik from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ed-traefik_results.json
+2025-03-29 17:18:01,177 - __main__ - INFO - Processed 6 rows for ed-nginx
+2025-03-29 17:18:01,177 - __main__ - INFO - Parsing Datree results for zipkin from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/zipkin_results.json
+2025-03-29 17:18:01,177 - __main__ - INFO - Parsing Datree results for scaleway-csi from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/scaleway-csi_results.json
+2025-03-29 17:18:01,181 - __main__ - INFO - Processing 8 rule results for terraform-enterprise
+2025-03-29 17:18:01,181 - __main__ - INFO - Parsing Datree results for ndb-operator from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ndb-operator_results.json
+2025-03-29 17:18:01,181 - __main__ - INFO - Parsing Datree results for pgbench from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/pgbench_results.json
+2025-03-29 17:18:01,186 - __main__ - INFO - Processing 2 rule results for ed-traefik2
+2025-03-29 17:18:01,186 - __main__ - INFO - Parsing Datree results for blueprint from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/blueprint_results.json
+2025-03-29 17:18:01,187 - __main__ - INFO - Parsing Datree results for ed-deployment from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ed-deployment_results.json
+2025-03-29 17:18:01,189 - __main__ - INFO - Processing 5 rule results for vault-dev
+2025-03-29 17:18:01,189 - __main__ - INFO - Parsing Datree results for deploy-elibrary from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/deploy-elibrary_results.json
+2025-03-29 17:18:01,205 - __main__ - INFO - Processing 7 rule results for akaunting
+2025-03-29 17:18:01,207 - __main__ - INFO - Processing 7 rule results for stock-x
+2025-03-29 17:18:01,207 - __main__ - INFO - No policy results found in Datree output for instant-chart
+2025-03-29 17:18:01,207 - __main__ - INFO - Parsing Datree results for bipeenhelm-chart from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/bipeenhelm-chart_results.json
+2025-03-29 17:18:01,207 - __main__ - INFO - Parsing Datree results for sorry-cypress from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/sorry-cypress_results.json
+2025-03-29 17:18:01,207 - __main__ - INFO - Parsing Datree results for test-helm-app2 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/test-helm-app2_results.json
+2025-03-29 17:18:01,215 - __main__ - INFO - Parsing Datree results for nexmonyx-backend from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/nexmonyx-backend_results.json
+2025-03-29 17:18:01,217 - __main__ - INFO - Processing 11 rule results for umsapp
+2025-03-29 17:18:01,217 - __main__ - INFO - Parsing Datree results for test0 from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/test0_results.json
+2025-03-29 17:18:01,228 - __main__ - INFO - Parsing Datree results for jellyfin from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/jellyfin_results.json
+2025-03-29 17:18:01,233 - __main__ - INFO - Processing 6 rule results for akto
+2025-03-29 17:18:01,246 - __main__ - INFO - Processing 7 rule results for ed-traefik
+2025-03-29 17:18:01,253 - __main__ - INFO - Processing 1 rule results for grpc-web
+2025-03-29 17:18:01,253 - __main__ - INFO - Processed 8 rows for terraform-enterprise
+2025-03-29 17:18:01,258 - __main__ - INFO - Processing 7 rule results for blackduck-alert
+2025-03-29 17:18:01,270 - __main__ - INFO - Processing 5 rule results for zipkin
+2025-03-29 17:18:01,284 - __main__ - INFO - Processing 8 rule results for ndb-operator
+2025-03-29 17:18:01,296 - __main__ - INFO - Processed 2 rows for ed-traefik2
+2025-03-29 17:18:01,307 - __main__ - INFO - Processing 8 rule results for scaleway-csi
+2025-03-29 17:18:01,310 - __main__ - INFO - Processing 7 rule results for pgbench
+2025-03-29 17:18:01,310 - __main__ - INFO - Processed 5 rows for vault-dev
+2025-03-29 17:18:01,314 - __main__ - INFO - Processing 9 rule results for blueprint
+2025-03-29 17:18:01,314 - __main__ - INFO - Processed 10 rows for akaunting
+2025-03-29 17:18:01,315 - __main__ - INFO - Processing 7 rule results for ed-deployment
+2025-03-29 17:18:01,316 - __main__ - INFO - Processed 7 rows for stock-x
+2025-03-29 17:18:01,316 - __main__ - INFO - Processing 7 rule results for deploy-elibrary
+2025-03-29 17:18:01,316 - __main__ - INFO - Parsing Datree results for plausible from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/plausible_results.json
+2025-03-29 17:18:01,318 - __main__ - INFO - Processing 8 rule results for bipeenhelm-chart
+2025-03-29 17:18:01,319 - __main__ - INFO - Processing 8 rule results for test-helm-app2
+2025-03-29 17:18:01,319 - __main__ - INFO - Processed 21 rows for umsapp
+2025-03-29 17:18:01,319 - __main__ - INFO - No policy results found in Datree output for nexmonyx-backend
+2025-03-29 17:18:01,341 - __main__ - INFO - Processed 23 rows for akto
+2025-03-29 17:18:01,341 - __main__ - INFO - Processing 12 rule results for sorry-cypress
+2025-03-29 17:18:01,346 - __main__ - INFO - Processing 2 rule results for jellyfin
+2025-03-29 17:18:01,346 - __main__ - INFO - Processed 7 rows for ed-traefik
+2025-03-29 17:18:01,350 - __main__ - INFO - Processing 5 rule results for test0
+2025-03-29 17:18:01,350 - __main__ - INFO - Processed 1 rows for grpc-web
+2025-03-29 17:18:01,351 - __main__ - INFO - Parsing Datree results for heimdall from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/heimdall_results.json
+2025-03-29 17:18:01,351 - __main__ - INFO - Processed 24 rows for blackduck-alert
+2025-03-29 17:18:01,351 - __main__ - INFO - Processed 10 rows for zipkin
+2025-03-29 17:18:01,352 - __main__ - INFO - Processed 14 rows for ndb-operator
+2025-03-29 17:18:01,352 - __main__ - INFO - Parsing Datree results for timesketch from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/timesketch_results.json
+2025-03-29 17:18:01,352 - __main__ - INFO - Processed 14 rows for scaleway-csi
+2025-03-29 17:18:01,352 - __main__ - INFO - Processed 7 rows for pgbench
+2025-03-29 17:18:01,352 - __main__ - INFO - Parsing Datree results for cloudevents from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/cloudevents_results.json
+2025-03-29 17:18:01,353 - __main__ - INFO - Processed 12 rows for blueprint
+2025-03-29 17:18:01,353 - __main__ - INFO - Parsing Datree results for wg-access-server from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/wg-access-server_results.json
+2025-03-29 17:18:01,353 - __main__ - INFO - Processed 7 rows for ed-deployment
+2025-03-29 17:18:01,353 - __main__ - INFO - Parsing Datree results for knative-serving from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/knative-serving_results.json
+2025-03-29 17:18:01,353 - __main__ - INFO - Processed 7 rows for deploy-elibrary
+2025-03-29 17:18:01,353 - __main__ - INFO - Processed 8 rows for bipeenhelm-chart
+2025-03-29 17:18:01,358 - __main__ - INFO - Processing 5 rule results for plausible
+2025-03-29 17:18:01,359 - __main__ - INFO - Processed 8 rows for test-helm-app2
+2025-03-29 17:18:01,359 - __main__ - INFO - Parsing Datree results for influxdb from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/influxdb_results.json
+2025-03-29 17:18:01,359 - __main__ - INFO - Parsing Datree results for tailscale-relay from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/tailscale-relay_results.json
+2025-03-29 17:18:01,359 - __main__ - INFO - Parsing Datree results for mojeaplikace from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/mojeaplikace_results.json
+2025-03-29 17:18:01,360 - __main__ - INFO - Processed 61 rows for sorry-cypress
+2025-03-29 17:18:01,360 - __main__ - INFO - Processed 2 rows for jellyfin
+2025-03-29 17:18:01,360 - __main__ - INFO - Parsing Datree results for pulse from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/pulse_results.json
+2025-03-29 17:18:01,360 - __main__ - INFO - Processed 10 rows for test0
+2025-03-29 17:18:01,361 - __main__ - INFO - Parsing Datree results for tei from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/tei_results.json
+2025-03-29 17:18:01,361 - __main__ - INFO - Parsing Datree results for ping-exporter from /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/tools_output/datree/ping-exporter_results.json
+2025-03-29 17:18:01,364 - __main__ - INFO - Processing 5 rule results for heimdall
+2025-03-29 17:18:01,401 - __main__ - INFO - Processing 9 rule results for timesketch
+2025-03-29 17:18:01,410 - __main__ - INFO - Processing 7 rule results for wg-access-server
+2025-03-29 17:18:01,410 - __main__ - INFO - No policy results found in Datree output for knative-serving
+2025-03-29 17:18:01,412 - __main__ - INFO - Processing 1 rule results for cloudevents
+2025-03-29 17:18:01,413 - __main__ - INFO - Processed 9 rows for plausible
+2025-03-29 17:18:01,417 - __main__ - INFO - Processing 7 rule results for tailscale-relay
+2025-03-29 17:18:01,420 - __main__ - INFO - Processing 6 rule results for influxdb
+2025-03-29 17:18:01,423 - __main__ - INFO - Processing 7 rule results for mojeaplikace
+2025-03-29 17:18:01,424 - __main__ - INFO - Processed 5 rows for heimdall
+2025-03-29 17:18:01,427 - __main__ - INFO - Processing 5 rule results for tei
+2025-03-29 17:18:01,431 - __main__ - INFO - Processing 8 rule results for ping-exporter
+2025-03-29 17:18:01,432 - __main__ - INFO - Processed 27 rows for timesketch
+2025-03-29 17:18:01,432 - __main__ - INFO - Processed 7 rows for wg-access-server
+2025-03-29 17:18:01,436 - __main__ - INFO - Processing 7 rule results for pulse
+2025-03-29 17:18:01,437 - __main__ - INFO - Processed 1 rows for cloudevents
+2025-03-29 17:18:01,437 - __main__ - INFO - Processed 7 rows for tailscale-relay
+2025-03-29 17:18:01,437 - __main__ - INFO - Processed 6 rows for influxdb
+2025-03-29 17:18:01,437 - __main__ - INFO - Processed 11 rows for mojeaplikace
+2025-03-29 17:18:01,437 - __main__ - INFO - Processed 5 rows for tei
+2025-03-29 17:18:01,438 - __main__ - INFO - Processed 12 rows for ping-exporter
+2025-03-29 17:18:01,438 - __main__ - INFO - Processed 7 rows for pulse
+2025-03-29 17:18:01,439 - __main__ - INFO - Total failed checks found: 2981
+2025-03-29 17:18:01,439 - __main__ - INFO - Saving failed checks to /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/results/failed_checks.csv
+2025-03-29 17:18:01,486 - __main__ - INFO - Successfully saved 2981 rows to /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/results/failed_checks.csv
+2025-03-29 17:18:01,486 - __main__ - INFO - Building queries from failed checks
+2025-03-29 17:18:01,486 - __main__ - INFO - Building queries from 2981 rows
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for traefik-hub - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for helmchart - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for ussigw-configuration - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for deis-workflow - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for test-helm-app1 - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for thingsboard - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for thingsboard - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for pyspark-notebook - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for horizon-satellite - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for billing - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for oauth2-proxy - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for myfirstchart - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV_K8S_32 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for flagsmith - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for flagsmith - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for flagsmith - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for ussigw-core - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for squid - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for csi-s3 - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,486 - __main__ - WARNING - Skipping query for csi-s3 - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for traefik-forward-auth-openid - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for kubeauth.io - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for kubeauth.io - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for kubeauth.io - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for kubeauth.io - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for log2rbac-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for identity-manager-demo - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for pages - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for pages - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for meerschaum - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for ed-nginx - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for sealed-secrets-ui - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for service-presets - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for cp4d-deployer - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for tfy-inferentia-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for tfy-inferentia-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for tfy-inferentia-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for terraform-enterprise - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for ed-traefik2 - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for otel-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for vault-dev - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for stock-x - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for akaunting - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for akaunting - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for blackduck-alert - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for blackduck-alert - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for blackduck-alert - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for blackduck-alert - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for akto - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for akto - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for akto - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for akto - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for ed-traefik - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,487 - __main__ - WARNING - Skipping query for umsapp - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for umsapp - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for zipkin - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for zipkin - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for ndb-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for ndb-operator - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for scaleway-csi - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for scaleway-csi - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for blueprint - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for deploy-elibrary - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for ed-deployment - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for bipeenhelm-chart - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for sorry-cypress - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for sorry-cypress - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for sorry-cypress - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for sorry-cypress - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for sorry-cypress - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for test-helm-app2 - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for nexmonyx-backend - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for jellyfin - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for plausible - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for plausible - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for heimdall - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for timesketch - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for timesketch - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for timesketch - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for wg-access-server - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for influxdb - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for tailscale-relay - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for ping-exporter - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for mojeaplikace - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for pulse - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,488 - __main__ - WARNING - Skipping query for tei - CKV2_K8S_6 due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for mimir-openshift-experimental - CONTAINERS_INCORRECT_KEY_HOSTPATH due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - DEPLOYMENT_INCORRECT_REPLICAS_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - DEPLOYMENT_INCORRECT_REPLICAS_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - DEPLOYMENT_INCORRECT_REPLICAS_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_REQUEST_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_REQUEST_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_REQUEST_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_REQUEST_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_LIMIT_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_LIMIT_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_LIMIT_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_MEMORY_LIMIT_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_KEY_HOSTPORT due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_KEY_HOSTPORT due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_KEY_HOSTPORT due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for kubeauth.io - CONTAINERS_INCORRECT_KEY_HOSTPORT due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_LIVENESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_LIVENESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_IMAGE_VALUE_VERSION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_IMAGE_VALUE_VERSION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for test0 - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for influxdb - DEPLOYMENT_INCORRECT_REPLICAS_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for influxdb - CONTAINERS_MISSING_LIVENESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for influxdb - CONTAINERS_MISSING_READINESSPROBE_KEY due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for influxdb - CONTAINERS_MISSING_IMAGE_VALUE_VERSION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for influxdb - CONTAINERS_INCORRECT_READONLYROOTFILESYSTEM_VALUE due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - WARNING - Skipping query for influxdb - CONTAINERS_MISSING_KEY_ALLOWPRIVILEGEESCALATION due to missing YAML
+2025-03-29 17:18:01,489 - __main__ - INFO - Built 2838 queries
+2025-03-29 17:18:01,489 - __main__ - INFO - Saving 2838 queries to /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/results/llm_queries.csv
+2025-03-29 17:18:01,536 - __main__ - INFO - Successfully saved 2838 rows to /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/results/llm_queries.csv
+2025-03-29 17:18:01,537 - __main__ - INFO - Processing completed successfully

@@ -1,0 +1,269 @@
+---
+# Source: grpc-web/templates/base.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: grpc-web
+  labels: 
+    app.kubernetes.io/name: grpc-web
+    helm.sh/chart: grpc-web-0.13.1
+    app.kubernetes.io/instance: grpc-web
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+automountServiceAccountToken: false
+---
+# Source: grpc-web/templates/base.yaml
+apiVersion: v1
+kind: Service
+metadata:  
+    name: grpc-web
+    labels:
+      app.kubernetes.io/name: grpc-web
+      helm.sh/chart: grpc-web-0.13.1
+      app.kubernetes.io/instance: grpc-web
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/version: "1.0.0"
+      app.kubernetes.io/part-of: shortlink
+      track: stable
+spec:
+  type: ClusterIP
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: http
+      port: 7070
+      targetPort: http
+      protocol: TCP
+      # kubectl explain Service.spec.ports.appProtocol
+      appProtocol: 
+  selector:    
+    app.kubernetes.io/name: grpc-web
+    app.kubernetes.io/instance: grpc-web
+---
+# Source: grpc-web/templates/base.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:  
+    name: grpc-web-preview
+    labels:
+      app.kubernetes.io/name: grpc-web
+      helm.sh/chart: grpc-web-0.13.1
+      app.kubernetes.io/instance: grpc-web
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/version: "1.0.0"
+      app.kubernetes.io/part-of: shortlink
+      track: stable
+spec:
+  type: ClusterIP
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: http
+      port: 7070
+      targetPort: http
+      protocol: TCP
+      # kubectl explain Service.spec.ports.appProtocol
+      appProtocol: 
+  selector:    
+    app.kubernetes.io/name: grpc-web
+    app.kubernetes.io/instance: grpc-web
+---
+# Source: grpc-web/templates/base.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grpc-web
+  labels:
+    app.kubernetes.io/name: grpc-web
+    helm.sh/chart: grpc-web-0.13.1
+    app.kubernetes.io/instance: grpc-web
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /grpc(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: shortlink-api-grpc-web
+                port:
+                  number: 7070
+      host: shortlink.best
+---
+# Source: grpc-web/templates/base.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: grpc-web
+  labels:
+    app.kubernetes.io/name: grpc-web
+    helm.sh/chart: grpc-web-0.13.1
+    app.kubernetes.io/instance: grpc-web
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+    null
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    canary:
+      stableService: grpc-web
+      canaryService: grpc-web-preview
+      # The minimum number of pods that will be requested for each ReplicaSet
+      # when using traffic routed canary. This is to ensure high availability
+      # of each ReplicaSet.
+      minPodsPerReplicaSet: 1
+      dynamicStableScale: true
+      trafficRouting:
+        nginx:
+          # Reference to an Ingress which has a rule pointing to the stable service (e.g. rollouts-demo-stable)
+          # This ingress will be cloned with a new name, in order to achieve NGINX traffic splitting.
+          stableIngress: grpc-web
+      steps:
+      - setWeight: 100
+  selector:
+    matchLabels:      
+      app.kubernetes.io/name: grpc-web
+      app.kubernetes.io/instance: grpc-web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: grpc-web
+        helm.sh/chart: grpc-web-0.13.1
+        app.kubernetes.io/instance: grpc-web
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: "1.0.0"
+        app.kubernetes.io/part-of: shortlink
+        track: stable
+    spec:
+      terminationGracePeriodSeconds: 60
+      automountServiceAccountToken: true
+      serviceAccountName: grpc-web
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      
+      containers:      
+      - name: application
+        # -- Security Context policies for controller pods
+        # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+        # notes on enabling and using sysctls
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          # runAsUser is the user ID used to run the container
+          runAsUser: 1000
+          # runAsGroup is the primary group ID used to run all processes within any container of the pod
+          runAsGroup: 1000
+          # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+        image: "registry.gitlab.com/shortlink-org/shortlink/api-grpc-web:0.17.93"
+        # -- Global imagePullPolicy
+        # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+        # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: http
+            containerPort: 7070
+            protocol: TCP
+          - name: metrics
+            containerPort: 9090
+            protocol: TCP
+        # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          terminationGracePeriodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+          timeoutSeconds: 5
+        # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 9090
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+          timeoutSeconds: 5
+        env:
+          - name: AUTH_URI
+            value: "https://shortlink.best/api/auth"
+          - name: GRPC_CLIENT_HOST
+            value: "istio-ingress.istio-ingress"
+          - name: MQ_ENABLED
+            value: "false"
+          - name: MQ_TYPE
+            value: "kafka"
+          - name: SPICE_DB_API
+            value: "shortlink.spicedb-operator:50051"
+          - name: TRACER_URI
+            value: "grafana-tempo.grafana:4317"
+        resources:
+          # -- We usually recommend not specifying default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 15m
+            memory: 64Mi
+        
+      # -- Node labels and tolerations for pod assignment
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+---
+# Source: grpc-web/templates/base.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grpc-web
+  labels:
+    release: prometheus-operator
+    app.kubernetes.io/name: grpc-web
+    helm.sh/chart: grpc-web-0.13.1
+    app.kubernetes.io/instance: grpc-web
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grpc-web
+      app.kubernetes.io/instance: grpc-web
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: metrics
+  targetLabels:
+    - app.kubernetes.io/name
+    - helm.sh/chart

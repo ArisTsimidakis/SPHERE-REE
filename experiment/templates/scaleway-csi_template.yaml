@@ -1,0 +1,1018 @@
+---
+# Source: scaleway-csi/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: scaleway-csi
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: scaleway-csi/templates/controller/scaleway-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: scaleway-csi-secret
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+stringData:
+  SCW_ACCESS_KEY: ABCDEFGHIJKLMNOPQRST
+  SCW_DEFAULT_PROJECT_ID: 11111111-1111-1111-1111-111111111111
+  SCW_DEFAULT_ZONE: fr-par-1
+  SCW_SECRET_KEY: 11111111-1111-1111-1111-111111111111
+---
+# Source: scaleway-csi/templates/controller/validatingwebhookconfiguration.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: scaleway-csi-webhook
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+type: kubernetes.io/tls
+data:
+  tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURaekNDQWsrZ0F3SUJBZ0lSQUxDbHQ0UGVkV015WlVDU1AwWlpwemt3RFFZSktvWklodmNOQVFFTEJRQXcKSWpFZ01CNEdBMVVFQXhNWGMyTmhiR1YzWVhrdFkzTnBMWGRsWW1odmIyc3RZMkV3SGhjTk1qVXdNekk1TVRZeApOVEEzV2hjTk1qWXdNekk1TVRZeE5UQTNXakFmTVIwd0d3WURWUVFERXhSelkyRnNaWGRoZVMxamMya3RkMlZpCmFHOXZhekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFQbHBjL3RNS0VsWDdWR0MKTzJNOCtwQW92YzVDTWxYNzRSRFRjYzVyUHJORzlJVm5leTdlcUFoT0c1L2tMaXFwVU5QTWkrcmhyWkhuNEQzdgpMMysvUHlZNi9mSi9mNG1WZWN5Yk9xdDJLckQ2WjBtSHRtejRzKzI4NlVWcjQ1V0I2alFxV0I5cVdqKzZ1bmU2CmVpVXBWNWRZVjFvdGw4b1o1QUhWSnBadXVlWFluZlJON0U3NGJXckkvNklCR016UXhsbnhGejI0NEpEem5PcisKbFZ1NEhMM3d0RHRCajFDTElKemk3TWRBUmVxcjFoRzBYaGRvczNwclBBYWswQXR6clNzUG8yUS9Bd2IyNXhGSQpFOG95L1BEUklVWCtxTmdCUHJDeUJ0VHR4SUhTU1BKeG5WRHk4ZEFwM3h5NWQwK1JiZ3I4cExUZFZOUnczcEtQCmQwZUhLU2tDQXdFQUFhT0JtakNCbHpBT0JnTlZIUThCQWY4RUJBTUNCYUF3SFFZRFZSMGxCQll3RkFZSUt3WUIKQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQXdHQTFVZEV3RUIvd1FDTUFBd0h3WURWUjBqQkJnd0ZvQVViQlI3SGRIUQpNVlU0ejIxS0FzV3dDRzNsTTJVd053WURWUjBSQkRBd0xvSXNjMk5oYkdWM1lYa3RZM05wTFhOdVlYQnphRzkwCkxYWmhiR2xrWVhScGIyNHVaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUprT29BUW0Ka3dMdWwwOEtkRWQwK3VNZ1FER0hHOTNXU0J6VHIvRTFZazdaclB1OThRbHMwSzYxYjM5OXEveWtqNnpjdnFiZAplcEpEaFNIV2xXd1IreFR1Y1grNDlKQ1M2L3JjN3pMbmxqTmlFRjI1Z0JHNmI2WjMxT2ZpdjF2eG50cXoyeW03CnFFSTBaM1NpTStjWU1SZ2xTVWFxdzNBQmV3bXQxWlVMNDUreVdHdVB1M2NJSDBhSW1nZjZsMmlSTkF0OVVSMkUKYVJnN1pzaVk1N1ZPWmQ4b3E0c2N0STNCUWxwbUREVWJzVHozNWVsSTFVZytnYzg4b3hkbmhib3ZneTdmNmkrTwo1NlJuQVdha0VyeVFZSUFaMllONUppU2N6WVNxU3U0c2doanFIckIrWC9qVFRpZVVXZzc0THpFUUFlMWtvRU42ClFBTDA0bTdwd2MwV1I2VT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+  tls.key: "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBK1dseiswd29TVmZ0VVlJN1l6ejZrQ2k5emtJeVZmdmhFTk54em1zK3MwYjBoV2Q3Ckx0Nm9DRTRibitRdUtxbFEwOHlMNnVHdGtlZmdQZTh2Zjc4L0pqcjk4bjkvaVpWNXpKczZxM1lxc1BwblNZZTIKYlBpejdienBSV3ZqbFlIcU5DcFlIMnBhUDdxNmQ3cDZKU2xYbDFoWFdpMlh5aG5rQWRVbWxtNjU1ZGlkOUUzcwpUdmh0YXNqL29nRVl6TkRHV2ZFWFBiamdrUE9jNnY2Vlc3Z2N2ZkMwTzBHUFVJc2duT0xzeDBCRjZxdldFYlJlCkYyaXplbXM4QnFUUUMzT3RLdytqWkQ4REJ2Ym5FVWdUeWpMODhORWhSZjZvMkFFK3NMSUcxTzNFZ2RKSThuR2QKVVBMeDBDbmZITGwzVDVGdUN2eWt0TjFVMUhEZWtvOTNSNGNwS1FJREFRQUJBb0lCQVFEYjZnbWtHT0NrMnV5YwpKQkt0VEFVNnUxR3czbGwzeTJJRjdncTVFWUwxbktqYVFBWXpxNHZKMXVVd3RJZW9naWFNdWh6Yy9DU0pORVZiCkZ0MXc3SGFJQlJnSmpEWXVZQ2hIS3RBdWcwRGRUODFtM2swU0JMRFIvUEpLamZqYnlQTnpENnNuK0NTZmNNd2QKNmNUdG8yaGlRRGkxZ09JSUI1QXR0WDRTd29zVGg1RUtMbDNRUHJjVUxLWGh1NklsMVJGbmRhRGRkQWI0WXFsTApFcmMwV016SzFDRk1jSnpNQlhHRStJTEQraUZLbWhBL3pCbGw4dSsxTGZzM1pWTHJvTmhpcnhwb21Zc2JQckZ1CldSV0swQlhDcVIwN3NWUzVyVTEzMXF6MDRMaHFyclNzeTZJL3lScmxBSHZHOVFnSThkS1FaRHIzSGRIR1R5R2MKN1BVS1V2a0pBb0dCQVBsd1dveWE0bTZTVWgvNXNrUWdpejFzak01WS9nL0IvUHcyS2xhQmZXK3lXMlpIakE2YwpFN0MvblFPYTlTYkV5elVmQUZMTG56Qi8xNmlXamh2U1ZZNTI3Tlp0Ry9MSkFSODhndnpQalpmRk8yamR6akdjCkRGMVgwZ21jMUN3eS9tWmZlZXJVbnRBWWRrck83dTlDK3MxMVM3S1h0ek0rajUvWWNUaCtocDgvQW9HQkFQLzQKNnZjb2lNRzl1KzR2eGwyRGNDVzNhUXpWYnRZL01IWFFuNjBmYlk0MFNzZTNYSzZOMS9IMVBYRUxFRDFRWDh2bgpQdE9DOHlPRWhnU1lYN3prb3MxeXVRZmFJektaUkNFSUk3V0xCcVNmejJJczJYdUpMSHQzZGNKK3hWOU50TkNkCjFETEViN3A4YTR6NFZJYWZiaTZxelQxT0dUZkRIYzRzdHVZdFBRV1hBb0dBQWxKYlpXZWpwK2ZRdjk5eEcxVTYKTm80bUdWMldyOHJjY2ZTSEhGc0VNZC8xSGRTWXB5SW94TUpqMGI3RmZXRGppMUVJamJ5N2RKWWNDY09zK3ZGUQpQbzA0MHg0YzNudWtlUWYxS0NrK1ppVTkwbElPTTBRQ2tYUFp6cUVaRUhoQkNlN2xrWnY5Qm03VDJ3cG1DdkFTCnFZcm44M2VhQ3U0UUpDcTlrd3NLY2IwQ2dZRUEyUDhtQWQwbEFrbGNkZkdlVWt4STJGQ0NCOVV3SHdSMmlvb1AKczIzL0xCeDhnSTZiVFljRjJDSzBzWTVWZUFVWkVQeTZzQWhGSW9rSUxBRVl1RU9ER0hQM0ZBY0M2N1F1bzJvSgpDN0FPTTZVZTQvVnRjV0s2aVBpZXBnRmVSUXJWREQyZ1ZHRmU3bExud2h3TFhBendGVFBLeGZ2ZE9QNTUxL3prCkdJR2xSNFVDZ1lFQXNwYUtldXhMMFl4aW1FT3dta1ozSXhTRFdKUUptN1FsTzMwZVBlclJ6Q29wWFREeldsaEcKR2d4Vys4Tm1HWDIxUWtVQ3R5RURzSlIrdVpucXBSUjNSay9uMmRrY21tVVM5UXhIRXo1TFVrNmpBVWx5LzMxaApYOVZpS0orOEFneVZCdHBSWFEwS3NsT2tjUVk4TnZpRmV4aEpsL01qV0x1eDdmbDlra25zakp3PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+  ca.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNRENDQWhpZ0F3SUJBZ0lSQUxtazJNTzFvRWlDTnp3clRyczJLekl3RFFZSktvWklodmNOQVFFTEJRQXcKSWpFZ01CNEdBMVVFQXhNWGMyTmhiR1YzWVhrdFkzTnBMWGRsWW1odmIyc3RZMkV3SGhjTk1qVXdNekk1TVRZeApOVEEzV2hjTk1qWXdNekk1TVRZeE5UQTNXakFpTVNBd0hnWURWUVFERXhkelkyRnNaWGRoZVMxamMya3RkMlZpCmFHOXZheTFqWVRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSzJOdFRoZ2ZoamoKU3VwWFhEcFRyV1hwNS9yaG0zUzZpRVl5YW9rdHJ6NUw1cHNDR3pyRjIxZCsyVEhwbENmbnRtdEpzL3lyRUVIbwpEWUNNR2VpTDhacWZKcUpGc3pjNXErbS9XaE1mTHkwZWRIUEpuMlV0NWRjR2xzMXhhQk00L0dzS0ZzK0FUL2dyCkI5UGxZWnZ2Nk56Y2ZNRGNJaCtYU1dsR0ZHcmVlU3lGRE9BbytCa2MrL09MTHI4NnkwYnZEbjV1eTFOUUpQaWgKMGhzb2lFb1NnSEVjQ1Y5REVuSXZTek9rNm1OcjRGWGcrb2JKTlhtbTlPZ3BYZk84eVdmZWxKbFNMcUMvdFVZNQo4YXNLTEVySHFzOHhqanJpbUNpNUlydEdtT2R4QUMycXkzUFpFRS85ZEpJZjhTb0kzR1MrSFZTMTBXYzZiMlVoCjlQbWJSMysvTExrQ0F3RUFBYU5oTUY4d0RnWURWUjBQQVFIL0JBUURBZ0trTUIwR0ExVWRKUVFXTUJRR0NDc0cKQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlJzRkhzZAowZEF4VlRqUGJVb0N4YkFJYmVVelpUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFqSklaWnBQblEycHZFYWNqCm82OXIxeWZxeGlIRmlCcnp5QmVEc2RUdUk3NHUrY0V3MGJVZ1JlRnhJVDEySnRaWEV0U09EdUgzN210Nm1WY3EKM2ZXTHo2N1J4azJSaDBQQkVtUUd6K0lIU0tjSkl6a3d4Q2ZnQ29TaVZESmdvVDA5amdzNEx3VzRKUzFRN0JlMgowM1FzVkR4OTJRMGRBaHVUUGpGM2xVNkFRVDVxMTZpbHFra3ppVU9TSkFVbmVSMldSSXZkUUJmOHVZZTZQYmRXCngrSENvaWVlNGNFSjRTOTFCbUhrZ21vdmxoZCt1SXNjMEJBWlVoTk1TdGpFQXdYdTVObU9HQ0ZDMloySURYYVYKUUJGQUxGdXpXUnFSRTRMUHRhaERRWTU4VVhuODVTYlZJYWh6UmNDYW5XR04zdmZsc1d0MUxJa2s4bEdsMkpRSwpzTTZnN0E9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+---
+# Source: scaleway-csi/templates/storageclasses.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: scw-bssd
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.scaleway.com
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+parameters:
+---
+# Source: scaleway-csi/templates/storageclasses.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: scw-bssd-retain
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+provisioner: csi.scaleway.com
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+allowVolumeExpansion: true
+parameters:
+---
+# Source: scaleway-csi/templates/controller/rbac/attacher.yaml
+# Sync from https://github.com/kubernetes-csi/external-attacher/blob/master/deploy/kubernetes/rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-attacher
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "patch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["csinodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch", "patch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments/status"]
+    verbs: ["patch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list"]
+---
+# Source: scaleway-csi/templates/controller/rbac/provisioner.yaml
+# Sync from https://github.com/kubernetes-csi/external-provisioner/blob/master/deploy/kubernetes/rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-provisioner
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "update"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots"]
+    verbs: ["get", "list"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents"]
+    verbs: ["get", "list"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["csinodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch"]
+---
+# Source: scaleway-csi/templates/controller/rbac/resizer.yaml
+# Sync from https://github.com/kubernetes-csi/external-resizer/blob/master/deploy/kubernetes/rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-resizer
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "patch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims/status"]
+    verbs: ["patch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattributesclasses"]
+    verbs: ["get", "list", "watch"]
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshot-controller.yaml
+# Sync from https://github.com/kubernetes-csi/external-snapshotter/blob/master/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshot-controller
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "update"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents"]
+    verbs: ["create", "get", "list", "watch", "update", "delete", "patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents/status"]
+    verbs: ["patch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots"]
+    verbs: ["get", "list", "watch", "update", "patch", "delete"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots/status"]
+    verbs: ["update", "patch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotcontents"]
+    verbs: ["create", "get", "list", "watch", "update", "delete", "patch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotcontents/status"]
+    verbs: ["patch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshots"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshots/status"]
+    verbs: ["update", "patch"]
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshotter.yaml
+# Sync from https://github.com/kubernetes-csi/external-snapshotter/blob/master/deploy/kubernetes/csi-snapshotter/rbac-csi-snapshotter.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshotter
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots"]
+    verbs: ["get", "list", "watch", "update", "patch", "create"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents"]
+    verbs: ["get", "list", "watch", "update", "patch", "create"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents/status"]
+    verbs: ["update", "patch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotcontents"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotcontents/status"]
+    verbs: ["update", "patch"]
+---
+# Source: scaleway-csi/templates/controller/rbac/webhook.yaml
+# Sync from https://github.com/kubernetes-csi/external-snapshotter/blob/master/deploy/kubernetes/webhook-example/rbac-snapshot-webhook.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-webhook
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["groupsnapshot.storage.k8s.io"]
+    resources: ["volumegroupsnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+---
+# Source: scaleway-csi/templates/controller/rbac/attacher.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-attacher
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: scaleway-csi-attacher
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/provisioner.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-provisioner
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: scaleway-csi-provisioner
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/resizer.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-resizer
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: scaleway-csi-resizer
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshot-controller.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshot-controller
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: scaleway-csi-snapshot-controller
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshotter.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshotter
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: scaleway-csi-snapshotter
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/webhook.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-webhook
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: scaleway-csi-webhook
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/attacher.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-attacher
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get", "watch", "list", "delete", "update", "create"]
+---
+# Source: scaleway-csi/templates/controller/rbac/provisioner.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-provisioner
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get", "watch", "list", "delete", "update", "create"]
+- apiGroups: ["storage.k8s.io"]
+  resources: ["csistoragecapacities"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get"]
+- apiGroups: ["apps"]
+  resources: ["replicasets"]
+  verbs: ["get"]
+---
+# Source: scaleway-csi/templates/controller/rbac/resizer.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-resizer
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get", "watch", "list", "delete", "update", "create"]
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshot-controller.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshot-controller
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get", "watch", "list", "delete", "update", "create"]
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshotter.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshotter
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups: ["coordination.k8s.io"]
+  resources: ["leases"]
+  verbs: ["get", "watch", "list", "delete", "update", "create"]
+---
+# Source: scaleway-csi/templates/controller/rbac/attacher.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-attacher
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+    namespace: default
+roleRef:
+  kind: Role
+  name: scaleway-csi-attacher
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/provisioner.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-provisioner
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+roleRef:
+  kind: Role
+  name: scaleway-csi-provisioner
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/resizer.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-resizer
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+roleRef:
+  kind: Role
+  name: scaleway-csi-resizer
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshot-controller.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshot-controller
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+roleRef:
+  kind: Role
+  name: scaleway-csi-snapshot-controller
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/rbac/snapshotter.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scaleway-csi-snapshotter
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: scaleway-csi
+roleRef:
+  kind: Role
+  name: scaleway-csi-snapshotter
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: scaleway-csi/templates/controller/webhook-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaleway-csi-snapshot-validation
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app: scaleway-csi-controller
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 443
+---
+# Source: scaleway-csi/templates/node/daemonset.yaml
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: scaleway-csi-node
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: scaleway-csi
+      app.kubernetes.io/instance: scaleway-csi
+      app: scaleway-csi-node
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: scaleway-csi
+        app.kubernetes.io/instance: scaleway-csi
+        app: scaleway-csi-node
+    spec:
+      securityContext:
+        {}
+      serviceAccount: scaleway-csi
+      nodeSelector:
+        kubernetes.io/os: linux
+      priorityClassName: system-node-critical
+      containers:
+        - name: scaleway-csi-plugin
+          image: "scaleway/scaleway-csi:v0.3.2"
+          imagePullPolicy: IfNotPresent
+          args :
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--v=4"
+            - "--mode=node"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi.sock
+          securityContext:
+            privileged: true
+          resources:
+            {}
+          ports:
+            - name: healthz
+              containerPort: 9808
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 2
+            failureThreshold: 5
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi
+            - name: kubelet-dir
+              mountPath: /var/lib/kubelet
+              mountPropagation: "Bidirectional"
+            - name: device-dir
+              mountPath: /dev
+        - name: csi-node-driver-registrar
+          image: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.11.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=2"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--kubelet-registration-path=$(KUBELET_REGISTRATION_PATH)"
+          env:
+            - name: CSI_ADDRESS
+              value: /csi/csi.sock
+            - name: KUBELET_REGISTRATION_PATH
+              value: /var/lib/kubelet/plugins/csi.scaleway.com/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            {}
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi/
+            - name: registration-dir
+              mountPath: /registration/
+        - name: liveness-probe
+          image: "registry.k8s.io/sig-storage/livenessprobe:v2.13.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--csi-address=$(CSI_ADDRESS)"
+          env:
+            - name: CSI_ADDRESS
+              value: /csi/csi.sock
+          resources:
+            {}
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi
+      volumes:
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins_registry/
+            type: DirectoryOrCreate
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/csi.scaleway.com
+            type: DirectoryOrCreate
+        - name: kubelet-dir
+          hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+        - name: device-dir
+          hostPath:
+            path: /dev
+---
+# Source: scaleway-csi/templates/controller/deployment.yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: scaleway-csi-controller
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: scaleway-csi
+      app.kubernetes.io/instance: scaleway-csi
+      app: scaleway-csi-controller
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        checksum/webhook-secret: dde3d86de3e9990a52ac6923fb63758d44f0cdbed3a307b26c13609c2df42fbb
+      labels:
+        app.kubernetes.io/name: scaleway-csi
+        app.kubernetes.io/instance: scaleway-csi
+        app: scaleway-csi-controller
+    spec:
+      securityContext:
+        {}
+      priorityClassName: system-cluster-critical
+      serviceAccount: scaleway-csi
+      initContainers:
+        - name: migration
+          image: "scaleway/scaleway-csi:v0.3.2"
+          imagePullPolicy: IfNotPresent
+          command: ["/sbs-migration"]
+          envFrom:
+            - secretRef:
+                name: scaleway-csi-secret
+          resources:
+            {}
+      containers:
+        - name: scaleway-csi-plugin
+          image: "scaleway/scaleway-csi:v0.3.2"
+          imagePullPolicy: IfNotPresent
+          args :
+            - "--endpoint=$(CSI_ENDPOINT)"
+            - "--mode=controller"
+            - "--v=4"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+          envFrom:
+            - secretRef:
+                name: scaleway-csi-secret
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+          resources:
+            {}
+          ports:
+            - name: healthz
+              containerPort: 9808
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 2
+            failureThreshold: 5
+        - name: csi-provisioner
+          image: "registry.k8s.io/sig-storage/csi-provisioner:v5.0.2"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--leader-election"
+            - "--feature-gates=Topology=true"
+            - "--default-fstype=ext4"
+          env:
+            - name: CSI_ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            {}
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: csi-attacher
+          image: "registry.k8s.io/sig-storage/csi-attacher:v4.6.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--leader-election"
+          env:
+            - name: CSI_ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            {}
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: csi-snapshotter
+          image: "registry.k8s.io/sig-storage/csi-snapshotter:v8.0.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--leader-election"
+          env:
+            - name: CSI_ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            {}
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: snapshot-controller
+          image: "registry.k8s.io/sig-storage/snapshot-controller:v8.0.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--leader-election"
+          resources:
+            {}
+        - name: csi-resizer
+          image: "registry.k8s.io/sig-storage/csi-resizer:v1.11.2"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--v=5"
+            - "--csi-address=$(CSI_ADDRESS)"
+            - "--leader-election"
+          env:
+            - name: CSI_ADDRESS
+              value: /var/lib/csi/sockets/pluginproxy/csi.sock
+          resources:
+            {}
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /var/lib/csi/sockets/pluginproxy/
+        - name: liveness-probe
+          image: "registry.k8s.io/sig-storage/livenessprobe:v2.13.1"
+          imagePullPolicy: IfNotPresent
+          args:
+            - "--csi-address=$(CSI_ADDRESS)"
+          env:
+            - name: CSI_ADDRESS
+              value: /csi/csi.sock
+          resources:
+            {}
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: snapshot-validation
+          image: "registry.k8s.io/sig-storage/snapshot-validation-webhook:v8.0.1"
+          imagePullPolicy: IfNotPresent
+          args: ['--tls-cert-file=/etc/snapshot-validation-webhook/certs/tls.crt', '--tls-private-key-file=/etc/snapshot-validation-webhook/certs/tls.key']
+          ports:
+          - containerPort: 443
+          resources:
+            {}
+          volumeMounts:
+            - name: snapshot-validation-webhook-certs
+              mountPath: /etc/snapshot-validation-webhook/certs
+              readOnly: true
+      volumes:
+        - name: socket-dir
+          emptyDir: {}
+        - name: snapshot-validation-webhook-certs
+          secret:
+            secretName: scaleway-csi-webhook
+---
+# Source: scaleway-csi/templates/csidriver.yaml
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: csi.scaleway.com
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  attachRequired: true
+  podInfoOnMount: true
+---
+# Source: scaleway-csi/templates/controller/validatingwebhookconfiguration.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: "validation-webhook.snapshot.storage.k8s.io"
+webhooks:
+- name: "validation-webhook.snapshot.storage.k8s.io"
+  rules:
+  - apiGroups:   ["snapshot.storage.k8s.io"]
+    apiVersions: ["v1"]
+    operations:  ["CREATE", "UPDATE"]
+    resources:   ["volumesnapshotclasses"]
+    scope:       "*"
+  clientConfig:
+    service:
+      namespace: default
+      name: scaleway-csi-snapshot-validation
+      path: "/volumesnapshot"
+    caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNRENDQWhpZ0F3SUJBZ0lSQUxtazJNTzFvRWlDTnp3clRyczJLekl3RFFZSktvWklodmNOQVFFTEJRQXcKSWpFZ01CNEdBMVVFQXhNWGMyTmhiR1YzWVhrdFkzTnBMWGRsWW1odmIyc3RZMkV3SGhjTk1qVXdNekk1TVRZeApOVEEzV2hjTk1qWXdNekk1TVRZeE5UQTNXakFpTVNBd0hnWURWUVFERXhkelkyRnNaWGRoZVMxamMya3RkMlZpCmFHOXZheTFqWVRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSzJOdFRoZ2ZoamoKU3VwWFhEcFRyV1hwNS9yaG0zUzZpRVl5YW9rdHJ6NUw1cHNDR3pyRjIxZCsyVEhwbENmbnRtdEpzL3lyRUVIbwpEWUNNR2VpTDhacWZKcUpGc3pjNXErbS9XaE1mTHkwZWRIUEpuMlV0NWRjR2xzMXhhQk00L0dzS0ZzK0FUL2dyCkI5UGxZWnZ2Nk56Y2ZNRGNJaCtYU1dsR0ZHcmVlU3lGRE9BbytCa2MrL09MTHI4NnkwYnZEbjV1eTFOUUpQaWgKMGhzb2lFb1NnSEVjQ1Y5REVuSXZTek9rNm1OcjRGWGcrb2JKTlhtbTlPZ3BYZk84eVdmZWxKbFNMcUMvdFVZNQo4YXNLTEVySHFzOHhqanJpbUNpNUlydEdtT2R4QUMycXkzUFpFRS85ZEpJZjhTb0kzR1MrSFZTMTBXYzZiMlVoCjlQbWJSMysvTExrQ0F3RUFBYU5oTUY4d0RnWURWUjBQQVFIL0JBUURBZ0trTUIwR0ExVWRKUVFXTUJRR0NDc0cKQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlJzRkhzZAowZEF4VlRqUGJVb0N4YkFJYmVVelpUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFqSklaWnBQblEycHZFYWNqCm82OXIxeWZxeGlIRmlCcnp5QmVEc2RUdUk3NHUrY0V3MGJVZ1JlRnhJVDEySnRaWEV0U09EdUgzN210Nm1WY3EKM2ZXTHo2N1J4azJSaDBQQkVtUUd6K0lIU0tjSkl6a3d4Q2ZnQ29TaVZESmdvVDA5amdzNEx3VzRKUzFRN0JlMgowM1FzVkR4OTJRMGRBaHVUUGpGM2xVNkFRVDVxMTZpbHFra3ppVU9TSkFVbmVSMldSSXZkUUJmOHVZZTZQYmRXCngrSENvaWVlNGNFSjRTOTFCbUhrZ21vdmxoZCt1SXNjMEJBWlVoTk1TdGpFQXdYdTVObU9HQ0ZDMloySURYYVYKUUJGQUxGdXpXUnFSRTRMUHRhaERRWTU4VVhuODVTYlZJYWh6UmNDYW5XR04zdmZsc1d0MUxJa2s4bEdsMkpRSwpzTTZnN0E9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Ignore
+  timeoutSeconds: 2
+---
+# Source: scaleway-csi/templates/controller/validatingwebhookconfiguration.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: "validation-webhook.groupsnapshot.storage.k8s.io"
+webhooks:
+- name: "validation-webhook.groupsnapshot.storage.k8s.io"
+  rules:
+  - apiGroups:   ["groupsnapshot.storage.k8s.io"]
+    apiVersions: ["v1alpha1"]
+    operations:  ["CREATE", "UPDATE"]
+    resources:   ["volumegroupsnapshotclasses"]
+    scope:       "*"
+  clientConfig:
+    service:
+      namespace: default
+      name: scaleway-csi-snapshot-validation
+      path: "/volumegroupsnapshot"
+    caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNRENDQWhpZ0F3SUJBZ0lSQUxtazJNTzFvRWlDTnp3clRyczJLekl3RFFZSktvWklodmNOQVFFTEJRQXcKSWpFZ01CNEdBMVVFQXhNWGMyTmhiR1YzWVhrdFkzTnBMWGRsWW1odmIyc3RZMkV3SGhjTk1qVXdNekk1TVRZeApOVEEzV2hjTk1qWXdNekk1TVRZeE5UQTNXakFpTVNBd0hnWURWUVFERXhkelkyRnNaWGRoZVMxamMya3RkMlZpCmFHOXZheTFqWVRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSzJOdFRoZ2ZoamoKU3VwWFhEcFRyV1hwNS9yaG0zUzZpRVl5YW9rdHJ6NUw1cHNDR3pyRjIxZCsyVEhwbENmbnRtdEpzL3lyRUVIbwpEWUNNR2VpTDhacWZKcUpGc3pjNXErbS9XaE1mTHkwZWRIUEpuMlV0NWRjR2xzMXhhQk00L0dzS0ZzK0FUL2dyCkI5UGxZWnZ2Nk56Y2ZNRGNJaCtYU1dsR0ZHcmVlU3lGRE9BbytCa2MrL09MTHI4NnkwYnZEbjV1eTFOUUpQaWgKMGhzb2lFb1NnSEVjQ1Y5REVuSXZTek9rNm1OcjRGWGcrb2JKTlhtbTlPZ3BYZk84eVdmZWxKbFNMcUMvdFVZNQo4YXNLTEVySHFzOHhqanJpbUNpNUlydEdtT2R4QUMycXkzUFpFRS85ZEpJZjhTb0kzR1MrSFZTMTBXYzZiMlVoCjlQbWJSMysvTExrQ0F3RUFBYU5oTUY4d0RnWURWUjBQQVFIL0JBUURBZ0trTUIwR0ExVWRKUVFXTUJRR0NDc0cKQVFVRkJ3TUJCZ2dyQmdFRkJRY0RBakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlJzRkhzZAowZEF4VlRqUGJVb0N4YkFJYmVVelpUQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFqSklaWnBQblEycHZFYWNqCm82OXIxeWZxeGlIRmlCcnp5QmVEc2RUdUk3NHUrY0V3MGJVZ1JlRnhJVDEySnRaWEV0U09EdUgzN210Nm1WY3EKM2ZXTHo2N1J4azJSaDBQQkVtUUd6K0lIU0tjSkl6a3d4Q2ZnQ29TaVZESmdvVDA5amdzNEx3VzRKUzFRN0JlMgowM1FzVkR4OTJRMGRBaHVUUGpGM2xVNkFRVDVxMTZpbHFra3ppVU9TSkFVbmVSMldSSXZkUUJmOHVZZTZQYmRXCngrSENvaWVlNGNFSjRTOTFCbUhrZ21vdmxoZCt1SXNjMEJBWlVoTk1TdGpFQXdYdTVObU9HQ0ZDMloySURYYVYKUUJGQUxGdXpXUnFSRTRMUHRhaERRWTU4VVhuODVTYlZJYWh6UmNDYW5XR04zdmZsc1d0MUxJa2s4bEdsMkpRSwpzTTZnN0E9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Ignore
+  timeoutSeconds: 2
+---
+# Source: scaleway-csi/templates/volumesnapshotclasses.yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: scw-snapshot
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "true"
+driver: csi.scaleway.com
+deletionPolicy: Delete
+---
+# Source: scaleway-csi/templates/volumesnapshotclasses.yaml
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: scw-snapshot-retain
+  labels:
+    helm.sh/chart: scaleway-csi-0.2.0
+    app.kubernetes.io/name: scaleway-csi
+    app.kubernetes.io/instance: scaleway-csi
+    app.kubernetes.io/version: "v0.3.2"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+driver: csi.scaleway.com
+deletionPolicy: Retain

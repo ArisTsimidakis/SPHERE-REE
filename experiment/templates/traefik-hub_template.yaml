@@ -1,0 +1,611 @@
+---
+# Source: traefik-hub/templates/service-account.yaml
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: traefik-hub
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: false
+---
+# Source: traefik-hub/templates/admission-controller.yaml
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/tls
+metadata:
+  name: hub-agent-cert
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBMDR2QTUvTFRRc0VoOVdEWUh5R05zWTc0R0owK2J0a0I5dXhqUHl3KzJCcjlFTnZsCnBJUDBvMFpsNlRTZEpTVThsUnBFYVI0RWFDbHR2OHdZdVJWK2I0YXlSZU5XQXNhdHdtV0MvbkRSN3ZzbnU3eksKWFFxemx5bm5EOU9ZUyszMGxZeTJsTitDS1ptVSsySWhSb1R0R0F4R3cxdHpGaXEvZmFrVmloektha1ZZVDFjNApFMzlXeFZueHBnblRyVmtVUXpaREZ2dEpPdnJIVEJQR3RsaGRmeFB4cHI1dGFsUytDTHJ4enJzMVRIb3AzNnZsCi9iUG5CeDlLUTNPYzVZaHMwOU0xUWxndkNiY2pXaFlwTnlOblRrYnNwN3VhNGlkS1FaemlwS2U0VVQvSzR3c2cKLzRFNVVUOVBiZHBIdUNVN09oTElxM2NhbmZRdWNsUTIrd29ZZlFJREFRQUJBb0lCQUFNS2FUVnNTaGtWaVpWcgpWTy90blluRjBrOFlRNE40WHd6YmpQbWxleW5FQ1lzcWZmeUZZUWpQeERzNzVGNWFVS3FiL0F1K3dMVjJrdnRFCnhiNHpUdVB2ZmJSL2RnY0lNQXN4UmxhOTdHYVErWnM3TlhWczUvUHVTRUh6K3Fac3Z5MC9Ib2k1UmJldlczTFoKa0R6aFFEOHVQZjRrM0Z5Zk5LMXJ0c0dMZEdWZW54dW45bm9ONTJIOGhIWEY2TUpxempOUFI1YU1MeTlnTkxTdwo1WnltSjNuWlEwbTk4SjgxclJBaTdVaisvcWtSTzRFMHVaVXBLcUhidEJXY0ZDay9EL1N6czhaQzA0eWlkQWtLCjhLWEs0UjVXYUlmRHRUV29DVjhzYzNhMGlSNFgvNkZvVE9QOEdITjRNQkNKaVZKY0RZMlQvdzU1TkswUFpKeXYKNjZ6dW9Ra0NnWUVBNXdFdlhTSUR4clhpYlhwOE8wN0NJbE9udzRQT3YvRlJSV2NOQk9CdGFzWno3a0t6M1Z6YgphRHZvQXpVcWlWRVBTY1VVeVdZNUZIVUtzRnZLV1RYTGxyMzYxS0FicmE1OStQWTZUMVBDNTJBbVZMSnNSVGpXCmdMRFBOV1VLZTJJRWhqUUxkMXI1MGEzaXN3N1VBbTdaZDB1NHRwd1BSMGs0dE5vdjFPWGtuOGNDZ1lFQTZtK1EKTFFMRm9wSHdtZFVJU1hoQTVuMk96RUpBTFFJVkdtR1orRSs3RllHSFB1Zklzb2FaVkRoeHpHRDJaM3Nzd2hkRQpTQnJQSUFRaEhpc0RqVDdsUmgyTUo1TGF1UEU4UHFNdm8xWXdiQWhZVnp0Y0hVN0FlVmF4eUtkdGRMOFpHZWdXCmFPTEVLVUJFUjJKazRkbC85NnFJcENQOCszckNvVC95UjhMOXpac0NnWUJISE45R3pXVGFORDNiTS95d2lVTk0KSy9LV1JxcEwvbTdsYlo3ZFpIVnFqR005OHJ6S0pYN0pyTDkwMVZZZDVaMU9PV1IzeDRkRTIrOEpjWWh1UkJoRApkSUtXR0IvTkxNMU02Z2Z6U2JiVFlZOExQYzRFMVVWN1luSzNYajZHMHhyUGNaQWlFeGlheXV2aDhXdWt3QmtrCkYyUnFtc285U0xZelBvUEJCM0NGR3dLQmdRQ2dRTGplZTltYmdvVmtzcUlpanNoV2hwZVpldVFob0IzSzFkTUoKVVg5Q2VUTjVSYm9FaDB2Q3JYN2t4WmRLTDRIdC96ZVd6blN0bndVQWVVakpRYWc2WUxKUXp1c2lwd3lXaUxoawp2K01EeGtTVkJLZTRCUUEvTVlyLzdhczl0ZSt6ck5tOHd0NXlrRkxjTlI5ZTMyM0JYOXBkMFpmNlUvVTlndGZjClJDZDRad0tCZ0JEMDAzL29seWg3em5sZ01XTjg2UzZ0NGs2YXJUTXZNNk5KaWRJTmZSUkwrZXNxSVk0SitCNGQKOHpXRE9JVTd2K1dNdFJPK0FsMEdLRDhmQzRjRnNaeVV2c1Z3cWN3WGpKOHdRQ3BDd2h3V09QcjVLc3NxTFBrWgpKekdzMFB4K0lzL0c5OGdpNVo4Sk82LzRoV3piRlRvMUE1eGRxWXVYSVVEWTZjVU5kTHNUCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+---
+# Source: traefik-hub/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traefik-hub-default
+rules:
+  - apiGroups:
+      - networking.k8s.io
+      - hub.traefik.io
+    resources:
+      - ingressclasses
+    verbs:
+      - list
+      - watch
+      - create
+  - apiGroups:
+      - hub.traefik.io
+    resources:
+      - accesscontrolpolicies
+      - edgeingresses
+      - apis
+      - apiversions
+      - apiaccesses
+      - apicollections
+      - apigateways
+      - apiportals
+      - apiratelimits
+    verbs:
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+      - get
+  # Other RBACs.
+  - apiGroups:
+      - ""
+    resources:
+      - namespaces
+      - pods
+    verbs:
+      - list
+  - apiGroups:
+      - traefik.containo.us
+      - traefik.io
+    resources:
+      - middlewares
+      - middlewaretcps
+      - traefikservices
+      - ingressroutetcps
+      - ingressrouteudps
+      - ingressroutes
+      - tlsoptions
+      - tlsstores
+      - serverstransports
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - endpoints
+      - namespaces
+      - pods
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
+      - networking.k8s.io
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+      - statefulsets
+      - replicasets
+      - daemonsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - create
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs:
+      - list
+      - get
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+---
+# Source: traefik-hub/templates/cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: traefik-hub-default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: traefik-hub-default
+subjects:
+  - kind: ServiceAccount
+    name: traefik-hub
+    namespace: default
+---
+# Source: traefik-hub/templates/admission-controller.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: admission
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports:
+    - name: https
+      port: 443
+      targetPort: admission
+  selector:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+---
+# Source: traefik-hub/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-hub
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+spec:
+  type: LoadBalancer
+  allocateLoadBalancerNodePorts: 
+  selector:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+  ports: 
+    - name: web
+      port: 80
+      targetPort: web
+    - name: websecure
+      port: 443
+      targetPort: websecure
+---
+# Source: traefik-hub/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-hub
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik-hub
+      app.kubernetes.io/instance: traefik-hub-default
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  minReadySeconds: 0
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "9100"
+      labels:
+        app.kubernetes.io/name: traefik-hub
+        app.kubernetes.io/instance: traefik-hub-default
+        helm.sh/chart: traefik-hub-4.2.0
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: traefik-hub
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: name
+                      operator: In
+                      values:
+                        - traefik
+                topologyKey: "kubernetes.io/hostname"
+      topologySpreadConstraints:
+        - maxSkew: 2
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: "ScheduleAnyway"
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik-hub
+              app.kubernetes.io/instance: traefik-hub-default
+      terminationGracePeriodSeconds: 30
+      hostNetwork: false
+      priorityClassName: 
+      automountServiceAccountToken: true
+      containers:
+        - image: ghcr.io/traefik/traefik-hub:v2.11.0
+          imagePullPolicy: IfNotPresent
+          name: traefik
+          args:
+            - ic
+            - --entrypoints.metrics.address=:9100
+            - --entrypoints.traefik.address=:9000
+            - --entrypoints.web.address=:8000
+            - --entrypoints.websecure.address=:8443
+            - --entrypoints.websecure.http.tls=true
+            - --hub.admission.listenAddr=:7500
+            - --hub.token=$(HUB_TOKEN)
+            - --metrics.prometheus.entryPoint=metrics
+            - --ping.entrypoint=traefik
+            - --providers.kubernetescrd.allowCrossNamespace=true
+            - --providers.kubernetescrd.allowEmptyServices=true
+            - --providers.kubernetescrd.allowExternalNameServices=true
+            - --providers.kubernetesingress.allowEmptyServices=true
+            - --providers.kubernetesingress.allowExternalNameServices=true
+          env:
+            - name: HUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: hub-agent-token
+                  key: token
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            failureThreshold: 1
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 9000
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 2
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          ports:
+            - name: "admission"
+              containerPort: 7500
+              protocol: "TCP"
+            - name: "web"
+              containerPort: 8000
+              protocol: "TCP"
+            - name: "websecure"
+              containerPort: 8443
+              protocol: "TCP"
+            - name: "traefik"
+              containerPort: 9000
+              protocol: "TCP"
+            - name: "metrics"
+              containerPort: 9100
+              protocol: "TCP"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 65532
+            runAsNonRoot: true
+            runAsUser: 65532
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/traefik
+            - name: tmp
+              mountPath: /tmp
+      securityContext:
+        fsGroup: 65532
+      volumes:
+        - name: data
+          emptyDir: { }
+        - name: tmp
+          emptyDir: { }
+---
+# Source: traefik-hub/templates/admission-controller.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: hub-edge-ingress
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+  - name: admission.traefik.svc
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /edge-ingress
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - edgeingresses
+        scope: Namespaced
+---
+# Source: traefik-hub/templates/admission-controller.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: hub-acp
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+  - name: admission.traefik.svc
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /acp
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - accesscontrolpolicies
+---
+# Source: traefik-hub/templates/admission-controller.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: hub-api
+  namespace: default
+  labels:
+    app.kubernetes.io/name: traefik-hub
+    app.kubernetes.io/instance: traefik-hub-default
+    helm.sh/chart: traefik-hub-4.2.0
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+  - name: hub-agent.traefik.portal
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api-portal
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apiportals
+  - name: hub-agent.traefik.gateway
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api-gateway
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apigateways
+  - name: hub-agent.traefik.api
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apis
+  - name: hub-agent.traefik.collection
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api-collection
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apicollections
+  - name: hub-agent.traefik.access
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api-access
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apiaccesses
+  - name: hub-agent.traefik.rate-limit
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api-rate-limit
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apiratelimits
+  - name: hub-agent.traefik.version
+    clientConfig:
+      service:
+        name: admission
+        namespace: default
+        path: /api-version
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLekNDQWhPZ0F3SUJBZ0lRU2UweXdSVHJ1bVU2bU90RUdlUkNqREFOQmdrcWhraUc5dzBCQVFzRkFEQWcKTVI0d0hBWURWUVFERXhWaFpHMXBjM05wYjI0dVpHVm1ZWFZzZEM1emRtTXdIaGNOTWpVd016STVNVFl4TlRBMgpXaGNOTWpZd016STVNVFl4TlRBMldqQWdNUjR3SEFZRFZRUURFeFZoWkcxcGMzTnBiMjR1WkdWbVlYVnNkQzV6CmRtTXdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFEVGk4RG44dE5Dd1NIMVlOZ2YKSVkyeGp2Z1luVDV1MlFIMjdHTS9MRDdZR3YwUTIrV2tnL1NqUm1YcE5KMGxKVHlWR2tScEhnUm9LVzIvekJpNQpGWDV2aHJKRjQxWUN4cTNDWllMK2NOSHUreWU3dk1wZENyT1hLZWNQMDVoTDdmU1ZqTGFVMzRJcG1aVDdZaUZHCmhPMFlERWJEVzNNV0tyOTlxUldLSE1wcVJWaFBWemdUZjFiRldmR21DZE90V1JSRE5rTVcrMGs2K3NkTUU4YTIKV0YxL0UvR212bTFxVkw0SXV2SE91elZNZWluZnErWDlzK2NISDBwRGM1emxpR3pUMHpWQ1dDOEp0eU5hRmlrMwpJMmRPUnV5bnU1cmlKMHBCbk9La3A3aFJQOHJqQ3lEL2dUbFJQMDl0MmtlNEpUczZFc2lyZHhxZDlDNXlWRGI3CkNoaDlBZ01CQUFHallUQmZNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0QKQVFZSUt3WUJCUVVIQXdJd0RBWURWUjBUQVFIL0JBSXdBREFnQmdOVkhSRUVHVEFYZ2hWaFpHMXBjM05wYjI0dQpaR1ZtWVhWc2RDNXpkbU13RFFZSktvWklodmNOQVFFTEJRQURnZ0VCQUYzNVlQUDZNd3YyY2lTZG5Wcmk4N25KCkZHdFU1dW9qbmVsZ3B2OFF5RkJFZS94MXRTa1V0UWg0elVSTkZMa0RIbVZ2RHpncXhJeWd0L1UrNVRXQmJSakcKditiVUFFd1JLRmMzVXNsWHNxWElWTzExMnJUT1k2TEg3bEhuQzNGZWU3SDMxOG9oYzVaYmtyeS9EU2UyOU5pRAo4SURKTHJDOGVvUzhzK2ZlRjRDUnNNZGVhdDlnMytxRm5yL0VyVTlDZVh2MnFSai9PbG50YktDSFRSOERnR1JOCk9OaC9sUmVuUGpVN0t3RXpWbzV6RktaUEhxMmllYU9zRlhYT0VoQmVobnhVOXB5ckpvVUsxdDd0a0RMRWFlTncKV3dJWlBweVF6NVlZdjhLdzJYM3BFSGJIa2R4cHJIblMrRG9lNTlUcnYyT1RPZWlTY0NKbUc2YnI2SHdReDhZPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    rules:
+      - operations:
+          - CREATE
+          - UPDATE
+          - DELETE
+        apiGroups:
+          - hub.traefik.io
+        apiVersions:
+          - v1alpha1
+        resources:
+          - apiversions

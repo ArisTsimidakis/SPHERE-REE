@@ -1,0 +1,113 @@
+---
+# Source: blueprint/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: blueprint
+  labels:
+    helm.sh/chart: blueprint-0.0.2
+    app.kubernetes.io/name: blueprint
+    app.kubernetes.io/instance: blueprint
+    app.kubernetes.io/version: "v0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: blueprint
+    app.kubernetes.io/instance: blueprint
+---
+# Source: blueprint/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blueprint
+  labels:
+    helm.sh/chart: blueprint-0.0.2
+    app.kubernetes.io/name: blueprint
+    app.kubernetes.io/instance: blueprint
+    app.kubernetes.io/version: "v0.1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: blueprint
+      app.kubernetes.io/instance: blueprint
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: blueprint-0.0.2
+        app.kubernetes.io/name: blueprint
+        app.kubernetes.io/instance: blueprint
+        app.kubernetes.io/version: "v0.1.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: default
+      securityContext:
+        fsGroup: 0
+        runAsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+      containers:
+        - name: blueprint
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {}
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 0
+            seLinuxOptions: {}
+          image: "ghcr.io/zazuko/blueprint:v0.1.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}
+          env:
+            - name: ENDPOINT_URL
+              value: "http://example.com/query"
+            - name: SPARQL_CONSOLE_URL
+              value: "http://example.com/sparql/#query"
+            - name: GRAPH_EXPLORER_URL
+              value: "http://example.com/graph-explorer/?resource"
+            - name: FULL_TEXT_SEARCH_DIALECT
+              value: "fuseki"
+            - name: NEPTUNE_FTS_ENDPOINT
+              value: ""
+---
+# Source: blueprint/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "blueprint-test-connection"
+  labels:
+    helm.sh/chart: blueprint-0.0.2
+    app.kubernetes.io/name: blueprint
+    app.kubernetes.io/instance: blueprint
+    app.kubernetes.io/version: "v0.1.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['blueprint:80']
+  restartPolicy: Never

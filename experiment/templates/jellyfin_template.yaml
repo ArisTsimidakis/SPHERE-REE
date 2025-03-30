@@ -1,0 +1,183 @@
+---
+# Source: jellyfin/templates/storage.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-cache
+  labels:
+    app.kubernetes.io/name: jellyfin
+    helm.sh/chart: jellyfin-3.2.6
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/managed-by: Helm
+spec: 
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+# Source: jellyfin/templates/storage.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-config
+  labels:
+    app.kubernetes.io/name: jellyfin
+    helm.sh/chart: jellyfin-3.2.6
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/managed-by: Helm
+spec: 
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Source: jellyfin/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  labels:
+    app.kubernetes.io/name: jellyfin
+    helm.sh/chart: jellyfin-3.2.6
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: web
+      port: 8096
+      targetPort: web
+      nodePort: null
+  selector:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/instance: jellyfin
+---
+# Source: jellyfin/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jellyfin
+  labels:
+    app.kubernetes.io/name: jellyfin
+    helm.sh/chart: jellyfin-3.2.6
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/managed-by: Helm
+spec:
+  serviceName: jellyfin
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jellyfin
+      app.kubernetes.io/instance: jellyfin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jellyfin
+        app.kubernetes.io/instance: jellyfin
+    spec:
+      securityContext:
+        fsGroup: 64710
+        runAsGroup: 64710
+        runAsNonRoot: true
+        runAsUser: 64710
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: jellyfin
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 64710
+            runAsNonRoot: true
+            runAsUser: 64710
+          image: jellyfin/jellyfin:10.10.6
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: web
+              containerPort: 8096
+              protocol: TCP
+          livenessProbe:
+            httpGet: &httpProbe
+              port: web
+              path: /health
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet: *httpProbe
+            periodSeconds: 10
+            timeoutSeconds: 10
+          resources:
+            limits:
+              cpu: "2"
+              memory: 6Gi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: cache
+              mountPath: /cache
+            - name: tmpfs
+              mountPath: /tmp
+      nodeSelector:
+        kubernetes.io/os: linux
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
+        - name: cache
+          persistentVolumeClaim:
+            claimName: jellyfin-cache
+        - name: transcodes
+          emptyDir: { }
+        - name: tmpfs
+          emptyDir:
+            medium: Memory
+            sizeLimit: 10Mi
+---
+# Source: jellyfin/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "jellyfin-test-connection"
+  labels:
+    app.kubernetes.io/name: jellyfin
+    helm.sh/chart: jellyfin-3.2.6
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      args: ['--timeout=5', '-O/dev/null', 'jellyfin:8096/health']
+      command: ['wget']
+      image: busybox:musl
+      resources:
+        requests:
+          cpu: 10m
+          memory: 25Mi
+        limits:
+          cpu: 100m
+          memory: 25Mi
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+  restartPolicy: Never
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault

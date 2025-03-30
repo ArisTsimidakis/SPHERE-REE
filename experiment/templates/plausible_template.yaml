@@ -1,0 +1,194 @@
+---
+# Source: plausible/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: plausible
+  labels:
+    helm.sh/chart: plausible-0.1.5
+    app.kubernetes.io/name: plausible
+    app.kubernetes.io/instance: plausible
+    app.kubernetes.io/version: "v2.1.5"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: plausible/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: plausible
+  labels:
+    helm.sh/chart: plausible-0.1.5
+    app.kubernetes.io/name: plausible
+    app.kubernetes.io/instance: plausible
+    app.kubernetes.io/version: "v2.1.5"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  SECRET_KEY_BASE: "VjFOMVZrcHFla05NVVVWcFlsSkpPVGh3VjAxSWQzbElRblJsYkRVMVNrUkhVWEZJUWpad2VucERaVzFtVW1zeA=="
+  TOTP_VAULT_KEY: "Wm0xNE1uaEthSHB3VlZWV05FZHFlRzFzTUV4dWEyVjRPWGhaYldkQ2Mwcz0="
+  CLICKHOUSE_DATABASE_URL: "aHR0cDovL3BsYXVzaWJsZTpwbGF1c2libGVAY2xpY2tob3VzZS5sb2dzLnN2Yzo4MTIzL3BsYXVzaWJsZQ=="
+  DATABASE_URL: "cG9zdGdyZXM6Ly9wbGF1c2libGU6cGxhdXNpYmxlQHBsYXVzaWJsZS1wZy9wbGF1c2libGU="
+  DISABLE_REGISTRATION: "aW52aXRlX29ubHk="
+  ENABLE_EMAIL_VERIFICATION: "ZmFsc2U="
+---
+# Source: plausible/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: plausible
+  labels:
+    helm.sh/chart: plausible-0.1.5
+    app.kubernetes.io/name: plausible
+    app.kubernetes.io/instance: plausible
+    app.kubernetes.io/version: "v2.1.5"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: plausible
+    app.kubernetes.io/instance: plausible
+---
+# Source: plausible/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plausible
+  labels:
+    helm.sh/chart: plausible-0.1.5
+    app.kubernetes.io/name: plausible
+    app.kubernetes.io/instance: plausible
+    app.kubernetes.io/version: "v2.1.5"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: plausible
+      app.kubernetes.io/instance: plausible
+  template:
+    metadata:
+      annotations:
+        checksum/config: 8e7212ee736fb04c455834c9cd983cd8f283ce4fc22a4f0366523ed76e77f326
+        checksum/envs: 4655ca60a5d5601acb5aba75d022ce25120f762174c89598a758e7a3d0767b66
+      labels:
+        helm.sh/chart: plausible-0.1.5
+        app.kubernetes.io/name: plausible
+        app.kubernetes.io/instance: plausible
+        app.kubernetes.io/version: "v2.1.5"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: plausible
+      automountServiceAccountToken: true
+      securityContext:
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 9999
+        runAsNonRoot: true
+        runAsUser: 9999
+      containers:
+        - name: plausible
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          image: "ghcr.io/plausible/community-edition:v2.1.5"
+          imagePullPolicy: IfNotPresent
+          # command: ["sleep","60000"]
+          command: ["/entrypoint.sh","run"]
+          env:
+            - name: BASE_URL
+              value: "https://chart-example.local"
+            - name: LISTEN_IP
+              value: "0.0.0.0"
+            - name: PORT
+              value: "8000"
+          envFrom:
+            - secretRef:
+                name: plausible
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+---
+# Source: plausible/templates/jobs.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: plausible-schema
+  labels:
+    helm.sh/chart: plausible-0.1.5
+    app.kubernetes.io/name: plausible
+    app.kubernetes.io/instance: plausible
+    app.kubernetes.io/version: "v2.1.5"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: schema
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-15"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  ttlSecondsAfterFinished: 1800
+  activeDeadlineSeconds: 600
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: plausible-0.1.5
+        app.kubernetes.io/name: plausible
+        app.kubernetes.io/instance: plausible
+        app.kubernetes.io/version: "v2.1.5"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: schema
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      serviceAccountName: plausible
+      activeDeadlineSeconds: 600
+      restartPolicy: "Never"
+      securityContext:
+        fsGroup: 999
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 9999
+        runAsNonRoot: true
+        runAsUser: 9999
+      containers:
+        - name: plausible-schema
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            seccompProfile:
+              type: RuntimeDefault
+          image: "ghcr.io/plausible/community-edition:v2.1.5"
+          imagePullPolicy: IfNotPresent
+          command: ["/entrypoint.sh","db","migrate"]
+          env:
+            - name: BASE_URL
+              value: "https://chart-example.local"
+          envFrom:
+            - secretRef:
+                name: plausible
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi

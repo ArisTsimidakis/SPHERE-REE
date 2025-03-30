@@ -1,0 +1,6 @@
+requests
+pandas
+pyyaml
+tqdm
+openai
+seaborn

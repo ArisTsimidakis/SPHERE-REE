@@ -1,0 +1,104 @@
+---
+# Source: opensearch-cluster/templates/cluster.yaml
+apiVersion: opensearch.opster.io/v1
+kind: OpenSearchCluster
+metadata:
+  name: opensearch-cluster
+  labels: 
+    helm.sh/chart: opensearch-cluster-3.0.0
+    app.kubernetes.io/version: "2.7.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  bootstrap: 
+    additionalConfig: {}
+    affinity: {}
+    jvm: ""
+    nodeSelector: {}
+    resources: {}
+    tolerations: []
+  confMgmt: 
+    smartScaler: false
+  dashboards:
+    additionalConfig: {}
+    affinity: {}
+    annotations: {}
+    basePath: ""
+    enable: true
+    env: []
+    image: docker.io/opensearchproject/opensearch-dashboards
+    imagePullPolicy: IfNotPresent
+    imagePullSecrets: []
+    labels: {}
+    nodeSelector: {}
+    opensearchCredentialsSecret: {}
+    pluginsList: []
+    podSecurityContext: {}
+    replicas: 1
+    resources: {}
+    securityContext: {}
+    service:
+      loadBalancerSourceRanges: []
+      type: ClusterIP
+    tls:
+      caSecret: {}
+      enable: false
+      generate: true
+      secret: null
+    tolerations: []
+    version: 2.3.0
+    image: docker.io/opensearchproject/opensearch-dashboards:2.3.0
+  general:
+    additionalConfig: {}
+    additionalVolumes: []
+    drainDataNodes: true
+    httpPort: 9200
+    image: docker.io/opensearchproject/opensearch
+    imagePullPolicy: IfNotPresent
+    keystore: []
+    monitoring:
+      enable: false
+      monitoringUserSecret: ""
+      pluginUrl: ""
+      scrapeInterval: 30s
+      tlsConfig: {}
+    pluginsList: []
+    podSecurityContext: {}
+    securityContext: {}
+    serviceAccount: ""
+    serviceName: ""
+    setVMMaxMapCount: true
+    snapshotRepositories: []
+    vendor: Opensearch
+    version: 2.3.0
+    image: docker.io/opensearchproject/opensearch:2.3.0
+    serviceName: opensearch-cluster
+  initHelper: 
+    imagePullPolicy: IfNotPresent
+    imagePullSecrets: []
+    resources: {}
+    version: "1.36"
+  nodePools: 
+    - component: masters
+      diskSize: 30Gi
+      replicas: 3
+      resources:
+        limits:
+          cpu: 500m
+          memory: 2Gi
+        requests:
+          cpu: 500m
+          memory: 2Gi
+      roles:
+      - master
+      - data
+  security:
+    tls:
+      transport:
+        generate: true
+        perNode: true
+      http:
+        generate: true
+    config: 
+      adminCredentialsSecret: {}
+      adminSecret: {}
+      securityConfigSecret: {}

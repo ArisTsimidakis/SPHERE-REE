@@ -1,0 +1,20 @@
+2025-03-29 18:09:30,432 - __main__ - INFO - Logging to file: experiment/logs/querying.log
+2025-03-29 18:09:30,432 - __main__ - INFO - API key loaded successfully
+2025-03-29 18:09:30,446 - __main__ - INFO - Processing queries from index 0 to 200
+2025-03-29 18:21:42,859 - __main__ - WARNING - Failed to parse YAML response: mapping values are not allowed here
+  in "<unicode string>", line 7, column 11:
+      template:
+              ^
+2025-03-29 18:21:59,653 - __main__ - WARNING - Failed to parse YAML response: mapping values are not allowed here
+  in "<unicode string>", line 7, column 11:
+      template:
+              ^
+2025-03-29 18:24:47,000 - __main__ - WARNING - Failed to parse YAML response: while scanning a simple key
+  in "<unicode string>", line 38, column 11:
+              ).$(MY_POD_NAMESPACE).svc.cluste ... 
+              ^
+could not find expected ':'
+  in "<unicode string>", line 39, column 9:
+            - name: RABBITMQ_MNESIA_DIR
+            ^
+2025-03-29 18:26:48,653 - __main__ - INFO - Query processing completed successfully

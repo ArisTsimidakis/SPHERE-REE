@@ -1,0 +1,46 @@
+---
+# Source: ed-deployment/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ed-deployment-env
+  labels:
+    helm.sh/chart: ed-deployment-0.1.0
+    app.kubernetes.io/name: ed-deployment
+    app.kubernetes.io/instance: ed-deployment
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data: 
+  RELEASE_NAME: ZWQtZGVwbG95bWVudA==
+---
+# Source: ed-deployment/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ed-deployment
+  annotations:
+    checksum/config: a1b0ddad042a2f1b87aa1a70c1008d185aec3ba2ac675e5411e797f82620f0f9
+  labels:
+    helm.sh/chart: ed-deployment-0.1.0
+    app.kubernetes.io/name: ed-deployment
+    app.kubernetes.io/instance: ed-deployment
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ed-deployment
+      app.kubernetes.io/instance: ed-deployment
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ed-deployment
+        app.kubernetes.io/instance: ed-deployment
+    spec:
+      containers:
+        - name: app
+          imagePullPolicy: Always
+          image: "nginxdemos/hello:plain-text"
+          envFrom:
+            - secretRef:
+                name: ed-deployment-env

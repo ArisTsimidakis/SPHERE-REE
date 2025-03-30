@@ -1,0 +1,223 @@
+2025-03-30 17:16:29,848 - __main__ - INFO - Logging to file: experiment/logs/fixes_evaluation.log
+2025-03-30 17:16:29,849 - __main__ - INFO - Created new output file: /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/results/chatgpt_fix.csv
+2025-03-30 17:16:29,861 - __main__ - INFO - Successfully added standard IDs to answers file
+2025-03-30 17:16:29,861 - __main__ - INFO - Evaluating fixes from index 0 to None with 24 workers
+2025-03-30 17:16:33,019 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_10
+2025-03-30 17:16:33,468 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_35
+2025-03-30 17:16:33,481 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_31
+2025-03-30 17:16:33,525 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_15
+2025-03-30 17:16:33,575 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_13
+2025-03-30 17:16:33,640 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_37
+2025-03-30 17:16:33,641 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 16): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:33,652 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_38
+2025-03-30 17:16:33,681 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_21
+2025-03-30 17:16:33,745 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_43
+2025-03-30 17:16:33,784 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_11
+2025-03-30 17:16:33,813 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_15
+2025-03-30 17:16:33,825 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_20
+2025-03-30 17:16:33,825 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 21): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:33,833 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for traefik-hub_CKV_K8S_12
+2025-03-30 17:16:33,839 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_13
+2025-03-30 17:16:33,839 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 15): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:33,913 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 13): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:33,914 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_38
+2025-03-30 17:16:33,915 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 23): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:33,966 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_23
+2025-03-30 17:16:33,966 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 20): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:34,085 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_11
+2025-03-30 17:16:34,085 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 22): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:34,148 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_28
+2025-03-30 17:16:34,149 - __main__ - ERROR - Error parsing Checkov results for helmchart (index 19): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:35,712 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_22
+2025-03-30 17:16:35,880 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_21
+2025-03-30 17:16:35,916 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_40
+2025-03-30 17:16:36,003 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_43
+2025-03-30 17:16:36,314 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_13
+2025-03-30 17:16:36,441 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_10
+2025-03-30 17:16:36,553 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_37
+2025-03-30 17:16:36,618 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_29
+2025-03-30 17:16:36,689 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_9
+2025-03-30 17:16:36,950 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_20
+2025-03-30 17:16:36,980 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_23
+2025-03-30 17:16:37,009 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_30
+2025-03-30 17:16:37,047 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_28
+2025-03-30 17:16:37,047 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_31
+2025-03-30 17:16:37,073 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_11
+2025-03-30 17:16:37,103 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_21
+2025-03-30 17:16:37,253 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_22
+2025-03-30 17:16:37,298 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_38
+2025-03-30 17:16:37,386 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_14
+2025-03-30 17:16:37,428 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_43
+2025-03-30 17:16:37,441 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV2_K8S_6
+2025-03-30 17:16:37,441 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_12
+2025-03-30 17:16:37,493 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_8
+2025-03-30 17:16:37,549 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for helmchart_CKV_K8S_40
+2025-03-30 17:16:38,659 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_13
+2025-03-30 17:16:38,711 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_37
+2025-03-30 17:16:38,711 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 50): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:38,904 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_10
+2025-03-30 17:16:38,905 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 51): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,090 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_15
+2025-03-30 17:16:39,090 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 52): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,382 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_30
+2025-03-30 17:16:39,382 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 53): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,454 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_9
+2025-03-30 17:16:39,454 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 54): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,706 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_31
+2025-03-30 17:16:39,706 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 55): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,808 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_28
+2025-03-30 17:16:39,808 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 57): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,853 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_29
+2025-03-30 17:16:39,853 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 56): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:39,936 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_23
+2025-03-30 17:16:39,937 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 58): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,111 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_22
+2025-03-30 17:16:40,129 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_21
+2025-03-30 17:16:40,130 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 64): Extra data: line 52 column 1 (char 1993)
+2025-03-30 17:16:40,142 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_11
+2025-03-30 17:16:40,143 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 60): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,199 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_8
+2025-03-30 17:16:40,200 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 63): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,237 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_20
+2025-03-30 17:16:40,238 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 59): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,304 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_38
+2025-03-30 17:16:40,304 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 61): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,401 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_43
+2025-03-30 17:16:40,401 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 66): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,408 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 68): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,456 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_21
+2025-03-30 17:16:40,456 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 69): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,469 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_40
+2025-03-30 17:16:40,469 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 67): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,521 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_12
+2025-03-30 17:16:40,521 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 65): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,522 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_21
+2025-03-30 17:16:40,524 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 70): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:40,571 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_13
+2025-03-30 17:16:40,572 - __main__ - ERROR - Error parsing Checkov results for ussigw-configuration (index 71): Extra data: line 651 column 1 (char 29941)
+2025-03-30 17:16:41,207 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_37
+2025-03-30 17:16:41,433 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_10
+2025-03-30 17:16:41,527 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_15
+2025-03-30 17:16:41,784 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_30
+2025-03-30 17:16:41,930 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_9
+2025-03-30 17:16:42,246 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_31
+2025-03-30 17:16:42,376 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_29
+2025-03-30 17:16:42,667 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_28
+2025-03-30 17:16:42,721 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_23
+2025-03-30 17:16:42,920 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_38
+2025-03-30 17:16:42,996 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_20
+2025-03-30 17:16:43,010 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_22
+2025-03-30 17:16:43,023 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_11
+2025-03-30 17:16:43,180 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_21
+2025-03-30 17:16:43,341 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_12
+2025-03-30 17:16:43,358 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_8
+2025-03-30 17:16:43,418 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_40
+2025-03-30 17:16:43,434 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV2_K8S_6
+2025-03-30 17:16:43,499 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_15
+2025-03-30 17:16:43,537 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for ussigw-configuration_CKV_K8S_43
+2025-03-30 17:16:43,592 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_37
+2025-03-30 17:16:43,592 - __main__ - ERROR - Error parsing Checkov results for deis-workflow (index 94): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:43,627 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_13
+2025-03-30 17:16:43,627 - __main__ - ERROR - Error parsing Checkov results for deis-workflow (index 93): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:44,003 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_31
+2025-03-30 17:16:44,003 - __main__ - ERROR - Error parsing Checkov results for deis-workflow (index 96): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:44,259 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_28
+2025-03-30 17:16:44,393 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_23
+2025-03-30 17:16:44,569 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_20
+2025-03-30 17:16:44,769 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_11
+2025-03-30 17:16:45,074 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_38
+2025-03-30 17:16:45,269 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_22
+2025-03-30 17:16:45,505 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_43
+2025-03-30 17:16:45,597 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_21
+2025-03-30 17:16:45,789 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_40
+2025-03-30 17:16:45,856 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_10
+2025-03-30 17:16:45,952 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_37
+2025-03-30 17:16:45,976 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_13
+2025-03-30 17:16:46,311 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_30
+2025-03-30 17:16:46,320 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_9
+2025-03-30 17:16:46,355 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_29
+2025-03-30 17:16:46,367 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_28
+2025-03-30 17:16:46,486 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_38
+2025-03-30 17:16:46,526 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_20
+2025-03-30 17:16:46,540 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_31
+2025-03-30 17:16:46,570 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_23
+2025-03-30 17:16:46,643 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_11
+2025-03-30 17:16:46,653 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_22
+2025-03-30 17:16:46,747 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_8
+2025-03-30 17:16:46,862 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_21
+2025-03-30 17:16:47,063 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_12
+2025-03-30 17:16:47,153 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_43
+2025-03-30 17:16:47,358 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_14
+2025-03-30 17:16:47,535 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV_K8S_40
+2025-03-30 17:16:47,923 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for deis-workflow_CKV2_K8S_6
+2025-03-30 17:16:48,394 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_13
+2025-03-30 17:16:48,485 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_37
+2025-03-30 17:16:48,714 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_15
+2025-03-30 17:16:48,776 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_29
+2025-03-30 17:16:48,851 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_31
+2025-03-30 17:16:48,901 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_30
+2025-03-30 17:16:49,185 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_23
+2025-03-30 17:16:49,318 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_11
+2025-03-30 17:16:49,448 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_20
+2025-03-30 17:16:49,454 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_28
+2025-03-30 17:16:49,489 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_21
+2025-03-30 17:16:49,555 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_38
+2025-03-30 17:16:49,581 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_22
+2025-03-30 17:16:49,644 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_13
+2025-03-30 17:16:49,756 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_40
+2025-03-30 17:16:49,772 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for rclone_CKV_K8S_43
+2025-03-30 17:16:49,861 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_10
+2025-03-30 17:16:49,868 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_37
+2025-03-30 17:16:50,028 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_9
+2025-03-30 17:16:50,040 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_30
+2025-03-30 17:16:50,263 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_31
+2025-03-30 17:16:50,380 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_29
+2025-03-30 17:16:50,733 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_28
+2025-03-30 17:16:50,816 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_23
+2025-03-30 17:16:51,206 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_20
+2025-03-30 17:16:51,303 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_11
+2025-03-30 17:16:51,571 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_38
+2025-03-30 17:16:51,790 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_22
+2025-03-30 17:16:51,793 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_21
+2025-03-30 17:16:51,871 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_8
+2025-03-30 17:16:51,998 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_12
+2025-03-30 17:16:52,402 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_43
+2025-03-30 17:16:52,604 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_40
+2025-03-30 17:16:52,690 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for test-helm-app1_CKV_K8S_14
+2025-03-30 17:16:52,986 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_13
+2025-03-30 17:16:52,987 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 169): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:53,033 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_37
+2025-03-30 17:16:53,034 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 170): Expecting value: line 1 column 1 (char 0)
+2025-03-30 17:16:53,233 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_35
+2025-03-30 17:16:53,514 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_30
+2025-03-30 17:16:53,564 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_31
+2025-03-30 17:16:53,598 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_28
+2025-03-30 17:16:54,272 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_20
+2025-03-30 17:16:54,318 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_11
+2025-03-30 17:16:54,334 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_38
+2025-03-30 17:16:54,600 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_21
+2025-03-30 17:16:54,693 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_22
+2025-03-30 17:16:54,727 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_43
+2025-03-30 17:16:54,815 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_40
+2025-03-30 17:16:55,165 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_37
+2025-03-30 17:16:55,378 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_13
+2025-03-30 17:16:55,455 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_29
+2025-03-30 17:16:55,571 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_31
+2025-03-30 17:16:55,619 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_15
+2025-03-30 17:16:55,669 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_23
+2025-03-30 17:16:55,671 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_28
+2025-03-30 17:16:55,672 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 190): Extra data: line 617 column 1 (char 28744)
+2025-03-30 17:16:55,925 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_20
+2025-03-30 17:16:55,925 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 192): Extra data: line 577 column 16 (char 26808)
+2025-03-30 17:16:55,968 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_11
+2025-03-30 17:16:55,982 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_21
+2025-03-30 17:16:55,982 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 197): Extra data: line 615 column 8 (char 28953)
+2025-03-30 17:16:56,017 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_8
+2025-03-30 17:16:56,130 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_43
+2025-03-30 17:16:56,130 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_22
+2025-03-30 17:16:56,131 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 198): Extra data: line 536 column 1 (char 25123)
+2025-03-30 17:16:56,131 - __main__ - ERROR - Error parsing Checkov results for thingsboard (index 195): Extra data: line 575 column 1 (char 26899)
+2025-03-30 17:16:56,170 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_38
+2025-03-30 17:16:56,177 - __main__ - WARNING - Static analysis tool checkov returned non-zero exit code for thingsboard_CKV_K8S_14
+2025-03-30 17:16:56,184 - __main__ - INFO - Evaluation completed successfully
+2025-03-30 17:16:56,566 - __main__ - INFO - Generated analysis report in /home/kubuntu/Documents/GitHub/SPHERE-REE/experiment/results/manual_analysis
