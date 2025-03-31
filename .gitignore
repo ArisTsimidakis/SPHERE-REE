@@ -3,3 +3,5 @@
 /archives
 /__pycache__
 openai_api_key.txt
+.venv
+src/__pycache__
