@@ -23,10 +23,10 @@ root_dir = script_dir.parent
 @dataclass
 class Config:
     # IO files and directories
-    queries_file = os.path.join(root_dir, "experiment", "results", "llm_queries.csv")
-    answers_file = os.path.join(root_dir, "experiment", "results", "llm_chatgpt_answers.csv")
-    failed_queries_file = os.path.join(root_dir, "experiment", "results", "failed_queries.csv")
-    evaluation_file = os.path.join(root_dir, "experiment", "results", "llm_evaluation.csv")
+    queries_file = os.path.join(root_dir, "experiment2", "results", "llm_queries.csv")
+    answers_file = os.path.join(root_dir, "experiment2", "results", "llm_chatgpt_answers.csv")
+    failed_queries_file = os.path.join(root_dir, "experiment2", "results", "failed_queries.csv")
+    evaluation_file = os.path.join(root_dir, "experiment2", "results", "llm_evaluation.csv")
     temp_dir = os.path.join(root_dir, "temp_snippets")
     
     # Logging

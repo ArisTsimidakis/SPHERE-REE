@@ -20,9 +20,9 @@ root_dir = script_dir.parent
 @dataclass
 class Config:
     # Directories
-    templates_dir = os.path.join(root_dir, "experiment", "templates")
-    results_dir = os.path.join(root_dir, "experiment", "results")
-    tools_output_dir = os.path.join(root_dir, "experiment", "tools_output")
+    templates_dir = os.path.join(root_dir, "experiment2", "templates")
+    results_dir = os.path.join(root_dir, "experiment2", "results")
+    tools_output_dir = os.path.join(root_dir, "experiment2", "tools_output")
 
     # Logging
     log_file: Optional[str] = None

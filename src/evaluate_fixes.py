@@ -23,7 +23,7 @@ config = None
 # Specify directories for reference
 script_dir = Path(__file__).parent.resolve()
 root_dir = script_dir.parent
-results_dir = os.path.join(root_dir, "experiment", "results")
+results_dir = os.path.join(root_dir, "experiment2", "results")
 
 
 @dataclass
@@ -34,7 +34,7 @@ class Config:
     output_file: str = os.path.join(results_dir, "chatgpt_fix.csv")
 
     # Directories
-    snippets_dir: str = os.path.join(root_dir, "experiment", "snippets")
+    snippets_dir: str = os.path.join(root_dir, "experiment2", "snippets")
     manual_analysis_dir: str = os.path.join(results_dir, "manual_analysis")
     checkov_output_dir: str = os.path.join(manual_analysis_dir, "tool_output", "checkov")
     datree_output_dir: str = os.path.join(manual_analysis_dir, "tool_output", "datree")

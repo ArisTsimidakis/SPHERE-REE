@@ -1,23 +1,30 @@
 #!/bin/bash
 
-# Check if the first argument is 'setup'
+# Run setup script if specified
 if [[ "$1" == "setup" ]]; then
     echo "Running setup script..."
-    ./setup.sh
+    ./shell-scripts/setup.sh
 fi
 
-# Run the required Python scripts
+# Activate virtual environment
+echo "Activating virtual environment..."
+. .venv/bin/activate
+
+# Run python scripts
 echo "Running chart retrieval..."
-python3 ./src/chart_retrieval.py --log-file logs/chart_retrieval.log
+python3 ./src/chart_retrieval.py --log-file experiment2/logs/chart_retrieval.log --charts-limit 20
 
 echo "Running tool parsing..."
-python3 src/parse_tools.py --log-file logs/tool_parsing.log
+python3 src/parse_tools.py --log-file experiment2/logs/tool_parsing.log
 
 echo "Querying LLM..."
-python3 src/querry_llm.py --query --start-index 100 --end-index 200 --log-file logs/llm_querrying.log
+python3 src/querry_llm.py --log-file experiment2/logs/llm_querrying.log
 
 echo "Evaluating queries..."
-python3 src/querry_llm.py --evaluate --log-file logs/evaluation.log
+python3 src/validate_llm.py --log-file experiment2/logs/llm_evaluation.log
 
 echo "Generating stats..."
-python3 src/querry_llm.py --stats --log-file stats.log
+python3 src/stats.py --log-file experiment2/logs/stats.log --output-dir experiment2/stats 
+
+echo "Running second analysis..."
+python3 src/evaluate_fixes.py --log-file experiment2/logs/fixes_validation.log
