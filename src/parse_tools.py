@@ -224,7 +224,6 @@ def parse_checkov(chart_name: str, path: str) -> list[dict]:
     logger.info(f"Processed {len(rows)} rows for {chart_name}")
     return rows
 
-# DATREE functions with added logging
 def get_datree_path(occurrence: dict) -> dict:
     """Get the path of the object that caused the failure in Datree results."""
     logger.debug(f"Getting path for Datree occurrence: {occurrence.get('kind')}")
@@ -355,19 +354,17 @@ def main():
     args = parse_args()
     config = Config(log_file=args.log_file, log_level=args.log_level)
     
-    # Setup logging after config is initialized
     setup_logging()
     
     logger.info("Starting processing of tool results")
     logger.debug(f"Configuration: {config}")
 
-    # Define tools and output files
     tools = ["checkov", "datree"]
     output_dir = config.results_dir
     all_failed_checks = []
     all_queries = []
     
-    # Get all chart names by scanning tool directories
+    # Get all chart names 
     chart_names = set()
     for tool in tools:
         tool_dir = Path(f"{config.tools_output_dir}/{tool}")

@@ -19,7 +19,6 @@ echo "Downloading Datree..."
 echo "Moving binaries to bin directory..."
 mkdir -p bin
 mv kubeconform bin/
-mv helm bin/
 
 # Set up Python virtual environment and install dependencies
 echo "Setting up Python virtual environment..."

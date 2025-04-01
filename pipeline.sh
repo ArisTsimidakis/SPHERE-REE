@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Starting pipeline..."
+
 # Run setup script if specified
 if [[ "$1" == "setup" ]]; then
     echo "Running setup script..."
@@ -7,7 +9,7 @@ if [[ "$1" == "setup" ]]; then
 fi
 
 # Activate virtual environment
-echo "Activating virtual environment..."
+echo "Activating python virtual environment..."
 . .venv/bin/activate
 
 # Run python scripts
