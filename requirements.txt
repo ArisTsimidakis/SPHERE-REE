@@ -2,10 +2,10 @@ requests
 pandas
 pyyaml
 tqdm
-openai
 seaborn
 tabulate
 matplotlib
 numpy
 checkov
 scipy
+openai

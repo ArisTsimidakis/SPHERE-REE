@@ -14,7 +14,7 @@ echo "Activating python virtual environment..."
 
 # Run python scripts
 echo "Running chart retrieval..."
-python3 ./src/chart_retrieval.py --log-file experiment2/logs/chart_retrieval.log --charts-limit 20
+python3 ./src/chart_retrieval.py --log-file experiment2/logs/chart_retrieval.log --charts-limit 3
 
 echo "Running tool parsing..."
 python3 src/parse_tools.py --log-file experiment2/logs/tool_parsing.log
