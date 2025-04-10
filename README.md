@@ -6,14 +6,14 @@ It focuses on automating and making it as easy as possible to replicate the rese
 All steps required for setting up your environment and executing the pipeline have been automated and are accessible through shell scripts.
 You can run
 ```sh
-./shell-scripts/setup.sh
+./setup.sh
 ./pipeline.sh
 ```
 or alternatively, 
 ```sh
 ./pipeline.sh setup
 ```
-In order to change the arguents passed to each script, you can directly change them from the ```pipeline.sh``` script. Otherwise, run each script individually, specifying your desired arguments. In order to change the directory structure/IO files etc, you can modify the fields in the config class of each script. To see the available arguments for each script:
+In order to change the arguments passed to each script, you can directly change them from the ```pipeline.sh``` script. Otherwise, run each script individually, specifying your desired arguments. In order to change the directory structure/IO files etc, you can modify the fields in the config class of each script. To see the available arguments for each script:
 ```sh
 python3 src/script.py -h
 ```
@@ -45,3 +45,7 @@ As of now, the only supported static analysis tools are checkov and datree.
 The only supported LLM is ChatGPT.
 
 However, the code is designed to be very easy to maintain and integrate new features, so integration of more tools and LLMs will be easy and seamless.
+
+
+# Note
+There are some dependecy conflicts between the openai module and the checkov module. Uninstalling and reinstalling the openai module in your virtual environment usually fixes this issue.
