@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Ensure make is installed
+if ! command -v make &> /dev/null
+then
+    echo "make could not be found. Please install make to proceed."
+    exit
+fi
+
+# Ensure python venv is installed
+apt install python3-venv -y
+
 # Download Helm
 echo "Downloading and installing Helm..."
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -13,7 +23,7 @@ curl -L https://github.com/yannh/kubeconform/releases/latest/download/kubeconfor
 
 # Download Datree
 echo "Downloading Datree..."
-./shell-scripts/install_datree.sh
+./install_datree.sh
 
 # Move binaries to bin directory
 echo "Moving binaries to bin directory..."

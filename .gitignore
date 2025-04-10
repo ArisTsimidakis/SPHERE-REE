@@ -5,3 +5,4 @@
 openai_api_key.txt
 .venv
 src/__pycache__
+*.pem
